@@ -137,8 +137,8 @@ const DENOMS = [
   {label:'GH\u20b5 20', value:20, type:'note'},
   {label:'GH\u20b5 10', value:10, type:'note'},
   {label:'GH\u20b5 5',  value:5,  type:'note'},
-  {label:'GH\u20b5 2',  value:2,  type:'coin'},
-  {label:'GH\u20b5 1',  value:1,  type:'coin'},
+  {label:'GH\u20b5 2',  value:2,  type:'note'},
+  {label:'GH\u20b5 1',  value:1,  type:'note'},
   {label:'50p',         value:0.5, type:'coin'},
   {label:'20p',         value:0.2, type:'coin'},
   {label:'10p',         value:0.1, type:'coin'},
@@ -396,7 +396,9 @@ function App() {
   };
 
   const effNet     = txPorted ? txPortedNet : txNet;
-  const phoneReady = txPhone.length===10 && (txPorted ? (!!txPortedNet && txPortedOk) : !!txNet && txPortedOk);
+  // non-ported: ready as soon as 10 digits + network detected (no manual confirm needed)
+  // ported: ready only once user has selected the actual network
+  const phoneReady = txPhone.length===10 && (txPorted ? (!!txPortedNet) : !!txNet);
   const amtReady   = parseFloat(txAmount)>0;
   const merchantOk = flow==='m'&&!!mid&&amtReady;
   const momoOk     = flow!=='m'&&phoneReady&&amtReady;
@@ -420,15 +422,13 @@ function App() {
   const NAV=[{id:'Home',ic:'\ud83c\udfe0'},{id:'Records',ic:'\ud83d\udcca'},{id:'Payments',ic:'\ud83d\udce5'},{id:'Market',ic:'\ud83c\udfea'},{id:'Close',ic:'\ud83d\udccb'}];
   const s = o=>o;
 
-  // ── Transaction Form Component ─────────────────────────────────────────────
-  function TxForm() {
-    return html`<div class="pop" style=${s({background:'#fff',borderRadius:20,padding:20,boxShadow:'0 4px 20px rgba(0,0,0,.13)',marginBottom:14,border:'1.5px solid #f0f0f0'})}>
+  // Inline TX form (NOT a sub-component — sub-components inside App remount on every render, stealing input focus)
+  const txFormJSX = !showTxForm ? null : html`
+    <div class="pop" style=${s({background:'#fff',borderRadius:20,padding:20,boxShadow:'0 4px 20px rgba(0,0,0,.13)',marginBottom:14,border:'1.5px solid #f0f0f0'})}>
       <div style=${s({display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:16})}>
         <div style=${s({fontSize:15,fontWeight:800,color:'#111'})}>New Transaction</div>
         <button onClick=${()=>{setShowTxForm(false);resetTxForm();}} style=${s({background:'#f3f4f6',border:'none',borderRadius:8,padding:'5px 12px',cursor:'pointer',fontSize:13,fontWeight:700,color:'#374151'})}>✕</button>
       </div>
-
-      <!-- Type badge -->
       <div style=${s({display:'flex',alignItems:'center',gap:8,marginBottom:16,padding:'9px 14px',background:TY[txType]?.bg||'#f3f4f6',borderRadius:12,border:'1.5px solid '+(TY[txType]?.color||'#e5e7eb')+'33'})}>
         <span style=${s({fontSize:20})}>${TY[txType]?.icon||''}</span>
         <span style=${s({fontSize:13,fontWeight:800,color:TY[txType]?.color||'#111'})}>${flow==='m'?'Merchant Pay':TY[txType]?.label||''}</span>
@@ -437,15 +437,14 @@ function App() {
       ${flow!=='m' ? html`<div style=${s({marginBottom:14,position:'relative'})}>
         <div style=${s({fontSize:10,fontWeight:800,color:'#9ca3af',letterSpacing:1,marginBottom:6})}>CUSTOMER PHONE</div>
         <div style=${s({position:'relative'})}>
-          <${Inp} type="tel" inputMode="numeric" placeholder="0241234567" value=${txPhone} maxLength=${10}
+          <input type="tel" inputMode="numeric" placeholder="0241234567" value=${txPhone} maxLength="10"
             onInput=${e=>onPhone(e.target.value)}
-            style=${{fontSize:20,fontWeight:800,letterSpacing:'2px',paddingRight:effNet?110:14}}/>
-          ${effNet&&html`
-            <div style=${s({position:'absolute',right:10,top:'50%',transform:'translateY(-50%)',background:NM[effNet]?.bg,color:NM[effNet]?.text,borderRadius:8,padding:'4px 10px',fontSize:11,fontWeight:800})}>
-              ${effNet}${txPorted?' *':''}
-            </div>`}
+            style=${'width:100%;border:1.5px solid #e5e7eb;border-radius:12px;padding:13px '+(effNet?'110px':'14px')+' 13px 14px;font-size:20px;font-weight:800;letter-spacing:2px;color:#111;outline:none;font-family:Outfit,sans-serif;background:#fff;'}
+          />
+          ${effNet&&html`<div style=${s({position:'absolute',right:10,top:'50%',transform:'translateY(-50%)',background:NM[effNet]?.bg,color:NM[effNet]?.text,borderRadius:8,padding:'4px 10px',fontSize:11,fontWeight:800,pointerEvents:'none'})}>
+            ${effNet}${txPorted?' *':''}
+          </div>`}
         </div>
-
         ${showSugg&&sugg.length>0&&html`
           <div style=${s({position:'absolute',top:'100%',left:0,right:0,background:'#fff',border:'1.5px solid #e5e7eb',borderRadius:12,zIndex:200,boxShadow:'0 8px 24px rgba(0,0,0,.12)',marginTop:4,overflow:'hidden'})}>
             <div style=${s({padding:'7px 12px',fontSize:9,fontWeight:800,color:'#9ca3af',letterSpacing:.6})}>RECENT</div>
@@ -457,26 +456,24 @@ function App() {
             `)}
           </div>
         `}
-
         ${txPhone.length>=3&&html`
           <label style=${s({display:'flex',alignItems:'center',gap:10,marginTop:10,padding:'10px 14px',background:txPorted?'#fffbeb':'#f8f9fa',borderRadius:12,border:txPorted?'1.5px solid #fde68a':'1.5px solid #f0f0f0',cursor:'pointer',userSelect:'none'})}>
             <div style=${s({width:20,height:20,borderRadius:5,border:txPorted?'2px solid #f59e0b':'2px solid #d1d5db',background:txPorted?'#f59e0b':'#fff',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0})}
-              onClick=${()=>{const n=!txPorted;setTxPorted(n);if(!n){setTxPortedNet(null);setTxPortedOk(txNet?true:false);}else{setTxPortedOk(false);}}}>
+              onClick=${()=>{const n=!txPorted;setTxPorted(n);if(!n)setTxPortedNet(null);}}>
               ${txPorted&&html`<span style=${s({color:'#fff',fontSize:13,fontWeight:900,lineHeight:1})}>&#10003;</span>`}
             </div>
-            <div onClick=${()=>{const n=!txPorted;setTxPorted(n);if(!n){setTxPortedNet(null);setTxPortedOk(txNet?true:false);}else{setTxPortedOk(false);}}}>
+            <div onClick=${()=>{const n=!txPorted;setTxPorted(n);if(!n)setTxPortedNet(null);}}>
               <div style=${s({fontSize:13,fontWeight:700,color:'#111'})}>Number is ported</div>
-              <div style=${s({fontSize:10,color:'#9ca3af',marginTop:1})}>${txNet?'Detected as '+txNet+' — select actual network below':'Select the network this number actually uses'}</div>
+              <div style=${s({fontSize:10,color:'#9ca3af',marginTop:1})}>${txNet?'Detected as '+txNet+' \u2014 select actual network below':'Select the network this number actually uses'}</div>
             </div>
           </label>
         `}
-
         ${txPorted&&html`
-          <div class="pop" style=${s({marginTop:8,padding:'12px 14px',background:'#fff',borderRadius:12,border:'1.5px solid #fde68a'})}>
-            <div style=${s({fontSize:10,fontWeight:800,color:'#78350f',letterSpacing:.8,marginBottom:8})}>PROCESS AS — SELECT ACTUAL NETWORK</div>
+          <div style=${s({marginTop:8,padding:'12px 14px',background:'#fff',borderRadius:12,border:'1.5px solid #fde68a'})}>
+            <div style=${s({fontSize:10,fontWeight:800,color:'#78350f',letterSpacing:.8,marginBottom:8})}>PROCESS AS \u2014 SELECT ACTUAL NETWORK</div>
             <div style=${s({display:'flex',flexWrap:'wrap',gap:6})}>
               ${NETS.map(n=>html`
-                <button key=${n} class="pill" onClick=${()=>{setTxPortedNet(n);setTxPortedOk(true);}}
+                <button key=${n} class="pill" onClick=${()=>setTxPortedNet(n)}
                   style=${s({background:txPortedNet===n?NM[n]?.color:NM[n]?.light||'#f3f4f6',color:txPortedNet===n?'#fff':NM[n]?.text||'#374151',padding:'8px 14px',fontSize:12,opacity:n===txNet?0.55:1})}>
                   ${n}${n===txNet?' (detected)':''}
                 </button>
@@ -489,22 +486,20 @@ function App() {
             `}
           </div>
         `}
-
-        ${txPhone.length===10&&!txPorted&&txNet&&!txPortedOk&&html`
-          <div style=${s({marginTop:8,padding:'8px 14px',background:'#f0f9ff',borderRadius:10,fontSize:12,color:'#0c4a6e',display:'flex',justifyContent:'space-between',alignItems:'center'})}>
-            <span style=${s({fontWeight:700})}>Detected: <span style=${s({color:NM[txNet]?.color})}>${txNet}</span></span>
-            <button class="pill" onClick=${()=>setTxPortedOk(true)} style=${s({background:'#111',color:'#fff',padding:'6px 14px',fontSize:11})}>Confirm &#10003;</button>
-          </div>
-        `}
       </div>`
       : html`<div style=${s({marginBottom:14})}>
           <div style=${s({fontSize:10,fontWeight:800,color:'#9ca3af',letterSpacing:1,marginBottom:6})}>MERCHANT ID</div>
-          <${Inp} placeholder="e.g. M-00123" value=${mid} onInput=${e=>setMid(e.target.value)} style=${{fontSize:20,fontWeight:700}}/>
+          <input placeholder="e.g. M-00123" value=${mid} onInput=${e=>setMid(e.target.value)}
+            style="width:100%;border:1.5px solid #e5e7eb;border-radius:12px;padding:13px 14px;font-size:20px;font-weight:700;color:#111;outline:none;font-family:Outfit,sans-serif;background:#fff;"
+          />
         </div>`}
 
       <div style=${s({marginBottom:14})}>
         <div style=${s({fontSize:10,fontWeight:800,color:'#9ca3af',letterSpacing:1,marginBottom:6})}>AMOUNT (GHS)</div>
-        <${Inp} type="number" inputMode="decimal" placeholder="0.00" value=${txAmount} onInput=${e=>setTxAmount(e.target.value)} style=${{fontSize:28,fontWeight:900}}/>
+        <input type="number" inputMode="decimal" placeholder="0.00" value=${txAmount}
+          onInput=${e=>setTxAmount(e.target.value)}
+          style="width:100%;border:1.5px solid #e5e7eb;border-radius:12px;padding:13px 14px;font-size:28px;font-weight:900;color:#111;outline:none;font-family:Outfit,sans-serif;background:#fff;"
+        />
       </div>
 
       ${amtReady&&html`
@@ -514,14 +509,12 @@ function App() {
         </div>
       `}
 
-      <!-- Proceed = record + optional USSD dial -->
       <div style=${s({display:'flex',gap:8})}>
         <button class="txbtn" disabled=${!canProceed} onClick=${()=>{
           if(flow==='m') doTx('pay_to',{subType:'merchant',merchantId:mid,phone:undefined});
           else doTx(txType, txType==='pay_to'?{subType:'agent'}:{});
-        }}
-          style=${s({flex:1,background:canProceed?'#111':'#e5e7eb',color:canProceed?'#fff':'#9ca3af',padding:'15px',fontSize:15,fontWeight:900,borderRadius:14,border:'none'})}>
-          ${canProceed?'\u2713 Record':!amtReady?'Enter amount':flow==='m'?'Enter Merchant ID':txPhone.length<10?'Enter phone number':'Confirm network above'}
+        }} style=${s({flex:1,background:canProceed?'#111':'#e5e7eb',color:canProceed?'#fff':'#9ca3af',padding:'15px',fontSize:15,fontWeight:900,borderRadius:14,border:'none'})}>
+          ${canProceed?'\u2713 Record':!amtReady?'Enter amount':flow==='m'?'Enter Merchant ID':txPhone.length<10?'Enter phone number':txPorted&&!txPortedNet?'Select network above':'Enter amount'}
         </button>
         ${canProceed&&effNet&&(flow==='m'?USSD_MERCHANT[effNet]:USSD[effNet]?.[txType])&&html`
           <button class="txbtn" onClick=${()=>launchUSSD(effNet,txType,txPhone,txAmount,flow==='m'?mid:null)}
@@ -530,8 +523,8 @@ function App() {
           </button>
         `}
       </div>
-    </div>`;
-  }
+    </div>
+  `;
 
   // ── Render ─────────────────────────────────────────────────────────────────
   return html`<div style=${s({fontFamily:"'Outfit',sans-serif",background:'#f0f2f5',minHeight:'100vh',maxWidth:430,margin:'0 auto',paddingBottom:88})}>
@@ -616,7 +609,7 @@ function App() {
       </button>
 
       <!-- Inline TX form -->
-      ${showTxForm&&html`<${TxForm}/>`}
+      ${txFormJSX}
 
       <!-- Recent transactions -->
       ${todayTx.length>0&&html`
