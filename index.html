@@ -1,366 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport"
-    content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="MoMo Agent" />
-  <meta name="theme-color" content="#0f1923" />
-  <link rel="manifest" href="./manifest.json" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-title" content="MoMo Agent"/>
+  <meta name="theme-color" content="#0f1923"/>
+  <link rel="manifest" href="./manifest.json"/>
   <title>MoMo Agent</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    html,
-    body {
-      height: 100%;
-      background: #0f1923;
-      overscroll-behavior: none;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    #root {
-      height: 100%;
-    }
-
-    ::-webkit-scrollbar {
-      display: none;
-    }
-
-    input,
-    select,
-    textarea {
-      font-family: 'Outfit', sans-serif;
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(8px)
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0)
-      }
-    }
-
-    @keyframes popIn {
-      from {
-        opacity: 0;
-        transform: scale(.92)
-      }
-
-      to {
-        opacity: 1;
-        transform: scale(1)
-      }
-    }
-
-    @keyframes toastIn {
-      from {
-        opacity: 0;
-        transform: translateX(-50%) translateY(-14px)
-      }
-
-      to {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0)
-      }
-    }
-
-    .fade {
-      animation: fadeUp .22s ease forwards;
-    }
-
-    .pop {
-      animation: popIn .2s cubic-bezier(.34, 1.56, .64, 1) forwards;
-    }
-
-    .toast-anim {
-      animation: toastIn .25s ease forwards;
-    }
-
-    .txbtn {
-      border: none;
-      cursor: pointer;
-      font-family: 'Outfit', sans-serif;
-      transition: opacity .15s, transform .15s;
-    }
-
-    .txbtn:active {
-      transform: scale(.94) !important;
-      opacity: .88;
-    }
-
-    .pill {
-      border: none;
-      border-radius: 100px;
-      cursor: pointer;
-      font-family: 'Outfit', sans-serif;
-      font-weight: 600;
-      font-size: 12px;
-    }
-
-    .navb {
-      background: none;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-      padding: 0;
-      font-family: 'Outfit', sans-serif;
-    }
-
-    .rhov:active {
-      background: #f9fafb !important;
-    }
-
-    #ibanner {
-      display: none;
-      position: fixed;
-      bottom: 96px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #1a2535;
-      color: #fff;
-      padding: 12px 22px;
-      border-radius: 100px;
-      font-family: 'Outfit', sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      z-index: 9000;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, .4);
-      cursor: pointer;
-      border: 1px solid #2d3d52;
-      white-space: nowrap;
-      gap: 8px;
-      align-items: center;
-    }
-
-    #ibanner.show {
-      display: flex;
-    }
+    *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+    html,body{height:100%;background:#0f1923;overscroll-behavior:none;-webkit-overflow-scrolling:touch;}
+    #root{height:100%;}
+    ::-webkit-scrollbar{display:none;}
+    input,select,textarea{font-family:'Outfit',sans-serif;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes popIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+    @keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(-14px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+    .fade{animation:fadeUp .22s ease forwards;}
+    .pop{animation:popIn .2s cubic-bezier(.34,1.56,.64,1) forwards;}
+    .toast-anim{animation:toastIn .25s ease forwards;}
+    .txbtn{border:none;cursor:pointer;font-family:'Outfit',sans-serif;transition:opacity .15s,transform .15s;}
+    .txbtn:active{transform:scale(.94)!important;opacity:.88;}
+    .pill{border:none;border-radius:100px;cursor:pointer;font-family:'Outfit',sans-serif;font-weight:600;font-size:12px;}
+    .navb{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:0;font-family:'Outfit',sans-serif;}
+    .rhov:active{background:#f9fafb!important;}
+    #ibanner{display:none;position:fixed;bottom:96px;left:50%;transform:translateX(-50%);background:#1a2535;color:#fff;padding:12px 22px;border-radius:100px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;z-index:9000;box-shadow:0 4px 20px rgba(0,0,0,.4);cursor:pointer;border:1px solid #2d3d52;white-space:nowrap;gap:8px;align-items:center;}
+    #ibanner.show{display:flex;}
   </style>
 </head>
-
 <body>
-  <div id="root"></div>
-  <div id="ibanner" onclick="doInstall()"><span>📲</span> Add to Home Screen</div>
+<div id="root"></div>
+<div id="ibanner" onclick="doInstall()"><span>📲</span> Add to Home Screen</div>
 
-  <script src="https://unpkg.com/preact@10.20.2/dist/preact.min.js"></script>
-  <script src="https://unpkg.com/preact@10.20.2/hooks/dist/hooks.umd.js"></script>
-  <script src="https://unpkg.com/htm@3.1.1/dist/htm.umd.js"></script>
-  <script>
-    const { h, render, Component } = window.preact;
-    const { useState, useEffect, useRef, useCallback } = window.preactHooks;
-    const html = window.htm.bind(h);
+<script src="https://unpkg.com/preact@10.20.2/dist/preact.min.js"></script>
+<script src="https://unpkg.com/preact@10.20.2/hooks/dist/hooks.umd.js"></script>
+<script src="https://unpkg.com/htm@3.1.1/dist/htm.umd.js"></script>
+<script>
+const { h, render, Component } = window.preact;
+const { useState, useEffect, useRef, useCallback } = window.preactHooks;
+const html = window.htm.bind(h);
 
-    // ── Helpers ───────────────────────────────────────────────────────────────────
-    const GHS = v => 'GH\u20b5\u00a0' + Number(v || 0).toLocaleString('en-GH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    // Commission: 0.4% capped at GH₵ 20
-    const calcComm = amt => Math.min(parseFloat((amt * 0.004).toFixed(2)), 20);
+// ── Helpers ───────────────────────────────────────────────────────────────────
+const GHS = v => 'GH\u20b5\u00a0' + Number(v||0).toLocaleString('en-GH',{minimumFractionDigits:2,maximumFractionDigits:2});
+// Commission: 0.4% capped at GH₵ 20
+const calcComm = amt => Math.min(parseFloat((amt * 0.004).toFixed(2)), 20);
 
-    // ── USSD Codes ────────────────────────────────────────────────────────────────
-    // Format: function(phone, amount) => USSD string (# encoded as %23)
-    const USSD = {
-      MTN: {
-        cash_in: (ph, am) => `*170*2*1*${ph}*${am}%23`,
-        cash_out: (ph, am) => `*170*3*1*${ph}*${am}%23`,
-        pay_to: (ph, am) => `*170*2*6*${ph}*${am}%23`,
-        airtime: (ph, am) => `*170*1*${ph}*${am}%23`,
-      },
-      Telecel: {
-        cash_in: (ph, am) => `*110*2*${ph}*${am}%23`,
-        cash_out: (ph, am) => `*110*3*${ph}*${am}%23`,
-        pay_to: (ph, am) => `*110*2*${ph}*${am}%23`,
-        airtime: (ph, am) => `*110*1*${ph}*${am}%23`,
-      },
-      AirtelTigo: {
-        cash_in: (ph, am) => `*500*1*${ph}*${am}%23`,
-        cash_out: (ph, am) => `*500*2*${ph}*${am}%23`,
-        pay_to: (ph, am) => `*500*1*${ph}*${am}%23`,
-        airtime: (ph, am) => `*500*3*${ph}*${am}%23`,
-      },
-      'G-Money': {
-        cash_in: (ph, am) => `*327*2*${ph}*${am}%23`,
-        cash_out: (ph, am) => `*327*3*${ph}*${am}%23`,
-        pay_to: (ph, am) => `*327*2*${ph}*${am}%23`,
-        airtime: (ph, am) => `*327*1*${ph}*${am}%23`,
-      },
-      Zeepay: {
-        cash_in: (ph, am) => `*270*2*${ph}*${am}%23`,
-        cash_out: (ph, am) => `*270*3*${ph}*${am}%23`,
-        pay_to: (ph, am) => `*270*2*${ph}*${am}%23`,
-        airtime: (ph, am) => `*270*1*${ph}*${am}%23`,
-      },
-    };
+// ── USSD Codes ────────────────────────────────────────────────────────────────
+// Format: function(phone, amount) => USSD string (# encoded as %23)
+const USSD = {
+  MTN: {
+    cash_in:  (ph,am) => `*170*2*1*${ph}*${am}%23`,
+    cash_out: (ph,am) => `*170*3*1*${ph}*${am}%23`,
+    pay_to:   (ph,am) => `*170*2*6*${ph}*${am}%23`,
+    airtime:  (ph,am) => `*170*1*${ph}*${am}%23`,
+  },
+  Telecel: {
+    cash_in:  (ph,am) => `*110*2*${ph}*${am}%23`,
+    cash_out: (ph,am) => `*110*3*${ph}*${am}%23`,
+    pay_to:   (ph,am) => `*110*2*${ph}*${am}%23`,
+    airtime:  (ph,am) => `*110*1*${ph}*${am}%23`,
+  },
+  AirtelTigo: {
+    cash_in:  (ph,am) => `*500*1*${ph}*${am}%23`,
+    cash_out: (ph,am) => `*500*2*${ph}*${am}%23`,
+    pay_to:   (ph,am) => `*500*1*${ph}*${am}%23`,
+    airtime:  (ph,am) => `*500*3*${ph}*${am}%23`,
+  },
+  'G-Money': {
+    cash_in:  (ph,am) => `*327*2*${ph}*${am}%23`,
+    cash_out: (ph,am) => `*327*3*${ph}*${am}%23`,
+    pay_to:   (ph,am) => `*327*2*${ph}*${am}%23`,
+    airtime:  (ph,am) => `*327*1*${ph}*${am}%23`,
+  },
+  Zeepay: {
+    cash_in:  (ph,am) => `*270*2*${ph}*${am}%23`,
+    cash_out: (ph,am) => `*270*3*${ph}*${am}%23`,
+    pay_to:   (ph,am) => `*270*2*${ph}*${am}%23`,
+    airtime:  (ph,am) => `*270*1*${ph}*${am}%23`,
+  },
+};
 
-    // Merchant pay USSD (by network)
-    const USSD_MERCHANT = {
-      MTN: (id, am) => `*170*2*5*${id}*${am}%23`,
-      Telecel: (id, am) => `*110*5*${id}*${am}%23`,
-      AirtelTigo: (id, am) => `*500*5*${id}*${am}%23`,
-    };
+// Merchant pay USSD (by network)
+const USSD_MERCHANT = {
+  MTN:        (id,am) => `*170*2*5*${id}*${am}%23`,
+  Telecel:    (id,am) => `*110*5*${id}*${am}%23`,
+  AirtelTigo: (id,am) => `*500*5*${id}*${am}%23`,
+};
 
-    const launchUSSD = (network, type, phone, amount, merchantId) => {
-      const net = network || 'MTN';
-      const am = Math.round(parseFloat(amount) || 0);
-      let code;
-      if (type === 'pay_to' && merchantId) {
-        const fn = USSD_MERCHANT[net];
-        code = fn ? fn(merchantId, am) : null;
-      } else {
-        const netCodes = USSD[net];
-        const fn = netCodes?.[type];
-        code = fn ? fn(phone, am) : null;
-      }
-      if (!code) { alert('USSD not available for this network/type combination.'); return; }
-      window.location.href = `tel:${code}`;
-    };
-    const stamp = () => new Date().toLocaleTimeString('en-GH', { hour: '2-digit', minute: '2-digit' });
-    const todayLabel = () => new Date().toLocaleDateString('en-GH', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+const launchUSSD = (network, type, phone, amount, merchantId) => {
+  const net = network || 'MTN';
+  const am  = Math.round(parseFloat(amount)||0);
+  let code;
+  if(type==='pay_to' && merchantId) {
+    const fn = USSD_MERCHANT[net];
+    code = fn ? fn(merchantId, am) : null;
+  } else {
+    const netCodes = USSD[net];
+    const fn = netCodes?.[type];
+    code = fn ? fn(phone, am) : null;
+  }
+  if(!code){ alert('USSD not available for this network/type combination.'); return; }
+  window.location.href = `tel:${code}`;
+};
+const stamp = () => new Date().toLocaleTimeString('en-GH',{hour:'2-digit',minute:'2-digit'});
+const todayLabel = () => new Date().toLocaleDateString('en-GH',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 
-    const detectNet = p => {
-      const c = (p || '').replace(/\D/g, '');
-      if (c.length < 3) return null;
-      const x = c.slice(0, 3);
-      if (['024', '054', '055', '059', '025', '023', '053'].includes(x)) return 'MTN';
-      if (['020', '050', '028'].includes(x)) return 'Telecel';
-      if (['026', '056', '027', '057'].includes(x)) return 'AirtelTigo';
-      return null;
-    };
+const detectNet = p => {
+  const c = (p||'').replace(/\D/g,'');
+  if(c.length<3) return null;
+  const x = c.slice(0,3);
+  if(['024','054','055','059','025','023','053'].includes(x)) return 'MTN';
+  if(['020','050','028'].includes(x)) return 'Telecel';
+  if(['026','056','027','057'].includes(x)) return 'AirtelTigo';
+  return null;
+};
 
-    const NM = {
-      MTN: { color: '#f59e0b', bg: '#fffbeb', text: '#78350f', light: '#fef3c7' },
-      Telecel: { color: '#ef4444', bg: '#fef2f2', text: '#7f1d1d', light: '#fee2e2' },
-      AirtelTigo: { color: '#0ea5e9', bg: '#f0f9ff', text: '#0c4a6e', light: '#e0f2fe' },
-      'G-Money': { color: '#10b981', bg: '#ecfdf5', text: '#064e3b', light: '#d1fae5' },
-      Zeepay: { color: '#8b5cf6', bg: '#f5f3ff', text: '#4c1d95', light: '#ede9fe' },
-    };
-    const NETS = ['MTN', 'Telecel', 'AirtelTigo', 'G-Money', 'Zeepay'];
+const NM = {
+  MTN:        {color:'#f59e0b',bg:'#fffbeb',text:'#78350f',light:'#fef3c7'},
+  Telecel:    {color:'#ef4444',bg:'#fef2f2',text:'#7f1d1d',light:'#fee2e2'},
+  AirtelTigo: {color:'#0ea5e9',bg:'#f0f9ff',text:'#0c4a6e',light:'#e0f2fe'},
+  'G-Money':  {color:'#10b981',bg:'#ecfdf5',text:'#064e3b',light:'#d1fae5'},
+  Zeepay:     {color:'#8b5cf6',bg:'#f5f3ff',text:'#4c1d95',light:'#ede9fe'},
+};
+const NETS = ['MTN','Telecel','AirtelTigo','G-Money','Zeepay'];
 
-    const DENOMS = [
-      { label: 'GH\u20b5 200', value: 200, type: 'note' },
-      { label: 'GH\u20b5 100', value: 100, type: 'note' },
-      { label: 'GH\u20b5 50', value: 50, type: 'note' },
-      { label: 'GH\u20b5 20', value: 20, type: 'note' },
-      { label: 'GH\u20b5 10', value: 10, type: 'note' },
-      { label: 'GH\u20b5 5', value: 5, type: 'note' },
-      { label: 'GH\u20b5 2', value: 2, type: 'note' },
-      { label: 'GH\u20b5 1', value: 1, type: 'note' },
-      { label: 'GH\u20b5 2', value: 2, type: 'coin' },
-      { label: 'GH\u20b5 1', value: 1, type: 'coin' },
-      { label: '50p', value: 0.5, type: 'coin' },
-      { label: '20p', value: 0.2, type: 'coin' },
-      { label: '10p', value: 0.1, type: 'coin' },
-    ];
+const DENOMS = [
+  {label:'GH\u20b5 200',value:200, type:'note'},
+  {label:'GH\u20b5 100',value:100, type:'note'},
+  {label:'GH\u20b5 50', value:50,  type:'note'},
+  {label:'GH\u20b5 20', value:20,  type:'note'},
+  {label:'GH\u20b5 10', value:10,  type:'note'},
+  {label:'GH\u20b5 5',  value:5,   type:'note'},
+  {label:'GH\u20b5 2',  value:2,   type:'note'},
+  {label:'GH\u20b5 1',  value:1,   type:'note'},
+  {label:'GH\u20b5 2',  value:2,   type:'coin'},
+  {label:'GH\u20b5 1',  value:1,   type:'coin'},
+  {label:'50p',         value:0.5,  type:'coin'},
+  {label:'20p',         value:0.2,  type:'coin'},
+  {label:'10p',         value:0.1,  type:'coin'},
+];
 
-    const TIPS = [
-      { icon: '\ud83d\udea8', title: 'Never share your PIN', body: 'No MoMo network, bank, or supervisor will ever ask for your PIN. Hang up immediately.' },
-      { icon: '\ud83d\udcf5', title: 'Fake USSD screens', body: 'Fraudsters mimic USSD dialogs. Always verify via official SMS confirmations.' },
-      { icon: '\ud83d\udcb8', title: 'Confirm before giving cash', body: 'Wait for a legitimate SMS before handing cash. Screenshots can be faked.' },
-      { icon: '\ud83d\udd01', title: 'Reversal scams', body: "If someone asks to reverse a transaction 'because it went wrong', call the helpline first." },
-      { icon: '\ud83d\udc65', title: 'Distraction attacks', body: 'Stay alert when multiple customers approach at once — it is a known tactic.' },
-      { icon: '\ud83d\udcf1', title: 'SIM swap fraud', body: 'Report suspicious agent SIM activity immediately. Fraudsters clone SIMs to intercept OTPs.' },
-      { icon: '\ud83c\udfe6', title: 'Fake network officers', body: 'Real officers carry IDs and never ask for cash, gifts, or access to your phone.' },
-      { icon: '\u26a0\ufe0f', title: 'Over-payment trick', body: "Customer 'accidentally' overpays then asks for a refund. Verify via SMS first." },
-    ];
+const TIPS = [
+  {icon:'\ud83d\udea8',title:'Never share your PIN',     body:'No MoMo network, bank, or supervisor will ever ask for your PIN. Hang up immediately.'},
+  {icon:'\ud83d\udcf5',title:'Fake USSD screens',         body:'Fraudsters mimic USSD dialogs. Always verify via official SMS confirmations.'},
+  {icon:'\ud83d\udcb8',title:'Confirm before giving cash',body:'Wait for a legitimate SMS before handing cash. Screenshots can be faked.'},
+  {icon:'\ud83d\udd01',title:'Reversal scams',            body:"If someone asks to reverse a transaction 'because it went wrong', call the helpline first."},
+  {icon:'\ud83d\udc65',title:'Distraction attacks',       body:'Stay alert when multiple customers approach at once — it is a known tactic.'},
+  {icon:'\ud83d\udcf1',title:'SIM swap fraud',            body:'Report suspicious agent SIM activity immediately. Fraudsters clone SIMs to intercept OTPs.'},
+  {icon:'\ud83c\udfe6',title:'Fake network officers',     body:'Real officers carry IDs and never ask for cash, gifts, or access to your phone.'},
+  {icon:'\u26a0\ufe0f',title:'Over-payment trick',        body:"Customer 'accidentally' overpays then asks for a refund. Verify via SMS first."},
+];
 
-    const TY = {
-      cash_in: { label: 'Cash In', icon: '\u2b07', color: '#10b981', bg: '#ecfdf5' },
-      cash_out: { label: 'Cash Out', icon: '\u2b06', color: '#ef4444', bg: '#fef2f2' },
-      pay_to: { label: 'Pay To', icon: '\u2192', color: '#0ea5e9', bg: '#f0f9ff' },
-      airtime: { label: 'Airtime', icon: '\ud83d\udcf6', color: '#f59e0b', bg: '#fffbeb' },
-    };
+const TY = {
+  cash_in:  {label:'Cash In', icon:'\u2b07',color:'#10b981',bg:'#ecfdf5'},
+  cash_out: {label:'Cash Out',icon:'\u2b06',color:'#ef4444',bg:'#fef2f2'},
+  pay_to:   {label:'Pay To',  icon:'\u2192',color:'#0ea5e9',bg:'#f0f9ff'},
+  airtime:  {label:'Airtime', icon:'\ud83d\udcf6',color:'#f59e0b',bg:'#fffbeb'},
+};
 
-    const MARKET = [
-      { id: 'm1', name: "Ama's Kiosk", cat: 'Float Dealer', r: 4.8, ok: true, loc: 'Accra, Osu', ph: '0241000001', desc: 'Fast float top-up, competitive rates. Serving agents since 2019.' },
-      { id: 'm2', name: 'BrightAgent Co.', cat: 'Float Dealer', r: 4.6, ok: true, loc: 'Kumasi Central', ph: '0201000002', desc: 'Bulk float supply for busy agents. Same-day delivery.' },
-      { id: 'm3', name: 'QuickPOS Ghana', cat: 'POS Equipment', r: 4.9, ok: true, loc: 'Nationwide', ph: '0261000003', desc: 'POS terminals, thermal receipt printers, float tracking software.' },
-      { id: 'm4', name: 'AgentSure Ins.', cat: 'Business Insurance', r: 4.5, ok: true, loc: 'Accra, Labone', ph: '0271000004', desc: 'Insurance cover for MoMo agents — theft, robbery & loss.' },
-      { id: 'm5', name: 'Float Finance', cat: 'Float Credit', r: 4.7, ok: true, loc: 'Online', ph: '0551000005', desc: 'Credit lines for agents needing float urgently. 24hr approval.' },
-      { id: 'm6', name: 'Kofi Printing', cat: 'Branding & Print', r: 4.4, ok: false, loc: 'Tema, Comm. 1', ph: '0241000006', desc: 'Agent signage, custom receipts, branded uniforms.' },
-    ];
+const MARKET = [
+  {id:'m1',name:"Ama's Kiosk",    cat:'Float Dealer',      r:4.8,ok:true, loc:'Accra, Osu',    ph:'0241000001',desc:'Fast float top-up, competitive rates. Serving agents since 2019.'},
+  {id:'m2',name:'BrightAgent Co.',cat:'Float Dealer',      r:4.6,ok:true, loc:'Kumasi Central',ph:'0201000002',desc:'Bulk float supply for busy agents. Same-day delivery.'},
+  {id:'m3',name:'QuickPOS Ghana', cat:'POS Equipment',     r:4.9,ok:true, loc:'Nationwide',    ph:'0261000003',desc:'POS terminals, thermal receipt printers, float tracking software.'},
+  {id:'m4',name:'AgentSure Ins.', cat:'Business Insurance',r:4.5,ok:true, loc:'Accra, Labone', ph:'0271000004',desc:'Insurance cover for MoMo agents — theft, robbery & loss.'},
+  {id:'m5',name:'Float Finance',  cat:'Float Credit',      r:4.7,ok:true, loc:'Online',        ph:'0551000005',desc:'Credit lines for agents needing float urgently. 24hr approval.'},
+  {id:'m6',name:'Kofi Printing',  cat:'Branding & Print',  r:4.4,ok:false,loc:'Tema, Comm. 1', ph:'0241000006',desc:'Agent signage, custom receipts, branded uniforms.'},
+];
 
-    const WEEK_DKEYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const WEEK_DKEYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 
-    // ── Charts ────────────────────────────────────────────────────────────────────
-    function BarChart({ data }) {
-      const W = 320, H = 130;
-      const maxV = Math.max(...data.map(d => Math.max(d.ci || 0, d.co || 0)), 1);
-      const bw = 8, sp = 2, gw = (W - 24) / data.length;
-      return html`<svg width="100%" viewBox="0 0 ${W} ${H}" style="overflow:visible;display:block">
-    ${data.map((d, i) => {
-        const x = 12 + i * gw, ciH = (d.ci / maxV) * (H - 28), coH = (d.co / maxV) * (H - 28);
-        return html`<g key=${i}>
-        <rect x=${x} y=${H - 22 - ciH} width=${bw} height=${Math.max(ciH, 0)} rx="2" fill="#10b981" opacity=".85"/>
-        <rect x=${x + bw + sp} y=${H - 22 - coH} width=${bw} height=${Math.max(coH, 0)} rx="2" fill="#ef4444" opacity=".85"/>
-        <text x=${x + bw} y=${H - 4} text-anchor="middle" font-size="7.5" fill="#9ca3af" font-family="Outfit">${d.day}</text>
+// ── Charts ────────────────────────────────────────────────────────────────────
+function BarChart({data}) {
+  const W=320, H=130;
+  const maxV = Math.max(...data.map(d=>Math.max(d.ci||0,d.co||0)),1);
+  const bw=8, sp=2, gw=(W-24)/data.length;
+  return html`<svg width="100%" viewBox="0 0 ${W} ${H}" style="overflow:visible;display:block">
+    ${data.map((d,i)=>{
+      const x=12+i*gw, ciH=(d.ci/maxV)*(H-28), coH=(d.co/maxV)*(H-28);
+      return html`<g key=${i}>
+        <rect x=${x} y=${H-22-ciH} width=${bw} height=${Math.max(ciH,0)} rx="2" fill="#10b981" opacity=".85"/>
+        <rect x=${x+bw+sp} y=${H-22-coH} width=${bw} height=${Math.max(coH,0)} rx="2" fill="#ef4444" opacity=".85"/>
+        <text x=${x+bw} y=${H-4} text-anchor="middle" font-size="7.5" fill="#9ca3af" font-family="Outfit">${d.day}</text>
       </g>`;
-      })}
+    })}
     <rect x="0" y="0" width="8" height="8" rx="2" fill="#10b981" opacity=".85"/>
     <text x="12" y="8" font-size="8" fill="#9ca3af" font-family="Outfit">Cash In</text>
     <rect x="60" y="0" width="8" height="8" rx="2" fill="#ef4444" opacity=".85"/>
     <text x="72" y="8" font-size="8" fill="#9ca3af" font-family="Outfit">Cash Out</text>
   </svg>`;
-    }
+}
 
-    function PieChart({ data }) {
-      const cx = 55, cy = 55, r = 42, ir = 24;
-      const total = data.reduce((s, d) => s + (d.value || 0), 0) || 1;
-      let ang = -Math.PI / 2;
-      const slices = data.map(d => {
-        const sw = (d.value / total) * 2 * Math.PI;
-        const x1 = cx + r * Math.cos(ang), y1 = cy + r * Math.sin(ang);
-        const x2 = cx + r * Math.cos(ang + sw), y2 = cy + r * Math.sin(ang + sw);
-        const xi1 = cx + ir * Math.cos(ang), yi1 = cy + ir * Math.sin(ang);
-        const xi2 = cx + ir * Math.cos(ang + sw), yi2 = cy + ir * Math.sin(ang + sw);
-        const lg = sw > Math.PI ? 1 : 0;
-        const path = `M${xi1} ${yi1} L${x1} ${y1} A${r} ${r} 0 ${lg} 1 ${x2} ${y2} L${xi2} ${yi2} A${ir} ${ir} 0 ${lg} 0 ${xi1} ${yi1} Z`;
-        ang += sw;
-        return { path, color: d.color };
-      });
-      return html`<svg width="110" height="110" viewBox="0 0 110 110">
-    ${slices.map((sl, i) => html`<path key=${i} d=${sl.path} fill=${sl.color}/>`)}
+function PieChart({data}) {
+  const cx=55,cy=55,r=42,ir=24;
+  const total=data.reduce((s,d)=>s+(d.value||0),0)||1;
+  let ang=-Math.PI/2;
+  const slices=data.map(d=>{
+    const sw=(d.value/total)*2*Math.PI;
+    const x1=cx+r*Math.cos(ang),y1=cy+r*Math.sin(ang);
+    const x2=cx+r*Math.cos(ang+sw),y2=cy+r*Math.sin(ang+sw);
+    const xi1=cx+ir*Math.cos(ang),yi1=cy+ir*Math.sin(ang);
+    const xi2=cx+ir*Math.cos(ang+sw),yi2=cy+ir*Math.sin(ang+sw);
+    const lg=sw>Math.PI?1:0;
+    const path=`M${xi1} ${yi1} L${x1} ${y1} A${r} ${r} 0 ${lg} 1 ${x2} ${y2} L${xi2} ${yi2} A${ir} ${ir} 0 ${lg} 0 ${xi1} ${yi1} Z`;
+    ang+=sw;
+    return {path,color:d.color};
+  });
+  return html`<svg width="110" height="110" viewBox="0 0 110 110">
+    ${slices.map((sl,i)=>html`<path key=${i} d=${sl.path} fill=${sl.color}/>`)}
   </svg>`;
-    }
+}
 
-    // ── Input ─────────────────────────────────────────────────────────────────────
-    function Inp({ style: st = {}, ...p }) {
-      return html`<input
-    style=${{ width: '100%', border: '1.5px solid #e5e7eb', borderRadius: 12, padding: '13px 14px', fontSize: 15, color: '#111', outline: 'none', fontFamily: "'Outfit',sans-serif", background: '#fff', ...st }}
-    onFocus=${e => e.target.style.border = '1.5px solid #111'}
-    onBlur=${e => e.target.style.border = '1.5px solid #e5e7eb'}
+// ── Input ─────────────────────────────────────────────────────────────────────
+function Inp({style:st={}, ...p}) {
+  return html`<input
+    style=${{width:'100%',border:'1.5px solid #e5e7eb',borderRadius:12,padding:'13px 14px',fontSize:15,color:'#111',outline:'none',fontFamily:"'Outfit',sans-serif",background:'#fff',...st}}
+    onFocus=${e=>e.target.style.border='1.5px solid #111'}
+    onBlur=${e=>e.target.style.border='1.5px solid #e5e7eb'}
     ...${p}
   />`;
-    }
+}
 
-    // ── PDF Generator ─────────────────────────────────────────────────────────────
-    function generateClosingPDF(d) {
-      const { agentName, agentBranch, cashT, floatT, debT, credT, grand, wcVal, comm, shortage, dens, floats, debs, creds, txns, dNotes } = d;
-      const dateStr = todayLabel();
-      const rows = txns.filter(t => t.date === 'Today');
-      const surplusLabel = shortage >= 0 ? 'SURPLUS' : 'SHORTAGE';
-      const surplusColor = shortage >= 0 ? '#10b981' : '#ef4444';
-      const win = window.open('', '_blank', 'width=820,height=950');
-      if (!win) { alert('Please allow popups for PDF export.'); return; }
-      win.document.write(`<!DOCTYPE html><html><head>
+// ── PDF Generator ─────────────────────────────────────────────────────────────
+function generateClosingPDF(d) {
+  const {agentName,agentBranch,cashT,floatT,debT,credT,grand,wcVal,comm,shortage,dens,floats,debs,creds,txns,dNotes} = d;
+  const dateStr = todayLabel();
+  const rows = txns.filter(t=>t.date==='Today');
+  const surplusLabel = shortage>=0?'SURPLUS':'SHORTAGE';
+  const surplusColor = shortage>=0?'#10b981':'#ef4444';
+  const win = window.open('','_blank','width=820,height=950');
+  if(!win){alert('Please allow popups for PDF export.');return;}
+  win.document.write(`<!DOCTYPE html><html><head>
     <title>Closing Report</title>
     <style>
       *{box-sizing:border-box;margin:0;padding:0;}
@@ -381,33 +256,33 @@
     </style>
   </head><body>
     <h1>MoMo Agent — Day Closing Report</h1>
-    <div class="sub">${agentName || 'Agent'} · ${agentBranch || ''} · ${dateStr}</div>
+    <div class="sub">${agentName||'Agent'} · ${agentBranch||''} · ${dateStr}</div>
 
     <h2>Cash Count</h2>
     <table>
       <thead><tr><th>Denomination</th><th style="text-align:center">Qty</th><th style="text-align:right">Total</th></tr></thead>
-      <tbody>${dens.filter(x => x.qty > 0).map(x => `<tr><td>${x.label}</td><td style="text-align:center">${x.qty}</td><td style="text-align:right">${GHS(x.qty * x.value)}</td></tr>`).join('') || '<tr><td colspan="3" style="color:#9ca3af">None entered</td></tr>'}</tbody>
+      <tbody>${dens.filter(x=>x.qty>0).map(x=>`<tr><td>${x.label}</td><td style="text-align:center">${x.qty}</td><td style="text-align:right">${GHS(x.qty*x.value)}</td></tr>`).join('')||'<tr><td colspan="3" style="color:#9ca3af">None entered</td></tr>'}</tbody>
       <tfoot><tr class="tr"><td colspan="2">Cash on Hand</td><td style="text-align:right">${GHS(cashT)}</td></tr></tfoot>
     </table>
 
     <h2>Float Balances</h2>
     <table>
       <thead><tr><th>Network</th><th style="text-align:right">Amount</th></tr></thead>
-      <tbody>${floats.map(f => `<tr><td>${f.network}</td><td style="text-align:right">${GHS(f.amount)}</td></tr>`).join('')}</tbody>
+      <tbody>${floats.map(f=>`<tr><td>${f.network}</td><td style="text-align:right">${GHS(f.amount)}</td></tr>`).join('')}</tbody>
       <tfoot><tr class="tr"><td>Total Float</td><td style="text-align:right">${GHS(floatT)}</td></tr></tfoot>
     </table>
 
-    ${debs.length > 0 ? `<h2>Debtors</h2><table>
+    ${debs.length>0?`<h2>Debtors</h2><table>
       <thead><tr><th>Name</th><th>Note</th><th style="text-align:right">Amount</th></tr></thead>
-      <tbody>${debs.map(x => `<tr><td>${x.name}</td><td style="color:#9ca3af">${x.note || '—'}</td><td style="text-align:right">${GHS(x.amount)}</td></tr>`).join('')}</tbody>
+      <tbody>${debs.map(x=>`<tr><td>${x.name}</td><td style="color:#9ca3af">${x.note||'—'}</td><td style="text-align:right">${GHS(x.amount)}</td></tr>`).join('')}</tbody>
       <tfoot><tr class="tr"><td colspan="2">Total</td><td style="text-align:right">${GHS(debT)}</td></tr></tfoot>
-    </table>`: ''}
+    </table>`:''}
 
-    ${creds.length > 0 ? `<h2>Creditors</h2><table>
+    ${creds.length>0?`<h2>Creditors</h2><table>
       <thead><tr><th>Name</th><th>Note</th><th style="text-align:right">Amount</th></tr></thead>
-      <tbody>${creds.map(x => `<tr><td>${x.name}</td><td style="color:#9ca3af">${x.note || '—'}</td><td style="text-align:right">${GHS(x.amount)}</td></tr>`).join('')}</tbody>
+      <tbody>${creds.map(x=>`<tr><td>${x.name}</td><td style="color:#9ca3af">${x.note||'—'}</td><td style="text-align:right">${GHS(x.amount)}</td></tr>`).join('')}</tbody>
       <tfoot><tr class="tr"><td colspan="2">Total</td><td style="text-align:right">${GHS(credT)}</td></tr></tfoot>
-    </table>`: ''}
+    </table>`:''}
 
     <h2>Closing Summary</h2>
     <div class="box">
@@ -416,58 +291,56 @@
       <div class="row"><span>+ Debtors</span><span>${GHS(debT)}</span></div>
       <div class="row"><span>− Creditors</span><span>(${GHS(credT)})</span></div>
       <div class="row" style="border-top:1.5px solid #2d3d52;margin-top:4px;padding-top:10px"><span class="big" style="color:#fff">NET TOTAL</span><span class="big" style="color:#4ade80">${GHS(grand)}</span></div>
-      <div class="row"><span style="color:#9ca3af">CAPITAL</span><span style="color:#fff;font-weight:800">${wcVal > 0 ? GHS(wcVal) : '—'}</span></div>
-      ${wcVal > 0 ? `<div class="row" style="border-top:1.5px solid #2d3d52;margin-top:4px;padding-top:10px"><span class="big" style="color:${surplusColor}">${surplusLabel}</span><span class="big" style="color:${surplusColor}">${shortage >= 0 ? '+' : ''}${GHS(shortage)}</span></div>` : ''}
+      <div class="row"><span style="color:#9ca3af">CAPITAL</span><span style="color:#fff;font-weight:800">${wcVal>0?GHS(wcVal):'—'}</span></div>
+      ${wcVal>0?`<div class="row" style="border-top:1.5px solid #2d3d52;margin-top:4px;padding-top:10px"><span class="big" style="color:${surplusColor}">${surplusLabel}</span><span class="big" style="color:${surplusColor}">${shortage>=0?'+':''}${GHS(shortage)}</span></div>`:''}
       <div class="row"><span style="color:#9ca3af">Commission Earned</span><span style="color:#f59e0b;font-weight:800">${GHS(comm)}</span></div>
     </div>
 
     <h2>Today's Transactions (${rows.length})</h2>
     <table>
       <thead><tr><th>Time</th><th>Type</th><th>Phone / ID</th><th>Network</th><th style="text-align:right">Amount</th><th style="text-align:right">Comm.</th></tr></thead>
-      <tbody>${rows.length > 0 ? rows.map(t => `<tr><td>${t.time}</td><td>${TY[t.type]?.label || t.type}</td><td>${t.phone || t.merchantId || '—'}</td><td>${t.network || '—'}</td><td style="text-align:right">${GHS(t.amount)}</td><td style="text-align:right;color:#10b981">${GHS(t.commission)}</td></tr>`).join('') : '<tr><td colspan="6" style="color:#9ca3af">No transactions today</td></tr>'}</tbody>
+      <tbody>${rows.length>0?rows.map(t=>`<tr><td>${t.time}</td><td>${TY[t.type]?.label||t.type}</td><td>${t.phone||t.merchantId||'—'}</td><td>${t.network||'—'}</td><td style="text-align:right">${GHS(t.amount)}</td><td style="text-align:right;color:#10b981">${GHS(t.commission)}</td></tr>`).join(''):'<tr><td colspan="6" style="color:#9ca3af">No transactions today</td></tr>'}</tbody>
     </table>
 
-    ${dNotes ? `<h2>Notes</h2><p style="color:#374151;line-height:1.7;font-size:13px">${dNotes}</p>` : ''}
+    ${dNotes?`<h2>Notes</h2><p style="color:#374151;line-height:1.7;font-size:13px">${dNotes}</p>`:''}
     <div class="footer">Generated by MoMo Agent App &middot; ${dateStr}</div>
   </body></html>`);
-      win.document.close();
-      setTimeout(() => win.print(), 700);
-    }
+  win.document.close();
+  setTimeout(()=>win.print(),700);
+}
 
-    // ── TxForm — defined at MODULE level so it never remounts on App re-render ────
-    function TxForm({ txType, flow, onClose, onRecord, onDial, phoneHist }) {
-      const { useState: uS } = preactHooks;
-      const [phone, setPhone] = uS('');
-      const [amount, setAmount] = uS('');
-      const [net, setNet] = uS(null);
-      const [ported, setPorted] = uS(false);
-      const [portedNet, setPortedNet] = uS(null);
-      const [sugg, setSugg] = uS([]);
-      const [showSugg, setShowSugg] = uS(false);
-      const [mid, setMid] = uS('');
+// ── TxForm — defined at MODULE level so it never remounts on App re-render ────
+function TxForm({txType,flow,onClose,onRecord,onDial,phoneHist}) {
+  const {useState:uS} = preactHooks;
+  const [phone,  setPhone]  = uS('');
+  const [amount, setAmount] = uS('');
+  const [net,    setNet]    = uS(null);
+  const [ported, setPorted] = uS(false);
+  const [portedNet, setPortedNet] = uS(null);
+  const [sugg,   setSugg]   = uS([]);
+  const [showSugg, setShowSugg] = uS(false);
+  const [mid,    setMid]    = uS('');
 
-      const onPhone = val => {
-        setPhone(val); setNet(detectNet(val)); setPorted(false); setPortedNet(null);
-        if (val.length >= 3) { const m = (phoneHist || []).filter(p => p.startsWith(val) && p !== val); setSugg(m.slice(0, 5)); setShowSugg(m.length > 0); }
-        else { setSugg([]); setShowSugg(false); }
-      };
+  const onPhone = val => {
+    setPhone(val); setNet(detectNet(val)); setPorted(false); setPortedNet(null);
+    if(val.length>=3){const m=(phoneHist||[]).filter(p=>p.startsWith(val)&&p!==val);setSugg(m.slice(0,5));setShowSugg(m.length>0);}
+    else{setSugg([]);setShowSugg(false);}
+  };
 
-      const effNet = ported ? portedNet : net;
-      const amtVal = parseFloat(amount) || 0;
-      const amtReady = amtVal > 0;
-      const phoneReady = phone.length === 10 && (ported ? !!portedNet : !!net);
-      const canGo = flow === 'm' ? (!!mid && amtReady) : (phoneReady && amtReady);
+  const effNet   = ported ? portedNet : net;
+  const amtVal   = parseFloat(amount)||0;
+  const amtReady = amtVal > 0;
+  const phoneReady = phone.length===10 && (ported ? !!portedNet : !!net);
+  const canGo    = flow==='m' ? (!!mid && amtReady) : (phoneReady && amtReady);
 
-      const commit = () => {
-        if (!canGo) return;
-        onRecord({
-          phone: flow === 'm' ? undefined : phone, amount: amtVal, network: effNet, ported,
-          ...(flow === 'm' ? { subType: 'merchant', merchantId: mid } : txType === 'pay_to' ? { subType: 'agent' } : {})
-        });
-      };
+  const commit = () => {
+    if(!canGo) return;
+    onRecord({phone: flow==='m'?undefined:phone, amount:amtVal, network:effNet, ported,
+              ...(flow==='m'?{subType:'merchant',merchantId:mid}:txType==='pay_to'?{subType:'agent'}:{})});
+  };
 
-      const s = o => o;
-      return html\`<div class="pop" style=\${s({background:'#fff',borderRadius:20,padding:20,boxShadow:'0 4px 20px rgba(0,0,0,.13)',marginBottom:14,border:'1.5px solid #f0f0f0'})}>
+  const s = o=>o;
+  return html\`<div class="pop" style=\${s({background:'#fff',borderRadius:20,padding:20,boxShadow:'0 4px 20px rgba(0,0,0,.13)',marginBottom:14,border:'1.5px solid #f0f0f0'})}>
     <div style=\${s({display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:16})}>
       <div style=\${s({fontSize:15,fontWeight:800,color:'#111'})}>New Transaction</div>
       <button onClick=\${onClose} style=\${s({background:'#f3f4f6',border:'none',borderRadius:8,padding:'5px 12px',cursor:'pointer',fontSize:13,fontWeight:700,color:'#374151'})}>✕</button>
@@ -641,11 +514,10 @@ function App() {
   const s = o=>o;
 
   // ── Render ─────────────────────────────────────────────────────────────────
-  return html`< div style = ${ s({ fontFamily: "'Outfit',sans-serif", background: '#f0f2f5', minHeight: '100vh', maxWidth: 430, margin: '0 auto', paddingBottom: 88 }) }>
+  return html`<div style=${s({fontFamily:"'Outfit',sans-serif",background:'#f0f2f5',minHeight:'100vh',maxWidth:430,margin:'0 auto',paddingBottom:88})}>
 
-        ${
-          toast && html`<div class="toast-anim" style=${s({ position: 'fixed', top: 20, left: '50%', transform: 'translateX(-50%)', background: toast.type === 'err' ? '#dc2626' : '#111', color: '#fff', padding: '11px 22px', borderRadius: 100, fontSize: 13, fontWeight: 700, zIndex: 9999, whiteSpace: 'nowrap', boxShadow: '0 6px 24px rgba(0,0,0,.25)', pointerEvents: 'none' })}>
-      ${toast.type === 'err' ? '\u26a0 ' : '\u2713 '}${toast.msg}
+    ${toast&&html`<div class="toast-anim" style=${s({position:'fixed',top:20,left:'50%',transform:'translateX(-50%)',background:toast.type==='err'?'#dc2626':'#111',color:'#fff',padding:'11px 22px',borderRadius:100,fontSize:13,fontWeight:700,zIndex:9999,whiteSpace:'nowrap',boxShadow:'0 6px 24px rgba(0,0,0,.25)',pointerEvents:'none'})}>
+      ${toast.type==='err'?'\u26a0 ':'\u2713 '}${toast.msg}
     </div>`}
 
     <!-- Header -->
@@ -1108,31 +980,30 @@ function App() {
 
     </div>
 
-    <!--Bottom nav-- >
-        <div style=${s({ position: 'fixed', bottom: 0, left: '50%', transform: 'translateX(-50%)', width: '100%', maxWidth: 430, background: '#fff', borderTop: '1px solid #f0f0f0', display: 'flex', padding: '10px 4px', paddingBottom: 'max(10px,env(safe-area-inset-bottom))', zIndex: 100 })}>
-          ${NAV.map(n => html`
-        <button key=${n.id} class="navb" onClick=${() => setTab(n.id)} style=${s({ flex: 1, color: tab === n.id ? '#111' : '#9ca3af', paddingBottom: 2 })}>
-          <div style=${s({ width: 36, height: 28, borderRadius: 10, background: tab === n.id ? '#f0f0f0' : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 17 })}>${n.ic}</div>
-          <span style=${s({ fontSize: 9, fontWeight: tab === n.id ? 800 : 500, letterSpacing: .3 })}>${n.id}</span>
+    <!-- Bottom nav -->
+    <div style=${s({position:'fixed',bottom:0,left:'50%',transform:'translateX(-50%)',width:'100%',maxWidth:430,background:'#fff',borderTop:'1px solid #f0f0f0',display:'flex',padding:'10px 4px',paddingBottom:'max(10px,env(safe-area-inset-bottom))',zIndex:100})}>
+      ${NAV.map(n=>html`
+        <button key=${n.id} class="navb" onClick=${()=>setTab(n.id)} style=${s({flex:1,color:tab===n.id?'#111':'#9ca3af',paddingBottom:2})}>
+          <div style=${s({width:36,height:28,borderRadius:10,background:tab===n.id?'#f0f0f0':'transparent',display:'flex',alignItems:'center',justifyContent:'center',fontSize:17})}>${n.ic}</div>
+          <span style=${s({fontSize:9,fontWeight:tab===n.id?800:500,letterSpacing:.3})}>${n.id}</span>
         </button>
       `)}
-        </div>
-  </div > `;
+    </div>
+  </div>`;
 }
 
-render(html`< ${ App }/>`, document.getElementById('root'));
-  </script>
+render(html`<${App}/>`, document.getElementById('root'));
+</script>
 
-  <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => { }));
-      }
-      let dp;
-      const ib = document.getElementById('ibanner');
-      window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); dp = e; ib.classList.add('show'); });
-      window.addEventListener('appinstalled', () => ib.classList.remove('show'));
-      function doInstall() { if (!dp) return; dp.prompt(); dp.userChoice.then(() => { dp = null; ib.classList.remove('show'); }); }
-  </script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+}
+let dp;
+const ib=document.getElementById('ibanner');
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;ib.classList.add('show');});
+window.addEventListener('appinstalled',()=>ib.classList.remove('show'));
+function doInstall(){if(!dp)return;dp.prompt();dp.userChoice.then(()=>{dp=null;ib.classList.remove('show');});}
+</script>
 </body>
-
 </html>
