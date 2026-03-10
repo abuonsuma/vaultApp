@@ -1,241 +1,366 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"/>
-  <meta name="mobile-web-app-capable" content="yes"/>
-  <meta name="apple-mobile-web-app-capable" content="yes"/>
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-  <meta name="apple-mobile-web-app-title" content="MoMo Agent"/>
-  <meta name="theme-color" content="#0f1923"/>
-  <link rel="manifest" href="./manifest.json"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+    content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="MoMo Agent" />
+  <meta name="theme-color" content="#0f1923" />
+  <link rel="manifest" href="./manifest.json" />
   <title>MoMo Agent</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
   <style>
-    *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-    html,body{height:100%;background:#0f1923;overscroll-behavior:none;-webkit-overflow-scrolling:touch;}
-    #root{height:100%;}
-    ::-webkit-scrollbar{display:none;}
-    input,select,textarea{font-family:'Outfit',sans-serif;}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-    @keyframes popIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
-    @keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(-14px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
-    .fade{animation:fadeUp .22s ease forwards;}
-    .pop{animation:popIn .2s cubic-bezier(.34,1.56,.64,1) forwards;}
-    .toast-anim{animation:toastIn .25s ease forwards;}
-    .txbtn{border:none;cursor:pointer;font-family:'Outfit',sans-serif;transition:opacity .15s,transform .15s;}
-    .txbtn:active{transform:scale(.94)!important;opacity:.88;}
-    .pill{border:none;border-radius:100px;cursor:pointer;font-family:'Outfit',sans-serif;font-weight:600;font-size:12px;}
-    .navb{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:0;font-family:'Outfit',sans-serif;}
-    .rhov:active{background:#f9fafb!important;}
-    #ibanner{display:none;position:fixed;bottom:96px;left:50%;transform:translateX(-50%);background:#1a2535;color:#fff;padding:12px 22px;border-radius:100px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;z-index:9000;box-shadow:0 4px 20px rgba(0,0,0,.4);cursor:pointer;border:1px solid #2d3d52;white-space:nowrap;gap:8px;align-items:center;}
-    #ibanner.show{display:flex;}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background: #0f1923;
+      overscroll-behavior: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    #root {
+      height: 100%;
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    input,
+    select,
+    textarea {
+      font-family: 'Outfit', sans-serif;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(8px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: scale(.92)
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1)
+      }
+    }
+
+    @keyframes toastIn {
+      from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-14px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0)
+      }
+    }
+
+    .fade {
+      animation: fadeUp .22s ease forwards;
+    }
+
+    .pop {
+      animation: popIn .2s cubic-bezier(.34, 1.56, .64, 1) forwards;
+    }
+
+    .toast-anim {
+      animation: toastIn .25s ease forwards;
+    }
+
+    .txbtn {
+      border: none;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+      transition: opacity .15s, transform .15s;
+    }
+
+    .txbtn:active {
+      transform: scale(.94) !important;
+      opacity: .88;
+    }
+
+    .pill {
+      border: none;
+      border-radius: 100px;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    .navb {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      padding: 0;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .rhov:active {
+      background: #f9fafb !important;
+    }
+
+    #ibanner {
+      display: none;
+      position: fixed;
+      bottom: 96px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1a2535;
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 100px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      z-index: 9000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, .4);
+      cursor: pointer;
+      border: 1px solid #2d3d52;
+      white-space: nowrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    #ibanner.show {
+      display: flex;
+    }
   </style>
 </head>
+
 <body>
-<div id="root"></div>
-<div id="ibanner" onclick="doInstall()"><span>📲</span> Add to Home Screen</div>
+  <div id="root"></div>
+  <div id="ibanner" onclick="doInstall()"><span>📲</span> Add to Home Screen</div>
 
-<script src="https://unpkg.com/preact@10.20.2/dist/preact.min.js"></script>
-<script src="https://unpkg.com/preact@10.20.2/hooks/dist/hooks.umd.js"></script>
-<script src="https://unpkg.com/htm@3.1.1/dist/htm.umd.js"></script>
-<script>
-const { h, render, Component } = window.preact;
-const { useState, useEffect, useRef, useCallback } = window.preactHooks;
-const html = window.htm.bind(h);
+  <script src="https://unpkg.com/preact@10.20.2/dist/preact.min.js"></script>
+  <script src="https://unpkg.com/preact@10.20.2/hooks/dist/hooks.umd.js"></script>
+  <script src="https://unpkg.com/htm@3.1.1/dist/htm.umd.js"></script>
+  <script>
+    const { h, render, Component } = window.preact;
+    const { useState, useEffect, useRef, useCallback } = window.preactHooks;
+    const html = window.htm.bind(h);
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
-const GHS = v => 'GH\u20b5\u00a0' + Number(v||0).toLocaleString('en-GH',{minimumFractionDigits:2,maximumFractionDigits:2});
-// Commission: 0.4% capped at GH₵ 20
-const calcComm = amt => Math.min(parseFloat((amt * 0.004).toFixed(2)), 20);
+    // ── Helpers ───────────────────────────────────────────────────────────────────
+    const GHS = v => 'GH\u20b5\u00a0' + Number(v || 0).toLocaleString('en-GH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    // Commission: 0.4% capped at GH₵ 20
+    const calcComm = amt => Math.min(parseFloat((amt * 0.004).toFixed(2)), 20);
 
-// ── USSD Codes ────────────────────────────────────────────────────────────────
-// Format: function(phone, amount) => USSD string (# encoded as %23)
-const USSD = {
-  MTN: {
-    cash_in:  (ph,am) => `*170*2*1*${ph}*${am}%23`,
-    cash_out: (ph,am) => `*170*3*1*${ph}*${am}%23`,
-    pay_to:   (ph,am) => `*170*2*6*${ph}*${am}%23`,
-    airtime:  (ph,am) => `*170*1*${ph}*${am}%23`,
-  },
-  Telecel: {
-    cash_in:  (ph,am) => `*110*2*${ph}*${am}%23`,
-    cash_out: (ph,am) => `*110*3*${ph}*${am}%23`,
-    pay_to:   (ph,am) => `*110*2*${ph}*${am}%23`,
-    airtime:  (ph,am) => `*110*1*${ph}*${am}%23`,
-  },
-  AirtelTigo: {
-    cash_in:  (ph,am) => `*500*1*${ph}*${am}%23`,
-    cash_out: (ph,am) => `*500*2*${ph}*${am}%23`,
-    pay_to:   (ph,am) => `*500*1*${ph}*${am}%23`,
-    airtime:  (ph,am) => `*500*3*${ph}*${am}%23`,
-  },
-  'G-Money': {
-    cash_in:  (ph,am) => `*327*2*${ph}*${am}%23`,
-    cash_out: (ph,am) => `*327*3*${ph}*${am}%23`,
-    pay_to:   (ph,am) => `*327*2*${ph}*${am}%23`,
-    airtime:  (ph,am) => `*327*1*${ph}*${am}%23`,
-  },
-  Zeepay: {
-    cash_in:  (ph,am) => `*270*2*${ph}*${am}%23`,
-    cash_out: (ph,am) => `*270*3*${ph}*${am}%23`,
-    pay_to:   (ph,am) => `*270*2*${ph}*${am}%23`,
-    airtime:  (ph,am) => `*270*1*${ph}*${am}%23`,
-  },
-};
+    // ── USSD Codes ────────────────────────────────────────────────────────────────
+    // Format: function(phone, amount) => USSD string (# encoded as %23)
+    const USSD = {
+      MTN: {
+        cash_in: (ph, am) => `*170*2*1*${ph}*${am}%23`,
+        cash_out: (ph, am) => `*170*3*1*${ph}*${am}%23`,
+        pay_to: (ph, am) => `*170*2*6*${ph}*${am}%23`,
+        airtime: (ph, am) => `*170*1*${ph}*${am}%23`,
+      },
+      Telecel: {
+        cash_in: (ph, am) => `*110*2*${ph}*${am}%23`,
+        cash_out: (ph, am) => `*110*3*${ph}*${am}%23`,
+        pay_to: (ph, am) => `*110*2*${ph}*${am}%23`,
+        airtime: (ph, am) => `*110*1*${ph}*${am}%23`,
+      },
+      AirtelTigo: {
+        cash_in: (ph, am) => `*500*1*${ph}*${am}%23`,
+        cash_out: (ph, am) => `*500*2*${ph}*${am}%23`,
+        pay_to: (ph, am) => `*500*1*${ph}*${am}%23`,
+        airtime: (ph, am) => `*500*3*${ph}*${am}%23`,
+      },
+      'G-Money': {
+        cash_in: (ph, am) => `*327*2*${ph}*${am}%23`,
+        cash_out: (ph, am) => `*327*3*${ph}*${am}%23`,
+        pay_to: (ph, am) => `*327*2*${ph}*${am}%23`,
+        airtime: (ph, am) => `*327*1*${ph}*${am}%23`,
+      },
+      Zeepay: {
+        cash_in: (ph, am) => `*270*2*${ph}*${am}%23`,
+        cash_out: (ph, am) => `*270*3*${ph}*${am}%23`,
+        pay_to: (ph, am) => `*270*2*${ph}*${am}%23`,
+        airtime: (ph, am) => `*270*1*${ph}*${am}%23`,
+      },
+    };
 
-// Merchant pay USSD (by network)
-const USSD_MERCHANT = {
-  MTN:        (id,am) => `*170*2*5*${id}*${am}%23`,
-  Telecel:    (id,am) => `*110*5*${id}*${am}%23`,
-  AirtelTigo: (id,am) => `*500*5*${id}*${am}%23`,
-};
+    // Merchant pay USSD (by network)
+    const USSD_MERCHANT = {
+      MTN: (id, am) => `*170*2*5*${id}*${am}%23`,
+      Telecel: (id, am) => `*110*5*${id}*${am}%23`,
+      AirtelTigo: (id, am) => `*500*5*${id}*${am}%23`,
+    };
 
-const launchUSSD = (network, type, phone, amount, merchantId) => {
-  const net = network || 'MTN';
-  const am  = Math.round(parseFloat(amount)||0);
-  let code;
-  if(type==='pay_to' && merchantId) {
-    const fn = USSD_MERCHANT[net];
-    code = fn ? fn(merchantId, am) : null;
-  } else {
-    const netCodes = USSD[net];
-    const fn = netCodes?.[type];
-    code = fn ? fn(phone, am) : null;
-  }
-  if(!code){ alert('USSD not available for this network/type combination.'); return; }
-  window.location.href = `tel:${code}`;
-};
-const stamp = () => new Date().toLocaleTimeString('en-GH',{hour:'2-digit',minute:'2-digit'});
-const todayLabel = () => new Date().toLocaleDateString('en-GH',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+    const launchUSSD = (network, type, phone, amount, merchantId) => {
+      const net = network || 'MTN';
+      const am = Math.round(parseFloat(amount) || 0);
+      let code;
+      if (type === 'pay_to' && merchantId) {
+        const fn = USSD_MERCHANT[net];
+        code = fn ? fn(merchantId, am) : null;
+      } else {
+        const netCodes = USSD[net];
+        const fn = netCodes?.[type];
+        code = fn ? fn(phone, am) : null;
+      }
+      if (!code) { alert('USSD not available for this network/type combination.'); return; }
+      window.location.href = `tel:${code}`;
+    };
+    const stamp = () => new Date().toLocaleTimeString('en-GH', { hour: '2-digit', minute: '2-digit' });
+    const todayLabel = () => new Date().toLocaleDateString('en-GH', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
-const detectNet = p => {
-  const c = (p||'').replace(/\D/g,'');
-  if(c.length<3) return null;
-  const x = c.slice(0,3);
-  if(['024','054','055','059','025','023','053'].includes(x)) return 'MTN';
-  if(['020','050','028'].includes(x)) return 'Telecel';
-  if(['026','056','027','057'].includes(x)) return 'AirtelTigo';
-  return null;
-};
+    const detectNet = p => {
+      const c = (p || '').replace(/\D/g, '');
+      if (c.length < 3) return null;
+      const x = c.slice(0, 3);
+      if (['024', '054', '055', '059', '025', '023', '053'].includes(x)) return 'MTN';
+      if (['020', '050', '028'].includes(x)) return 'Telecel';
+      if (['026', '056', '027', '057'].includes(x)) return 'AirtelTigo';
+      return null;
+    };
 
-const NM = {
-  MTN:        {color:'#f59e0b',bg:'#fffbeb',text:'#78350f',light:'#fef3c7'},
-  Telecel:    {color:'#ef4444',bg:'#fef2f2',text:'#7f1d1d',light:'#fee2e2'},
-  AirtelTigo: {color:'#0ea5e9',bg:'#f0f9ff',text:'#0c4a6e',light:'#e0f2fe'},
-  'G-Money':  {color:'#10b981',bg:'#ecfdf5',text:'#064e3b',light:'#d1fae5'},
-  Zeepay:     {color:'#8b5cf6',bg:'#f5f3ff',text:'#4c1d95',light:'#ede9fe'},
-};
-const NETS = ['MTN','Telecel','AirtelTigo','G-Money','Zeepay'];
+    const NM = {
+      MTN: { color: '#f59e0b', bg: '#fffbeb', text: '#78350f', light: '#fef3c7' },
+      Telecel: { color: '#ef4444', bg: '#fef2f2', text: '#7f1d1d', light: '#fee2e2' },
+      AirtelTigo: { color: '#0ea5e9', bg: '#f0f9ff', text: '#0c4a6e', light: '#e0f2fe' },
+      'G-Money': { color: '#10b981', bg: '#ecfdf5', text: '#064e3b', light: '#d1fae5' },
+      Zeepay: { color: '#8b5cf6', bg: '#f5f3ff', text: '#4c1d95', light: '#ede9fe' },
+    };
+    const NETS = ['MTN', 'Telecel', 'AirtelTigo', 'G-Money', 'Zeepay'];
 
-const DENOMS = [
-  {label:'GH\u20b5 200',value:200, type:'note'},
-  {label:'GH\u20b5 100',value:100, type:'note'},
-  {label:'GH\u20b5 50', value:50,  type:'note'},
-  {label:'GH\u20b5 20', value:20,  type:'note'},
-  {label:'GH\u20b5 10', value:10,  type:'note'},
-  {label:'GH\u20b5 5',  value:5,   type:'note'},
-  {label:'GH\u20b5 2',  value:2,   type:'note'},
-  {label:'GH\u20b5 1',  value:1,   type:'note'},
-  {label:'GH\u20b5 2',  value:2,   type:'coin'},
-  {label:'GH\u20b5 1',  value:1,   type:'coin'},
-  {label:'50p',         value:0.5,  type:'coin'},
-  {label:'20p',         value:0.2,  type:'coin'},
-  {label:'10p',         value:0.1,  type:'coin'},
-];
+    const DENOMS = [
+      { label: 'GH\u20b5 200', value: 200, type: 'note' },
+      { label: 'GH\u20b5 100', value: 100, type: 'note' },
+      { label: 'GH\u20b5 50', value: 50, type: 'note' },
+      { label: 'GH\u20b5 20', value: 20, type: 'note' },
+      { label: 'GH\u20b5 10', value: 10, type: 'note' },
+      { label: 'GH\u20b5 5', value: 5, type: 'note' },
+      { label: 'GH\u20b5 2', value: 2, type: 'note' },
+      { label: 'GH\u20b5 1', value: 1, type: 'note' },
+      { label: 'GH\u20b5 2', value: 2, type: 'coin' },
+      { label: 'GH\u20b5 1', value: 1, type: 'coin' },
+      { label: '50p', value: 0.5, type: 'coin' },
+      { label: '20p', value: 0.2, type: 'coin' },
+      { label: '10p', value: 0.1, type: 'coin' },
+    ];
 
-const TIPS = [
-  {icon:'\ud83d\udea8',title:'Never share your PIN',     body:'No MoMo network, bank, or supervisor will ever ask for your PIN. Hang up immediately.'},
-  {icon:'\ud83d\udcf5',title:'Fake USSD screens',         body:'Fraudsters mimic USSD dialogs. Always verify via official SMS confirmations.'},
-  {icon:'\ud83d\udcb8',title:'Confirm before giving cash',body:'Wait for a legitimate SMS before handing cash. Screenshots can be faked.'},
-  {icon:'\ud83d\udd01',title:'Reversal scams',            body:"If someone asks to reverse a transaction 'because it went wrong', call the helpline first."},
-  {icon:'\ud83d\udc65',title:'Distraction attacks',       body:'Stay alert when multiple customers approach at once — it is a known tactic.'},
-  {icon:'\ud83d\udcf1',title:'SIM swap fraud',            body:'Report suspicious agent SIM activity immediately. Fraudsters clone SIMs to intercept OTPs.'},
-  {icon:'\ud83c\udfe6',title:'Fake network officers',     body:'Real officers carry IDs and never ask for cash, gifts, or access to your phone.'},
-  {icon:'\u26a0\ufe0f',title:'Over-payment trick',        body:"Customer 'accidentally' overpays then asks for a refund. Verify via SMS first."},
-];
+    const TIPS = [
+      { icon: '\ud83d\udea8', title: 'Never share your PIN', body: 'No MoMo network, bank, or supervisor will ever ask for your PIN. Hang up immediately.' },
+      { icon: '\ud83d\udcf5', title: 'Fake USSD screens', body: 'Fraudsters mimic USSD dialogs. Always verify via official SMS confirmations.' },
+      { icon: '\ud83d\udcb8', title: 'Confirm before giving cash', body: 'Wait for a legitimate SMS before handing cash. Screenshots can be faked.' },
+      { icon: '\ud83d\udd01', title: 'Reversal scams', body: "If someone asks to reverse a transaction 'because it went wrong', call the helpline first." },
+      { icon: '\ud83d\udc65', title: 'Distraction attacks', body: 'Stay alert when multiple customers approach at once — it is a known tactic.' },
+      { icon: '\ud83d\udcf1', title: 'SIM swap fraud', body: 'Report suspicious agent SIM activity immediately. Fraudsters clone SIMs to intercept OTPs.' },
+      { icon: '\ud83c\udfe6', title: 'Fake network officers', body: 'Real officers carry IDs and never ask for cash, gifts, or access to your phone.' },
+      { icon: '\u26a0\ufe0f', title: 'Over-payment trick', body: "Customer 'accidentally' overpays then asks for a refund. Verify via SMS first." },
+    ];
 
-const TY = {
-  cash_in:  {label:'Cash In', icon:'\u2b07',color:'#10b981',bg:'#ecfdf5'},
-  cash_out: {label:'Cash Out',icon:'\u2b06',color:'#ef4444',bg:'#fef2f2'},
-  pay_to:   {label:'Pay To',  icon:'\u2192',color:'#0ea5e9',bg:'#f0f9ff'},
-  airtime:  {label:'Airtime', icon:'\ud83d\udcf6',color:'#f59e0b',bg:'#fffbeb'},
-};
+    const TY = {
+      cash_in: { label: 'Cash In', icon: '\u2b07', color: '#10b981', bg: '#ecfdf5' },
+      cash_out: { label: 'Cash Out', icon: '\u2b06', color: '#ef4444', bg: '#fef2f2' },
+      pay_to: { label: 'Pay To', icon: '\u2192', color: '#0ea5e9', bg: '#f0f9ff' },
+      airtime: { label: 'Airtime', icon: '\ud83d\udcf6', color: '#f59e0b', bg: '#fffbeb' },
+    };
 
-const MARKET = [
-  {id:'m1',name:"Ama's Kiosk",    cat:'Float Dealer',      r:4.8,ok:true, loc:'Accra, Osu',    ph:'0241000001',desc:'Fast float top-up, competitive rates. Serving agents since 2019.'},
-  {id:'m2',name:'BrightAgent Co.',cat:'Float Dealer',      r:4.6,ok:true, loc:'Kumasi Central',ph:'0201000002',desc:'Bulk float supply for busy agents. Same-day delivery.'},
-  {id:'m3',name:'QuickPOS Ghana', cat:'POS Equipment',     r:4.9,ok:true, loc:'Nationwide',    ph:'0261000003',desc:'POS terminals, thermal receipt printers, float tracking software.'},
-  {id:'m4',name:'AgentSure Ins.', cat:'Business Insurance',r:4.5,ok:true, loc:'Accra, Labone', ph:'0271000004',desc:'Insurance cover for MoMo agents — theft, robbery & loss.'},
-  {id:'m5',name:'Float Finance',  cat:'Float Credit',      r:4.7,ok:true, loc:'Online',        ph:'0551000005',desc:'Credit lines for agents needing float urgently. 24hr approval.'},
-  {id:'m6',name:'Kofi Printing',  cat:'Branding & Print',  r:4.4,ok:false,loc:'Tema, Comm. 1', ph:'0241000006',desc:'Agent signage, custom receipts, branded uniforms.'},
-];
+    const MARKET = [
+      { id: 'm1', name: "Ama's Kiosk", cat: 'Float Dealer', r: 4.8, ok: true, loc: 'Accra, Osu', ph: '0241000001', desc: 'Fast float top-up, competitive rates. Serving agents since 2019.' },
+      { id: 'm2', name: 'BrightAgent Co.', cat: 'Float Dealer', r: 4.6, ok: true, loc: 'Kumasi Central', ph: '0201000002', desc: 'Bulk float supply for busy agents. Same-day delivery.' },
+      { id: 'm3', name: 'QuickPOS Ghana', cat: 'POS Equipment', r: 4.9, ok: true, loc: 'Nationwide', ph: '0261000003', desc: 'POS terminals, thermal receipt printers, float tracking software.' },
+      { id: 'm4', name: 'AgentSure Ins.', cat: 'Business Insurance', r: 4.5, ok: true, loc: 'Accra, Labone', ph: '0271000004', desc: 'Insurance cover for MoMo agents — theft, robbery & loss.' },
+      { id: 'm5', name: 'Float Finance', cat: 'Float Credit', r: 4.7, ok: true, loc: 'Online', ph: '0551000005', desc: 'Credit lines for agents needing float urgently. 24hr approval.' },
+      { id: 'm6', name: 'Kofi Printing', cat: 'Branding & Print', r: 4.4, ok: false, loc: 'Tema, Comm. 1', ph: '0241000006', desc: 'Agent signage, custom receipts, branded uniforms.' },
+    ];
 
-const WEEK_DKEYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    const WEEK_DKEYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-// ── Charts ────────────────────────────────────────────────────────────────────
-function BarChart({data}) {
-  const W=320, H=130;
-  const maxV = Math.max(...data.map(d=>Math.max(d.ci||0,d.co||0)),1);
-  const bw=8, sp=2, gw=(W-24)/data.length;
-  return html`<svg width="100%" viewBox="0 0 ${W} ${H}" style="overflow:visible;display:block">
-    ${data.map((d,i)=>{
-      const x=12+i*gw, ciH=(d.ci/maxV)*(H-28), coH=(d.co/maxV)*(H-28);
-      return html`<g key=${i}>
-        <rect x=${x} y=${H-22-ciH} width=${bw} height=${Math.max(ciH,0)} rx="2" fill="#10b981" opacity=".85"/>
-        <rect x=${x+bw+sp} y=${H-22-coH} width=${bw} height=${Math.max(coH,0)} rx="2" fill="#ef4444" opacity=".85"/>
-        <text x=${x+bw} y=${H-4} text-anchor="middle" font-size="7.5" fill="#9ca3af" font-family="Outfit">${d.day}</text>
+    // ── Charts ────────────────────────────────────────────────────────────────────
+    function BarChart({ data }) {
+      const W = 320, H = 130;
+      const maxV = Math.max(...data.map(d => Math.max(d.ci || 0, d.co || 0)), 1);
+      const bw = 8, sp = 2, gw = (W - 24) / data.length;
+      return html`<svg width="100%" viewBox="0 0 ${W} ${H}" style="overflow:visible;display:block">
+    ${data.map((d, i) => {
+        const x = 12 + i * gw, ciH = (d.ci / maxV) * (H - 28), coH = (d.co / maxV) * (H - 28);
+        return html`<g key=${i}>
+        <rect x=${x} y=${H - 22 - ciH} width=${bw} height=${Math.max(ciH, 0)} rx="2" fill="#10b981" opacity=".85"/>
+        <rect x=${x + bw + sp} y=${H - 22 - coH} width=${bw} height=${Math.max(coH, 0)} rx="2" fill="#ef4444" opacity=".85"/>
+        <text x=${x + bw} y=${H - 4} text-anchor="middle" font-size="7.5" fill="#9ca3af" font-family="Outfit">${d.day}</text>
       </g>`;
-    })}
+      })}
     <rect x="0" y="0" width="8" height="8" rx="2" fill="#10b981" opacity=".85"/>
     <text x="12" y="8" font-size="8" fill="#9ca3af" font-family="Outfit">Cash In</text>
     <rect x="60" y="0" width="8" height="8" rx="2" fill="#ef4444" opacity=".85"/>
     <text x="72" y="8" font-size="8" fill="#9ca3af" font-family="Outfit">Cash Out</text>
   </svg>`;
-}
+    }
 
-function PieChart({data}) {
-  const cx=55,cy=55,r=42,ir=24;
-  const total=data.reduce((s,d)=>s+(d.value||0),0)||1;
-  let ang=-Math.PI/2;
-  const slices=data.map(d=>{
-    const sw=(d.value/total)*2*Math.PI;
-    const x1=cx+r*Math.cos(ang),y1=cy+r*Math.sin(ang);
-    const x2=cx+r*Math.cos(ang+sw),y2=cy+r*Math.sin(ang+sw);
-    const xi1=cx+ir*Math.cos(ang),yi1=cy+ir*Math.sin(ang);
-    const xi2=cx+ir*Math.cos(ang+sw),yi2=cy+ir*Math.sin(ang+sw);
-    const lg=sw>Math.PI?1:0;
-    const path=`M${xi1} ${yi1} L${x1} ${y1} A${r} ${r} 0 ${lg} 1 ${x2} ${y2} L${xi2} ${yi2} A${ir} ${ir} 0 ${lg} 0 ${xi1} ${yi1} Z`;
-    ang+=sw;
-    return {path,color:d.color};
-  });
-  return html`<svg width="110" height="110" viewBox="0 0 110 110">
-    ${slices.map((sl,i)=>html`<path key=${i} d=${sl.path} fill=${sl.color}/>`)}
+    function PieChart({ data }) {
+      const cx = 55, cy = 55, r = 42, ir = 24;
+      const total = data.reduce((s, d) => s + (d.value || 0), 0) || 1;
+      let ang = -Math.PI / 2;
+      const slices = data.map(d => {
+        const sw = (d.value / total) * 2 * Math.PI;
+        const x1 = cx + r * Math.cos(ang), y1 = cy + r * Math.sin(ang);
+        const x2 = cx + r * Math.cos(ang + sw), y2 = cy + r * Math.sin(ang + sw);
+        const xi1 = cx + ir * Math.cos(ang), yi1 = cy + ir * Math.sin(ang);
+        const xi2 = cx + ir * Math.cos(ang + sw), yi2 = cy + ir * Math.sin(ang + sw);
+        const lg = sw > Math.PI ? 1 : 0;
+        const path = `M${xi1} ${yi1} L${x1} ${y1} A${r} ${r} 0 ${lg} 1 ${x2} ${y2} L${xi2} ${yi2} A${ir} ${ir} 0 ${lg} 0 ${xi1} ${yi1} Z`;
+        ang += sw;
+        return { path, color: d.color };
+      });
+      return html`<svg width="110" height="110" viewBox="0 0 110 110">
+    ${slices.map((sl, i) => html`<path key=${i} d=${sl.path} fill=${sl.color}/>`)}
   </svg>`;
-}
+    }
 
-// ── Input ─────────────────────────────────────────────────────────────────────
-function Inp({style:st={}, ...p}) {
-  return html`<input
-    style=${{width:'100%',border:'1.5px solid #e5e7eb',borderRadius:12,padding:'13px 14px',fontSize:15,color:'#111',outline:'none',fontFamily:"'Outfit',sans-serif",background:'#fff',...st}}
-    onFocus=${e=>e.target.style.border='1.5px solid #111'}
-    onBlur=${e=>e.target.style.border='1.5px solid #e5e7eb'}
+    // ── Input ─────────────────────────────────────────────────────────────────────
+    function Inp({ style: st = {}, ...p }) {
+      return html`<input
+    style=${{ width: '100%', border: '1.5px solid #e5e7eb', borderRadius: 12, padding: '13px 14px', fontSize: 15, color: '#111', outline: 'none', fontFamily: "'Outfit',sans-serif", background: '#fff', ...st }}
+    onFocus=${e => e.target.style.border = '1.5px solid #111'}
+    onBlur=${e => e.target.style.border = '1.5px solid #e5e7eb'}
     ...${p}
   />`;
-}
+    }
 
-// ── PDF Generator ─────────────────────────────────────────────────────────────
-function generateClosingPDF(d) {
-  const {agentName,agentBranch,cashT,floatT,debT,credT,grand,wcVal,comm,shortage,dens,floats,debs,creds,txns,dNotes} = d;
-  const dateStr = todayLabel();
-  const rows = txns.filter(t=>t.date==='Today');
-  const surplusLabel = shortage>=0?'SURPLUS':'SHORTAGE';
-  const surplusColor = shortage>=0?'#10b981':'#ef4444';
-  const win = window.open('','_blank','width=820,height=950');
-  if(!win){alert('Please allow popups for PDF export.');return;}
-  win.document.write(`<!DOCTYPE html><html><head>
+    // ── PDF Generator ─────────────────────────────────────────────────────────────
+    function generateClosingPDF(d) {
+      const { agentName, agentBranch, cashT, floatT, debT, credT, grand, wcVal, comm, shortage, dens, floats, debs, creds, txns, dNotes } = d;
+      const dateStr = todayLabel();
+      const rows = txns.filter(t => t.date === 'Today');
+      const surplusLabel = shortage >= 0 ? 'SURPLUS' : 'SHORTAGE';
+      const surplusColor = shortage >= 0 ? '#10b981' : '#ef4444';
+      const win = window.open('', '_blank', 'width=820,height=950');
+      if (!win) { alert('Please allow popups for PDF export.'); return; }
+      win.document.write(`<!DOCTYPE html><html><head>
     <title>Closing Report</title>
     <style>
       *{box-sizing:border-box;margin:0;padding:0;}
@@ -256,33 +381,33 @@ function generateClosingPDF(d) {
     </style>
   </head><body>
     <h1>MoMo Agent — Day Closing Report</h1>
-    <div class="sub">${agentName||'Agent'} · ${agentBranch||''} · ${dateStr}</div>
+    <div class="sub">${agentName || 'Agent'} · ${agentBranch || ''} · ${dateStr}</div>
 
     <h2>Cash Count</h2>
     <table>
       <thead><tr><th>Denomination</th><th style="text-align:center">Qty</th><th style="text-align:right">Total</th></tr></thead>
-      <tbody>${dens.filter(x=>x.qty>0).map(x=>`<tr><td>${x.label}</td><td style="text-align:center">${x.qty}</td><td style="text-align:right">${GHS(x.qty*x.value)}</td></tr>`).join('')||'<tr><td colspan="3" style="color:#9ca3af">None entered</td></tr>'}</tbody>
+      <tbody>${dens.filter(x => x.qty > 0).map(x => `<tr><td>${x.label}</td><td style="text-align:center">${x.qty}</td><td style="text-align:right">${GHS(x.qty * x.value)}</td></tr>`).join('') || '<tr><td colspan="3" style="color:#9ca3af">None entered</td></tr>'}</tbody>
       <tfoot><tr class="tr"><td colspan="2">Cash on Hand</td><td style="text-align:right">${GHS(cashT)}</td></tr></tfoot>
     </table>
 
     <h2>Float Balances</h2>
     <table>
       <thead><tr><th>Network</th><th style="text-align:right">Amount</th></tr></thead>
-      <tbody>${floats.map(f=>`<tr><td>${f.network}</td><td style="text-align:right">${GHS(f.amount)}</td></tr>`).join('')}</tbody>
+      <tbody>${floats.map(f => `<tr><td>${f.network}</td><td style="text-align:right">${GHS(f.amount)}</td></tr>`).join('')}</tbody>
       <tfoot><tr class="tr"><td>Total Float</td><td style="text-align:right">${GHS(floatT)}</td></tr></tfoot>
     </table>
 
-    ${debs.length>0?`<h2>Debtors</h2><table>
+    ${debs.length > 0 ? `<h2>Debtors</h2><table>
       <thead><tr><th>Name</th><th>Note</th><th style="text-align:right">Amount</th></tr></thead>
-      <tbody>${debs.map(x=>`<tr><td>${x.name}</td><td style="color:#9ca3af">${x.note||'—'}</td><td style="text-align:right">${GHS(x.amount)}</td></tr>`).join('')}</tbody>
+      <tbody>${debs.map(x => `<tr><td>${x.name}</td><td style="color:#9ca3af">${x.note || '—'}</td><td style="text-align:right">${GHS(x.amount)}</td></tr>`).join('')}</tbody>
       <tfoot><tr class="tr"><td colspan="2">Total</td><td style="text-align:right">${GHS(debT)}</td></tr></tfoot>
-    </table>`:''}
+    </table>`: ''}
 
-    ${creds.length>0?`<h2>Creditors</h2><table>
+    ${creds.length > 0 ? `<h2>Creditors</h2><table>
       <thead><tr><th>Name</th><th>Note</th><th style="text-align:right">Amount</th></tr></thead>
-      <tbody>${creds.map(x=>`<tr><td>${x.name}</td><td style="color:#9ca3af">${x.note||'—'}</td><td style="text-align:right">${GHS(x.amount)}</td></tr>`).join('')}</tbody>
+      <tbody>${creds.map(x => `<tr><td>${x.name}</td><td style="color:#9ca3af">${x.note || '—'}</td><td style="text-align:right">${GHS(x.amount)}</td></tr>`).join('')}</tbody>
       <tfoot><tr class="tr"><td colspan="2">Total</td><td style="text-align:right">${GHS(credT)}</td></tr></tfoot>
-    </table>`:''}
+    </table>`: ''}
 
     <h2>Closing Summary</h2>
     <div class="box">
@@ -291,343 +416,407 @@ function generateClosingPDF(d) {
       <div class="row"><span>+ Debtors</span><span>${GHS(debT)}</span></div>
       <div class="row"><span>− Creditors</span><span>(${GHS(credT)})</span></div>
       <div class="row" style="border-top:1.5px solid #2d3d52;margin-top:4px;padding-top:10px"><span class="big" style="color:#fff">NET TOTAL</span><span class="big" style="color:#4ade80">${GHS(grand)}</span></div>
-      <div class="row"><span style="color:#9ca3af">CAPITAL</span><span style="color:#fff;font-weight:800">${wcVal>0?GHS(wcVal):'—'}</span></div>
-      ${wcVal>0?`<div class="row" style="border-top:1.5px solid #2d3d52;margin-top:4px;padding-top:10px"><span class="big" style="color:${surplusColor}">${surplusLabel}</span><span class="big" style="color:${surplusColor}">${shortage>=0?'+':''}${GHS(shortage)}</span></div>`:''}
+      <div class="row"><span style="color:#9ca3af">CAPITAL</span><span style="color:#fff;font-weight:800">${wcVal > 0 ? GHS(wcVal) : '—'}</span></div>
+      ${wcVal > 0 ? `<div class="row" style="border-top:1.5px solid #2d3d52;margin-top:4px;padding-top:10px"><span class="big" style="color:${surplusColor}">${surplusLabel}</span><span class="big" style="color:${surplusColor}">${shortage >= 0 ? '+' : ''}${GHS(shortage)}</span></div>` : ''}
       <div class="row"><span style="color:#9ca3af">Commission Earned</span><span style="color:#f59e0b;font-weight:800">${GHS(comm)}</span></div>
     </div>
 
     <h2>Today's Transactions (${rows.length})</h2>
     <table>
       <thead><tr><th>Time</th><th>Type</th><th>Phone / ID</th><th>Network</th><th style="text-align:right">Amount</th><th style="text-align:right">Comm.</th></tr></thead>
-      <tbody>${rows.length>0?rows.map(t=>`<tr><td>${t.time}</td><td>${TY[t.type]?.label||t.type}</td><td>${t.phone||t.merchantId||'—'}</td><td>${t.network||'—'}</td><td style="text-align:right">${GHS(t.amount)}</td><td style="text-align:right;color:#10b981">${GHS(t.commission)}</td></tr>`).join(''):'<tr><td colspan="6" style="color:#9ca3af">No transactions today</td></tr>'}</tbody>
+      <tbody>${rows.length > 0 ? rows.map(t => `<tr><td>${t.time}</td><td>${TY[t.type]?.label || t.type}</td><td>${t.phone || t.merchantId || '—'}</td><td>${t.network || '—'}</td><td style="text-align:right">${GHS(t.amount)}</td><td style="text-align:right;color:#10b981">${GHS(t.commission)}</td></tr>`).join('') : '<tr><td colspan="6" style="color:#9ca3af">No transactions today</td></tr>'}</tbody>
     </table>
 
-    ${dNotes?`<h2>Notes</h2><p style="color:#374151;line-height:1.7;font-size:13px">${dNotes}</p>`:''}
+    ${dNotes ? `<h2>Notes</h2><p style="color:#374151;line-height:1.7;font-size:13px">${dNotes}</p>` : ''}
     <div class="footer">Generated by MoMo Agent App &middot; ${dateStr}</div>
   </body></html>`);
-  win.document.close();
-  setTimeout(()=>win.print(),700);
-}
+      win.document.close();
+      setTimeout(() => win.print(), 700);
+    }
 
-// ── TxForm — defined at MODULE level so it never remounts on App re-render ────
-function TxForm({txType,flow,onClose,onRecord,onDial,phoneHist}) {
-  const {useState:uS} = preactHooks;
-  const [phone,  setPhone]  = uS('');
-  const [amount, setAmount] = uS('');
-  const [net,    setNet]    = uS(null);
-  const [ported, setPorted] = uS(false);
-  const [portedNet, setPortedNet] = uS(null);
-  const [sugg,   setSugg]   = uS([]);
-  const [showSugg, setShowSugg] = uS(false);
-  const [mid,    setMid]    = uS('');
 
-  const onPhone = val => {
-    setPhone(val); setNet(detectNet(val)); setPorted(false); setPortedNet(null);
-    if(val.length>=3){const m=(phoneHist||[]).filter(p=>p.startsWith(val)&&p!==val);setSugg(m.slice(0,5));setShowSugg(m.length>0);}
-    else{setSugg([]);setShowSugg(false);}
-  };
+    // ── TxForm — module-level, uncontrolled inputs to prevent focus loss ──────────
+    // Key insight: controlled inputs (value=x) cause Preact to reset cursor on every
+    // state change. Uncontrolled refs let the browser own the input value natively.
+    function TxForm({ txType, flow, onClose, onRecord, onDial, phoneHist }) {
+      const { useState: uS, useRef: uR, useEffect: uE } = preactHooks;
 
-  const effNet   = ported ? portedNet : net;
-  const amtVal   = parseFloat(amount)||0;
-  const amtReady = amtVal > 0;
-  const phoneReady = phone.length===10 && (ported ? !!portedNet : !!net);
-  const canGo    = flow==='m' ? (!!mid && amtReady) : (phoneReady && amtReady);
+      // Only state that drives UI branching — NOT the raw input text
+      const [net, setNet] = uS(null);
+      const [ported, setPorted] = uS(false);
+      const [portedNet, setPortedNet] = uS(null);
+      const [sugg, setSugg] = uS([]);
+      const [showSugg, setShowSugg] = uS(false);
+      const [phoneLen, setPhoneLen] = uS(0);
+      const [hasAmt, setHasAmt] = uS(false);
+      const [comm, setComm] = uS(0);
+      const [recorded, setRecorded] = uS(false);
 
-  const commit = () => {
-    if(!canGo) return;
-    onRecord({phone: flow==='m'?undefined:phone, amount:amtVal, network:effNet, ported,
-              ...(flow==='m'?{subType:'merchant',merchantId:mid}:txType==='pay_to'?{subType:'agent'}:{})});
-  };
+      // Uncontrolled refs — we READ .value, never write it back
+      const phoneRef = uR(null);
+      const amountRef = uR(null);
+      const midRef = uR(null);
 
-  const s = o=>o;
-  return html\`<div class="pop" style=\${s({background:'#fff',borderRadius:20,padding:20,boxShadow:'0 4px 20px rgba(0,0,0,.13)',marginBottom:14,border:'1.5px solid #f0f0f0'})}>
-    <div style=\${s({display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:16})}>
-      <div style=\${s({fontSize:15,fontWeight:800,color:'#111'})}>New Transaction</div>
-      <button onClick=\${onClose} style=\${s({background:'#f3f4f6',border:'none',borderRadius:8,padding:'5px 12px',cursor:'pointer',fontSize:13,fontWeight:700,color:'#374151'})}>✕</button>
+      const effNet = ported ? portedNet : net;
+
+      const onPhoneInput = () => {
+        const val = phoneRef.current ? phoneRef.current.value : '';
+        const detected = detectNet(val);
+        setNet(detected);
+        setPhoneLen(val.length);
+        if (!detected) { setPorted(false); setPortedNet(null); }
+        if (val.length >= 3) {
+          const m = (phoneHist || []).filter(p => p.startsWith(val) && p !== val);
+          setSugg(m.slice(0, 5)); setShowSugg(m.length > 0);
+        } else { setSugg([]); setShowSugg(false); }
+        setRecorded(false);
+      };
+
+      const onAmountInput = () => {
+        const v = parseFloat(amountRef.current ? amountRef.current.value : 0) || 0;
+        setHasAmt(v > 0);
+        setComm(calcComm(v));
+        setRecorded(false);
+      };
+
+      const phoneReady = phoneLen === 10 && (ported ? !!portedNet : !!net);
+      const midReady = !!(midRef.current && midRef.current.value);
+      const canGo = flow === 'm' ? (midReady && hasAmt) : (phoneReady && hasAmt);
+
+      // Auto-record the moment canGo becomes true
+      uE(() => {
+        if (!canGo || recorded) return;
+        const ph = phoneRef.current ? phoneRef.current.value : '';
+        const amt = parseFloat(amountRef.current ? amountRef.current.value : 0) || 0;
+        const mid = midRef.current ? midRef.current.value : '';
+        if (!amt) return;
+        setRecorded(true);
+        onRecord({
+          phone: flow === 'm' ? undefined : ph,
+          amount: amt,
+          network: effNet,
+          ported,
+          ...(flow === 'm' ? { subType: 'merchant', merchantId: mid }
+            : txType === 'pay_to' ? { subType: 'agent' } : {})
+        });
+      }, [canGo, portedNet, ported]);
+
+      const doUSSD = () => {
+        const ph = phoneRef.current ? phoneRef.current.value : '';
+        const amt = amountRef.current ? amountRef.current.value : '';
+        const mid = midRef.current ? midRef.current.value : '';
+        onDial(effNet, txType, ph, amt, flow === 'm' ? mid : null);
+      };
+
+      const pickSugg = (p) => {
+        if (phoneRef.current) phoneRef.current.value = p;
+        setShowSugg(false);
+        onPhoneInput();
+      };
+
+      const s = o => o;
+      const iStyle = extra => 'width:100%;box-sizing:border-box;border:1.5px solid #e5e7eb;border-radius:12px;padding:13px 14px;color:#111;outline:none;font-family:Outfit,sans-serif;background:#fff;' + (extra || '');
+
+      return html`<div class="pop" style=${s({ background: '#fff', borderRadius: 20, padding: 20, boxShadow: '0 4px 20px rgba(0,0,0,.13)', marginBottom: 14, border: '1.5px solid #f0f0f0' })}>
+    <div style=${s({ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 })}>
+      <div style=${s({ fontSize: 15, fontWeight: 800, color: '#111' })}>New Transaction</div>
+      <button onClick=${onClose} style=${s({ background: '#f3f4f6', border: 'none', borderRadius: 8, padding: '5px 12px', cursor: 'pointer', fontSize: 13, fontWeight: 700, color: '#374151' })}>&#10005;</button>
     </div>
-    <div style=\${s({display:'flex',alignItems:'center',gap:8,marginBottom:16,padding:'9px 14px',background:TY[txType]?.bg||'#f3f4f6',borderRadius:12,border:'1.5px solid '+(TY[txType]?.color||'#e5e7eb')+'33'})}>
-      <span style=\${s({fontSize:20})}>\${TY[txType]?.icon||''}</span>
-      <span style=\${s({fontSize:13,fontWeight:800,color:TY[txType]?.color||'#111'})}>\${flow==='m'?'Merchant Pay':TY[txType]?.label||''}</span>
+    <div style=${s({ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16, padding: '9px 14px', background: TY[txType]?.bg || '#f3f4f6', borderRadius: 12, border: '1.5px solid ' + (TY[txType]?.color || '#e5e7eb') + '33' })}>
+      <span style=${s({ fontSize: 20 })}>${TY[txType]?.icon || ''}</span>
+      <span style=${s({ fontSize: 13, fontWeight: 800, color: TY[txType]?.color || '#111' })}>${flow === 'm' ? 'Merchant Pay' : TY[txType]?.label || ''}</span>
     </div>
 
-    \${flow!=='m' ? html\`<div style=\${s({marginBottom:14,position:'relative'})}>
-      <div style=\${s({fontSize:10,fontWeight:800,color:'#9ca3af',letterSpacing:1,marginBottom:6})}>CUSTOMER PHONE</div>
-      <div style=\${s({position:'relative'})}>
-        <input type="tel" inputMode="numeric" placeholder="0241234567" value=\${phone} maxLength="10"
-          onInput=\${e=>onPhone(e.target.value)}
-          style=\${'width:100%;box-sizing:border-box;border:1.5px solid #e5e7eb;border-radius:12px;padding:13px '+(effNet?'110px':'14px')+' 13px 14px;font-size:20px;font-weight:800;letter-spacing:2px;color:#111;outline:none;font-family:Outfit,sans-serif;background:#fff;'}
+    ${flow !== 'm' ? html`<div style=${s({ marginBottom: 14, position: 'relative' })}>
+      <div style=${s({ fontSize: 10, fontWeight: 800, color: '#9ca3af', letterSpacing: 1, marginBottom: 6 })}>CUSTOMER PHONE</div>
+      <div style=${s({ position: 'relative' })}>
+        <input ref=${phoneRef} type="tel" inputMode="numeric" placeholder="0241234567" maxLength="10"
+          onInput=${onPhoneInput}
+          style=${iStyle('font-size:20px;font-weight:800;letter-spacing:2px;padding-right:' + (effNet ? '110px' : '14px') + ';')}
         />
-        \${effNet&&html\`<div style=\${s({position:'absolute',right:10,top:'50%',transform:'translateY(-50%)',background:NM[effNet]?.bg,color:NM[effNet]?.text,borderRadius:8,padding:'4px 10px',fontSize:11,fontWeight:800,pointerEvents:'none'})}>
-          \${effNet}\${ported?' *':''}
-        </div>\`}
+        ${effNet && html`<div style=${s({ position: 'absolute', right: 10, top: '50%', transform: 'translateY(-50%)', background: NM[effNet]?.bg, color: NM[effNet]?.text, borderRadius: 8, padding: '4px 10px', fontSize: 11, fontWeight: 800, pointerEvents: 'none' })}>
+          ${effNet}${ported ? ' *' : ''}
+        </div>`}
       </div>
-      \${showSugg&&sugg.length>0&&html\`
-        <div style=\${s({position:'absolute',top:'100%',left:0,right:0,background:'#fff',border:'1.5px solid #e5e7eb',borderRadius:12,zIndex:200,boxShadow:'0 8px 24px rgba(0,0,0,.12)',marginTop:4,overflow:'hidden'})}>
-          <div style=\${s({padding:'7px 12px',fontSize:9,fontWeight:800,color:'#9ca3af',letterSpacing:.6})}>RECENT</div>
-          \${sugg.map(p=>html\`
-            <div key=\${p} onClick=\${()=>{onPhone(p);setShowSugg(false);}} class="rhov"
-              style=\${s({padding:'11px 14px',fontSize:15,fontWeight:600,color:'#111',cursor:'pointer',borderTop:'1px solid #f3f4f6',display:'flex',justifyContent:'space-between'})}>
-              \${p}<span style=\${s({fontSize:11,fontWeight:700,color:NM[detectNet(p)]?.color||'#ccc'})}>\${detectNet(p)||''}</span>
+      ${showSugg && sugg.length > 0 && html`
+        <div style=${s({ position: 'absolute', top: '100%', left: 0, right: 0, background: '#fff', border: '1.5px solid #e5e7eb', borderRadius: 12, zIndex: 200, boxShadow: '0 8px 24px rgba(0,0,0,.12)', marginTop: 4, overflow: 'hidden' })}>
+          <div style=${s({ padding: '7px 12px', fontSize: 9, fontWeight: 800, color: '#9ca3af', letterSpacing: .6 })}>RECENT</div>
+          ${sugg.map(p => html`
+            <div key=${p} onClick=${() => pickSugg(p)} class="rhov"
+              style=${s({ padding: '11px 14px', fontSize: 15, fontWeight: 600, color: '#111', cursor: 'pointer', borderTop: '1px solid #f3f4f6', display: 'flex', justifyContent: 'space-between' })}>
+              ${p}<span style=${s({ fontSize: 11, fontWeight: 700, color: NM[detectNet(p)]?.color || '#ccc' })}>${detectNet(p) || ''}</span>
             </div>
-          \`)}
+          `)}
         </div>
-      \`}
-      \${phone.length>=3&&html\`
-        <label style=\${s({display:'flex',alignItems:'center',gap:10,marginTop:10,padding:'10px 14px',background:ported?'#fffbeb':'#f8f9fa',borderRadius:12,border:ported?'1.5px solid #fde68a':'1.5px solid #f0f0f0',cursor:'pointer',userSelect:'none'})}>
-          <div style=\${s({width:20,height:20,borderRadius:5,border:ported?'2px solid #f59e0b':'2px solid #d1d5db',background:ported?'#f59e0b':'#fff',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0})}
-            onClick=\${()=>{const n=!ported;setPorted(n);if(!n)setPortedNet(null);}}>
-            \${ported&&html\`<span style=\${s({color:'#fff',fontSize:13,fontWeight:900,lineHeight:1})}>&#10003;</span>\`}
+      `}
+      ${phoneLen >= 3 && html`
+        <label style=${s({ display: 'flex', alignItems: 'center', gap: 10, marginTop: 10, padding: '10px 14px', background: ported ? '#fffbeb' : '#f8f9fa', borderRadius: 12, border: ported ? '1.5px solid #fde68a' : '1.5px solid #f0f0f0', cursor: 'pointer', userSelect: 'none' })}>
+          <div style=${s({ width: 20, height: 20, borderRadius: 5, border: ported ? '2px solid #f59e0b' : '2px solid #d1d5db', background: ported ? '#f59e0b' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 })}
+            onClick=${() => { const n = !ported; setPorted(n); if (!n) setPortedNet(null); setRecorded(false); }}>
+            ${ported && html`<span style=${s({ color: '#fff', fontSize: 13, fontWeight: 900, lineHeight: 1 })}>&#10003;</span>`}
           </div>
-          <div onClick=\${()=>{const n=!ported;setPorted(n);if(!n)setPortedNet(null);}}>
-            <div style=\${s({fontSize:13,fontWeight:700,color:'#111'})}>Number is ported</div>
-            <div style=\${s({fontSize:10,color:'#9ca3af',marginTop:1})}>\${net?'Detected as '+net+' — select actual network below':'Select the network this number actually uses'}</div>
+          <div onClick=${() => { const n = !ported; setPorted(n); if (!n) setPortedNet(null); setRecorded(false); }}>
+            <div style=${s({ fontSize: 13, fontWeight: 700, color: '#111' })}>Number is ported</div>
+            <div style=${s({ fontSize: 10, color: '#9ca3af', marginTop: 1 })}>${net ? 'Detected as ' + net + ' \u2014 select actual network below' : 'Select the network this number actually uses'}</div>
           </div>
         </label>
-      \`}
-      \${ported&&html\`
-        <div style=\${s({marginTop:8,padding:'12px 14px',background:'#fff',borderRadius:12,border:'1.5px solid #fde68a'})}>
-          <div style=\${s({fontSize:10,fontWeight:800,color:'#78350f',letterSpacing:.8,marginBottom:8})}>PROCESS AS — SELECT ACTUAL NETWORK</div>
-          <div style=\${s({display:'flex',flexWrap:'wrap',gap:6})}>
-            \${NETS.map(n=>html\`
-              <button key=\${n} class="pill" onClick=\${()=>setPortedNet(n)}
-                style=\${s({background:portedNet===n?NM[n]?.color:NM[n]?.light||'#f3f4f6',color:portedNet===n?'#fff':NM[n]?.text||'#374151',padding:'8px 14px',fontSize:12,opacity:n===net?0.55:1})}>
-                \${n}\${n===net?' (detected)':''}
+      `}
+      ${ported && html`
+        <div style=${s({ marginTop: 8, padding: '12px 14px', background: '#fff', borderRadius: 12, border: '1.5px solid #fde68a' })}>
+          <div style=${s({ fontSize: 10, fontWeight: 800, color: '#78350f', letterSpacing: .8, marginBottom: 8 })}>PROCESS AS \u2014 SELECT ACTUAL NETWORK</div>
+          <div style=${s({ display: 'flex', flexWrap: 'wrap', gap: 6 })}>
+            ${NETS.map(n => html`
+              <button key=${n} class="pill" onClick=${() => { setPortedNet(n); setRecorded(false); }}
+                style=${s({ background: portedNet === n ? NM[n]?.color : NM[n]?.light || '#f3f4f6', color: portedNet === n ? '#fff' : NM[n]?.text || '#374151', padding: '8px 14px', fontSize: 12, opacity: n === net ? 0.55 : 1 })}>
+                ${n}${n === net ? ' (detected)' : ''}
               </button>
-            \`)}
+            `)}
           </div>
-          \${portedNet&&html\`<div style=\${s({marginTop:10,padding:'8px 12px',background:NM[portedNet]?.bg,borderRadius:8,fontSize:12,fontWeight:700,color:NM[portedNet]?.text})}>&#10003; Will process as \${portedNet}</div>\`}
+          ${portedNet && html`<div style=${s({ marginTop: 10, padding: '8px 12px', background: NM[portedNet]?.bg, borderRadius: 8, fontSize: 12, fontWeight: 700, color: NM[portedNet]?.text })}>&#10003; Will process as ${portedNet}</div>`}
         </div>
-      \`}
-    </div>\`
-    : html\`<div style=\${s({marginBottom:14})}>
-        <div style=\${s({fontSize:10,fontWeight:800,color:'#9ca3af',letterSpacing:1,marginBottom:6})}>MERCHANT ID</div>
-        <input placeholder="e.g. M-00123" value=\${mid} onInput=\${e=>setMid(e.target.value)}
-          style="width:100%;box-sizing:border-box;border:1.5px solid #e5e7eb;border-radius:12px;padding:13px 14px;font-size:20px;font-weight:700;color:#111;outline:none;font-family:Outfit,sans-serif;background:#fff;"
-        />
-      </div>\`}
+      `}
+    </div>`
+          : html`<div style=${s({ marginBottom: 14 })}>
+        <div style=${s({ fontSize: 10, fontWeight: 800, color: '#9ca3af', letterSpacing: 1, marginBottom: 6 })}>MERCHANT ID</div>
+        <input ref=${midRef} placeholder="e.g. M-00123" onInput=${() => setRecorded(false)}
+          style=${iStyle('font-size:20px;font-weight:700;')} />
+      </div>`}
 
-    <div style=\${s({marginBottom:14})}>
-      <div style=\${s({fontSize:10,fontWeight:800,color:'#9ca3af',letterSpacing:1,marginBottom:6})}>AMOUNT (GHS)</div>
-      <input type="number" inputMode="decimal" placeholder="0.00" value=\${amount}
-        onInput=\${e=>setAmount(e.target.value)}
-        style="width:100%;box-sizing:border-box;border:1.5px solid #e5e7eb;border-radius:12px;padding:13px 14px;font-size:28px;font-weight:900;color:#111;outline:none;font-family:Outfit,sans-serif;background:#fff;"
+    <div style=${s({ marginBottom: 14 })}>
+      <div style=${s({ fontSize: 10, fontWeight: 800, color: '#9ca3af', letterSpacing: 1, marginBottom: 6 })}>AMOUNT (GHS)</div>
+      <input ref=${amountRef} type="number" inputMode="decimal" placeholder="0.00"
+        onInput=${onAmountInput}
+        style=${iStyle('font-size:28px;font-weight:900;')}
       />
     </div>
 
-    \${amtReady&&html\`
-      <div style=\${s({background:'#f8f9fa',borderRadius:10,padding:'9px 14px',marginBottom:14,display:'flex',justifyContent:'space-between'})}>
-        <span style=\${s({fontSize:12,color:'#6b7280',fontWeight:600})}>Commission (0.4%, max GH\u20b5 20)</span>
-        <span style=\${s({fontSize:13,fontWeight:800,color:'#10b981'})}>+\${GHS(calcComm(amtVal))}</span>
+    ${hasAmt && html`
+      <div style=${s({ background: '#f8f9fa', borderRadius: 10, padding: '9px 14px', marginBottom: 14, display: 'flex', justifyContent: 'space-between' })}>
+        <span style=${s({ fontSize: 12, color: '#6b7280', fontWeight: 600 })}>Commission (0.4%, max GH\u20b5 20)</span>
+        <span style=${s({ fontSize: 13, fontWeight: 800, color: '#10b981' })}>+${GHS(comm)}</span>
       </div>
-    \`}
+    `}
 
-    <div style=\${s({display:'flex',gap:8})}>
-      <button class="txbtn" disabled=\${!canGo} onClick=\${commit}
-        style=\${s({flex:1,background:canGo?'#111':'#e5e7eb',color:canGo?'#fff':'#9ca3af',padding:'15px',fontSize:15,fontWeight:900,borderRadius:14,border:'none'})}>
-        \${canGo?'\u2713 Record':!amtReady?'Enter amount':flow==='m'?'Enter Merchant ID':phone.length<10?'Enter phone number':ported&&!portedNet?'Select network above':'Enter amount'}
-      </button>
-      \${canGo&&effNet&&(flow==='m'?USSD_MERCHANT[effNet]:USSD[effNet]?.[txType])&&html\`
-        <button class="txbtn" onClick=\${()=>onDial(effNet,txType,phone,amount,flow==='m'?mid:null)}
-          style=\${s({background:'#0f1923',color:'#f59e0b',border:'1.5px solid #f59e0b44',padding:'15px 18px',fontSize:13,fontWeight:800,borderRadius:14,whiteSpace:'nowrap'})}>
+    <div style=${s({ display: 'flex', gap: 8, alignItems: 'stretch' })}>
+      <div style=${s({
+            flex: 1, padding: '14px 16px', borderRadius: 14,
+            background: canGo ? '#ecfdf5' : '#f3f4f6',
+            border: '1.5px solid ' + (canGo ? '#10b98155' : '#e5e7eb'),
+            fontSize: 13, fontWeight: 700,
+            color: canGo ? '#065f46' : '#9ca3af',
+            display: 'flex', alignItems: 'center', gap: 6
+          })}>
+        ${canGo
+          ? html`<span style=${s({ fontSize: 16 })}>&#10003;</span><span>Recorded \u00b7 <b style=${s({ color: '#111' })}>${effNet || '—'}</b></span>`
+          : html`<span>${flow === 'm' ? (!hasAmt ? 'Enter amount' : 'Enter Merchant ID') : phoneLen < 10 ? 'Enter 10-digit phone' : ported && !portedNet ? 'Select network above' : !hasAmt ? 'Enter amount' : '...'}</span>`}
+      </div>
+      ${canGo && effNet && (flow === 'm' ? USSD_MERCHANT[effNet] : USSD[effNet]?.[txType]) && html`
+        <button class="txbtn" onClick=${doUSSD}
+          style=${s({ background: '#0f1923', color: '#f59e0b', border: '1.5px solid #f59e0b44', padding: '14px 18px', fontSize: 13, fontWeight: 800, borderRadius: 14, whiteSpace: 'nowrap' })}>
           \ud83d\udcf1 Dial
         </button>
-      \`}
+      `}
     </div>
-  </div>\`;
-}
-
-// ── App ───────────────────────────────────────────────────────────────────────
-function App() {
-  const [tab, setTab]       = useState('Home');
-  const [txns, setTxns]     = useState([]);
-  const [pays, setPays]     = useState([]);
-  const [toast, setToast]   = useState(null);
-  const [closed, setClosed] = useState(false);
-  const [chartV, setChartV] = useState('bar');
-
-  // Agent
-  const [agentName, setAgentName]     = useState('');
-  const [agentBranch, setAgentBranch] = useState('');
-  const [editAgent, setEditAgent]     = useState(false);
-  const [tmpName, setTmpName]         = useState('');
-  const [tmpBranch, setTmpBranch]     = useState('');
-
-  // TX form
-  const [flow, setFlow]               = useState(null);  // null = MoMo, 'm' = merchant
-  const [txType, setTxType]           = useState('cash_in'); // pre-selected tx type
-  const [showTxForm, setShowTxForm]   = useState(false);
-
-  // Payments
-  const [np, setNp]       = useState({network:'MTN',amount:'',ref:'',note:'',type:'received'});
-  const [showPF, setShowPF] = useState(false);
-
-  // Close day
-  const [wc, setWc]       = useState('');
-  const [dens, setDens]   = useState(DENOMS.map(d=>({...d,qty:0})));
-  const [dNotes, setDNotes] = useState('');
-  const [floats, setFloats] = useState(NETS.map((n,i)=>({id:'f'+i,network:n,amount:0})));
-  const [debs, setDebs]     = useState([]);
-  const [creds, setCreds]   = useState([]);
-  const [nf, setNf]         = useState({network:'MTN',amount:''});
-  const [nd, setNd]         = useState({name:'',amount:'',note:''});
-  const [nc, setNc]         = useState({name:'',amount:'',note:''});
-
-  const phoneHist = [...new Set(txns.map(t=>t.phone).filter(Boolean))];
-
-  const pop = (msg,type='ok') => { setToast({msg,type}); setTimeout(()=>setToast(null),2800); };
-
-  // Derived
-  const todayTx = txns.filter(t=>t.date==='Today');
-  const comm  = todayTx.reduce((s,t)=>s+(t.commission||0),0);
-  const ci    = todayTx.filter(t=>t.type==='cash_in').reduce((s,t)=>s+t.amount,0);
-  const co    = todayTx.filter(t=>t.type==='cash_out').reduce((s,t)=>s+t.amount,0);
-  const pt    = todayTx.filter(t=>t.type==='pay_to'||t.type==='airtime').reduce((s,t)=>s+t.amount,0);
-  const cashT = dens.reduce((s,d)=>s+d.qty*d.value,0);
-  const floatT = floats.reduce((s,f)=>s+parseFloat(f.amount||0),0);
-  const debT  = debs.reduce((s,d)=>s+parseFloat(d.amount||0),0);
-  const credT = creds.reduce((s,c)=>s+parseFloat(c.amount||0),0);
-  const grand = cashT+floatT+debT-credT;
-  const wcVal = parseFloat(wc)||0;
-  const shortage = grand-wcVal;
-
-  const payNetT = NETS.reduce((a,n)=>{
-    a[n]=pays.filter(p=>p.network===n&&p.date==='Today').reduce((s,p)=>s+parseFloat(p.amount||0),0);
-    return a;
-  },{});
-
-  const cData = [...WEEK_DKEYS.map(dk=>({
-    day:dk.slice(0,3),
-    ci:txns.filter(t=>t.date===dk&&t.type==='cash_in').reduce((s,t)=>s+t.amount,0),
-    co:txns.filter(t=>t.date===dk&&t.type==='cash_out').reduce((s,t)=>s+t.amount,0),
-  })),{day:'Today',ci,co}];
-
-  const pData = [
-    {name:'Cash In', value:ci, color:'#10b981'},
-    {name:'Cash Out',value:co, color:'#ef4444'},
-    {name:'Pay-To',  value:pt, color:'#0ea5e9'},
-  ];
+  </div>`;
+    }
 
 
+    // ── App ───────────────────────────────────────────────────────────────────────
+    function App() {
+      const [tab, setTab] = useState('Home');
+      const [txns, setTxns] = useState([]);
+      const [pays, setPays] = useState([]);
+      const [toast, setToast] = useState(null);
+      const [closed, setClosed] = useState(false);
+      const [chartV, setChartV] = useState('bar');
 
-  const today_tip = TIPS[new Date().getDay()%TIPS.length];
-  const NAV=[{id:'Home',ic:'\ud83c\udfe0'},{id:'Records',ic:'\ud83d\udcca'},{id:'Payments',ic:'\ud83d\udce5'},{id:'Market',ic:'\ud83c\udfea'},{id:'Close',ic:'\ud83d\udccb'}];
-  const s = o=>o;
+      // Agent
+      const [agentName, setAgentName] = useState('');
+      const [agentBranch, setAgentBranch] = useState('');
+      const [editAgent, setEditAgent] = useState(false);
+      const [tmpName, setTmpName] = useState('');
+      const [tmpBranch, setTmpBranch] = useState('');
 
-  // ── Render ─────────────────────────────────────────────────────────────────
-  return html`<div style=${s({fontFamily:"'Outfit',sans-serif",background:'#f0f2f5',minHeight:'100vh',maxWidth:430,margin:'0 auto',paddingBottom:88})}>
+      // TX form
+      const [flow, setFlow] = useState(null);  // null = MoMo, 'm' = merchant
+      const [txType, setTxType] = useState('cash_in'); // pre-selected tx type
+      const [showTxForm, setShowTxForm] = useState(false);
 
-    ${toast&&html`<div class="toast-anim" style=${s({position:'fixed',top:20,left:'50%',transform:'translateX(-50%)',background:toast.type==='err'?'#dc2626':'#111',color:'#fff',padding:'11px 22px',borderRadius:100,fontSize:13,fontWeight:700,zIndex:9999,whiteSpace:'nowrap',boxShadow:'0 6px 24px rgba(0,0,0,.25)',pointerEvents:'none'})}>
-      ${toast.type==='err'?'\u26a0 ':'\u2713 '}${toast.msg}
+      // Payments
+      const [np, setNp] = useState({ network: 'MTN', amount: '', ref: '', note: '', type: 'received' });
+      const [showPF, setShowPF] = useState(false);
+
+      // Close day
+      const [wc, setWc] = useState('');
+      const [dens, setDens] = useState(DENOMS.map(d => ({ ...d, qty: 0 })));
+      const [dNotes, setDNotes] = useState('');
+      const [floats, setFloats] = useState(NETS.map((n, i) => ({ id: 'f' + i, network: n, amount: 0 })));
+      const [debs, setDebs] = useState([]);
+      const [creds, setCreds] = useState([]);
+      const [nf, setNf] = useState({ network: 'MTN', amount: '' });
+      const [nd, setNd] = useState({ name: '', amount: '', note: '' });
+      const [nc, setNc] = useState({ name: '', amount: '', note: '' });
+
+      const phoneHist = [...new Set(txns.map(t => t.phone).filter(Boolean))];
+
+      const pop = (msg, type = 'ok') => { setToast({ msg, type }); setTimeout(() => setToast(null), 2800); };
+
+      // Derived
+      const todayTx = txns.filter(t => t.date === 'Today');
+      const comm = todayTx.reduce((s, t) => s + (t.commission || 0), 0);
+      const ci = todayTx.filter(t => t.type === 'cash_in').reduce((s, t) => s + t.amount, 0);
+      const co = todayTx.filter(t => t.type === 'cash_out').reduce((s, t) => s + t.amount, 0);
+      const pt = todayTx.filter(t => t.type === 'pay_to' || t.type === 'airtime').reduce((s, t) => s + t.amount, 0);
+      const cashT = dens.reduce((s, d) => s + d.qty * d.value, 0);
+      const floatT = floats.reduce((s, f) => s + parseFloat(f.amount || 0), 0);
+      const debT = debs.reduce((s, d) => s + parseFloat(d.amount || 0), 0);
+      const credT = creds.reduce((s, c) => s + parseFloat(c.amount || 0), 0);
+      const grand = cashT + floatT + debT - credT;
+      const wcVal = parseFloat(wc) || 0;
+      const shortage = grand - wcVal;
+
+      const payNetT = NETS.reduce((a, n) => {
+        a[n] = pays.filter(p => p.network === n && p.date === 'Today').reduce((s, p) => s + parseFloat(p.amount || 0), 0);
+        return a;
+      }, {});
+
+      const cData = [...WEEK_DKEYS.map(dk => ({
+        day: dk.slice(0, 3),
+        ci: txns.filter(t => t.date === dk && t.type === 'cash_in').reduce((s, t) => s + t.amount, 0),
+        co: txns.filter(t => t.date === dk && t.type === 'cash_out').reduce((s, t) => s + t.amount, 0),
+      })), { day: 'Today', ci, co }];
+
+      const pData = [
+        { name: 'Cash In', value: ci, color: '#10b981' },
+        { name: 'Cash Out', value: co, color: '#ef4444' },
+        { name: 'Pay-To', value: pt, color: '#0ea5e9' },
+      ];
+
+
+
+      const today_tip = TIPS[new Date().getDay() % TIPS.length];
+      const NAV = [{ id: 'Home', ic: '\ud83c\udfe0' }, { id: 'Records', ic: '\ud83d\udcca' }, { id: 'Payments', ic: '\ud83d\udce5' }, { id: 'Market', ic: '\ud83c\udfea' }, { id: 'Close', ic: '\ud83d\udccb' }];
+      const s = o => o;
+
+      // ── Render ─────────────────────────────────────────────────────────────────
+      return html`<div style=${s({ fontFamily: "'Outfit',sans-serif", background: '#f0f2f5', minHeight: '100vh', maxWidth: 430, margin: '0 auto', paddingBottom: 88 })}>
+
+    ${toast && html`<div class="toast-anim" style=${s({ position: 'fixed', top: 20, left: '50%', transform: 'translateX(-50%)', background: toast.type === 'err' ? '#dc2626' : '#111', color: '#fff', padding: '11px 22px', borderRadius: 100, fontSize: 13, fontWeight: 700, zIndex: 9999, whiteSpace: 'nowrap', boxShadow: '0 6px 24px rgba(0,0,0,.25)', pointerEvents: 'none' })}>
+      ${toast.type === 'err' ? '\u26a0 ' : '\u2713 '}${toast.msg}
     </div>`}
 
     <!-- Header -->
-    <div style=${s({background:'#0f1923',padding:'52px 20px 0',position:'relative',overflow:'hidden'})}>
-      <div style=${s({position:'absolute',inset:0,backgroundImage:'radial-gradient(#ffffff07 1px,transparent 1px)',backgroundSize:'20px 20px',pointerEvents:'none'})}/>
-      <div style=${s({position:'relative',display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:18})}>
-        <div style=${s({flex:1,marginRight:12})}>
-          <div style=${s({fontSize:10,color:'#374151',fontWeight:800,letterSpacing:1,marginBottom:4})}>MOMO AGENT</div>
+    <div style=${s({ background: '#0f1923', padding: '52px 20px 0', position: 'relative', overflow: 'hidden' })}>
+      <div style=${s({ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(#ffffff07 1px,transparent 1px)', backgroundSize: '20px 20px', pointerEvents: 'none' })}/>
+      <div style=${s({ position: 'relative', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 18 })}>
+        <div style=${s({ flex: 1, marginRight: 12 })}>
+          <div style=${s({ fontSize: 10, color: '#374151', fontWeight: 800, letterSpacing: 1, marginBottom: 4 })}>MOMO AGENT</div>
           ${editAgent
-            ? html`<div style=${s({display:'flex',flexDirection:'column',gap:6})}>
-                <input value=${tmpName} onInput=${e=>setTmpName(e.target.value)} placeholder="Agent Name"
-                  style=${s({background:'#1a2535',border:'1px solid #2d3d52',borderRadius:8,padding:'7px 10px',color:'#fff',fontFamily:'Outfit',fontSize:15,fontWeight:700,outline:'none',width:'100%'})}/>
-                <input value=${tmpBranch} onInput=${e=>setTmpBranch(e.target.value)} placeholder="Branch / Location"
-                  style=${s({background:'#1a2535',border:'1px solid #2d3d52',borderRadius:8,padding:'6px 10px',color:'#9ca3af',fontFamily:'Outfit',fontSize:12,outline:'none',width:'100%'})}/>
-                <div style=${s({display:'flex',gap:6})}>
-                  <button onClick=${()=>{setAgentName(tmpName);setAgentBranch(tmpBranch);setEditAgent(false);}} style=${s({background:'#10b981',color:'#fff',border:'none',borderRadius:8,padding:'6px 16px',fontFamily:'Outfit',fontWeight:700,fontSize:12,cursor:'pointer'})}>Save</button>
-                  <button onClick=${()=>setEditAgent(false)} style=${s({background:'#374151',color:'#9ca3af',border:'none',borderRadius:8,padding:'6px 12px',fontFamily:'Outfit',fontSize:12,cursor:'pointer'})}>Cancel</button>
+          ? html`<div style=${s({ display: 'flex', flexDirection: 'column', gap: 6 })}>
+                <input value=${tmpName} onInput=${e => setTmpName(e.target.value)} placeholder="Agent Name"
+                  style=${s({ background: '#1a2535', border: '1px solid #2d3d52', borderRadius: 8, padding: '7px 10px', color: '#fff', fontFamily: 'Outfit', fontSize: 15, fontWeight: 700, outline: 'none', width: '100%' })}/>
+                <input value=${tmpBranch} onInput=${e => setTmpBranch(e.target.value)} placeholder="Branch / Location"
+                  style=${s({ background: '#1a2535', border: '1px solid #2d3d52', borderRadius: 8, padding: '6px 10px', color: '#9ca3af', fontFamily: 'Outfit', fontSize: 12, outline: 'none', width: '100%' })}/>
+                <div style=${s({ display: 'flex', gap: 6 })}>
+                  <button onClick=${() => { setAgentName(tmpName); setAgentBranch(tmpBranch); setEditAgent(false); }} style=${s({ background: '#10b981', color: '#fff', border: 'none', borderRadius: 8, padding: '6px 16px', fontFamily: 'Outfit', fontWeight: 700, fontSize: 12, cursor: 'pointer' })}>Save</button>
+                  <button onClick=${() => setEditAgent(false)} style=${s({ background: '#374151', color: '#9ca3af', border: 'none', borderRadius: 8, padding: '6px 12px', fontFamily: 'Outfit', fontSize: 12, cursor: 'pointer' })}>Cancel</button>
                 </div>
               </div>`
-            : html`<div onClick=${()=>{setTmpName(agentName);setTmpBranch(agentBranch);setEditAgent(true);}} style=${s({cursor:'pointer'})}>
-                <div style=${s({fontSize:21,fontWeight:900,color:agentName?'#fff':'#374151'})}>${agentName||'Tap to set name \u270f\ufe0f'}</div>
-                <div style=${s({fontSize:12,color:'#4b5563',marginTop:2})}>${agentBranch||(agentName?'Set branch \u270f\ufe0f':'')}</div>
+          : html`<div onClick=${() => { setTmpName(agentName); setTmpBranch(agentBranch); setEditAgent(true); }} style=${s({ cursor: 'pointer' })}>
+                <div style=${s({ fontSize: 21, fontWeight: 900, color: agentName ? '#fff' : '#374151' })}>${agentName || 'Tap to set name \u270f\ufe0f'}</div>
+                <div style=${s({ fontSize: 12, color: '#4b5563', marginTop: 2 })}>${agentBranch || (agentName ? 'Set branch \u270f\ufe0f' : '')}</div>
               </div>`}
         </div>
-        <div style=${s({background:'#1a2535',borderRadius:14,padding:'9px 14px',textAlign:'right',flexShrink:0})}>
-          <div style=${s({fontSize:9,color:'#4b5563',fontWeight:800,letterSpacing:.5})}>COMMISSION TODAY</div>
-          <div style=${s({fontSize:18,fontWeight:900,color:'#f59e0b'})}>${GHS(comm)}</div>
+        <div style=${s({ background: '#1a2535', borderRadius: 14, padding: '9px 14px', textAlign: 'right', flexShrink: 0 })}>
+          <div style=${s({ fontSize: 9, color: '#4b5563', fontWeight: 800, letterSpacing: .5 })}>COMMISSION TODAY</div>
+          <div style=${s({ fontSize: 18, fontWeight: 900, color: '#f59e0b' })}>${GHS(comm)}</div>
         </div>
       </div>
-      <div style=${s({display:'grid',gridTemplateColumns:'1fr 1fr 1fr',borderTop:'1px solid #1a2535'})}>
-        ${[{l:'Cash In',v:GHS(ci),c:'#10b981'},{l:'Cash Out',v:GHS(co),c:'#ef4444'},{l:'Pay-To',v:GHS(pt),c:'#0ea5e9'}].map((x,i)=>html`
-          <div key=${i} style=${s({padding:'11px 0',textAlign:'center',borderRight:i<2?'1px solid #1a2535':'none'})}>
-            <div style=${s({fontSize:12,fontWeight:800,color:x.c})}>${x.v}</div>
-            <div style=${s({fontSize:9,color:'#4b5563',fontWeight:700,letterSpacing:.4,marginTop:1})}>${x.l}</div>
+      <div style=${s({ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', borderTop: '1px solid #1a2535' })}>
+        ${[{ l: 'Cash In', v: GHS(ci), c: '#10b981' }, { l: 'Cash Out', v: GHS(co), c: '#ef4444' }, { l: 'Pay-To', v: GHS(pt), c: '#0ea5e9' }].map((x, i) => html`
+          <div key=${i} style=${s({ padding: '11px 0', textAlign: 'center', borderRight: i < 2 ? '1px solid #1a2535' : 'none' })}>
+            <div style=${s({ fontSize: 12, fontWeight: 800, color: x.c })}>${x.v}</div>
+            <div style=${s({ fontSize: 9, color: '#4b5563', fontWeight: 700, letterSpacing: .4, marginTop: 1 })}>${x.l}</div>
           </div>
         `)}
       </div>
     </div>
 
-    <div class="fade" key=${tab} style=${s({padding:'0 14px'})}>
+    <div class="fade" key=${tab} style=${s({ padding: '0 14px' })}>
 
     <!-- HOME -->
-    ${tab==='Home'&&html`<div style=${s({paddingTop:18})}>
+    ${tab === 'Home' && html`<div style=${s({ paddingTop: 18 })}>
       <!-- Quick actions -->
-      <div style=${s({display:'grid',gridTemplateColumns:'1fr 1fr',gap:10,marginBottom:14})}>
+      <div style=${s({ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 14 })}>
         ${[
-          {l:'Cash In', ic:'\u2b07', bg:'#10b981', type:'cash_in',  flow:null},
-          {l:'Cash Out',ic:'\u2b06', bg:'#ef4444', type:'cash_out', flow:null},
-          {l:'Pay To',  ic:'\u2192', bg:'#0ea5e9', type:'pay_to',   flow:null},
-          {l:'Airtime', ic:'\ud83d\udcf6',bg:'#f59e0b',type:'airtime',flow:null},
-        ].map(a=>html`
-          <button key=${a.l} class="txbtn" onClick=${()=>{
-            setTxType(a.type);
-            setFlow(a.flow);
-            setShowTxForm(true);
-          }}
-            style=${s({background: showTxForm&&txType===a.type&&flow===a.flow ? TY[a.type]?.bg||'#f3f4f6' : '#fff',
-              border: showTxForm&&txType===a.type ? '2px solid '+TY[a.type]?.color+'44' : '2px solid transparent',
-              borderRadius:16,padding:'16px 14px',textAlign:'left',boxShadow:'0 1px 4px rgba(0,0,0,.07)',cursor:'pointer'})}>
-            <div style=${s({width:38,height:38,borderRadius:12,background:a.bg,display:'flex',alignItems:'center',justifyContent:'center',fontSize:18,marginBottom:8})}>${a.ic}</div>
-            <div style=${s({fontSize:14,fontWeight:700,color:'#111'})}>${a.l}</div>
+            { l: 'Cash In', ic: '\u2b07', bg: '#10b981', type: 'cash_in', flow: null },
+            { l: 'Cash Out', ic: '\u2b06', bg: '#ef4444', type: 'cash_out', flow: null },
+            { l: 'Pay To', ic: '\u2192', bg: '#0ea5e9', type: 'pay_to', flow: null },
+            { l: 'Airtime', ic: '\ud83d\udcf6', bg: '#f59e0b', type: 'airtime', flow: null },
+          ].map(a => html`
+          <button key=${a.l} class="txbtn" onClick=${() => {
+              setTxType(a.type);
+              setFlow(a.flow);
+              setShowTxForm(true);
+            }}
+            style=${s({
+              background: showTxForm && txType === a.type && flow === a.flow ? TY[a.type]?.bg || '#f3f4f6' : '#fff',
+              border: showTxForm && txType === a.type ? '2px solid ' + TY[a.type]?.color + '44' : '2px solid transparent',
+              borderRadius: 16, padding: '16px 14px', textAlign: 'left', boxShadow: '0 1px 4px rgba(0,0,0,.07)', cursor: 'pointer'
+            })}>
+            <div style=${s({ width: 38, height: 38, borderRadius: 12, background: a.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, marginBottom: 8 })}>${a.ic}</div>
+            <div style=${s({ fontSize: 14, fontWeight: 700, color: '#111' })}>${a.l}</div>
           </button>
         `)}
       </div>
       <!-- Merchant pay button -->
-      <button class="txbtn" onClick=${()=>{setTxType('pay_to');setFlow('m');setShowTxForm(true);}}
-        style=${s({width:'100%',background: showTxForm&&flow==='m' ? '#f0f9ff' : '#fff',
-          border: showTxForm&&flow==='m' ? '2px solid #0ea5e933' : '2px solid transparent',
-          borderRadius:16,padding:'13px 16px',textAlign:'left',boxShadow:'0 1px 4px rgba(0,0,0,.07)',marginBottom:14,display:'flex',alignItems:'center',gap:12,cursor:'pointer'})}>
-        <div style=${s({width:36,height:36,borderRadius:12,background:'#0ea5e9',display:'flex',alignItems:'center',justifyContent:'center',fontSize:18,flexShrink:0})}>\ud83c\udfea</div>
+      <button class="txbtn" onClick=${() => { setTxType('pay_to'); setFlow('m'); setShowTxForm(true); }}
+        style=${s({
+              width: '100%', background: showTxForm && flow === 'm' ? '#f0f9ff' : '#fff',
+              border: showTxForm && flow === 'm' ? '2px solid #0ea5e933' : '2px solid transparent',
+              borderRadius: 16, padding: '13px 16px', textAlign: 'left', boxShadow: '0 1px 4px rgba(0,0,0,.07)', marginBottom: 14, display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer'
+            })}>
+        <div style=${s({ width: 36, height: 36, borderRadius: 12, background: '#0ea5e9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, flexShrink: 0 })}>\ud83c\udfea</div>
         <div>
-          <div style=${s({fontSize:14,fontWeight:700,color:'#111'})}>Merchant Pay</div>
-          <div style=${s({fontSize:11,color:'#9ca3af'})}>Pay to merchant ID</div>
+          <div style=${s({ fontSize: 14, fontWeight: 700, color: '#111' })}>Merchant Pay</div>
+          <div style=${s({ fontSize: 11, color: '#9ca3af' })}>Pay to merchant ID</div>
         </div>
       </button>
 
       <!-- Inline TX form -->
-      ${showTxForm&&html`<${TxForm}
+      ${showTxForm && html`<${TxForm}
         txType=${txType}
         flow=${flow}
         phoneHist=${phoneHist}
-        onClose=${()=>{setShowTxForm(false);}}
-        onRecord=${({phone,amount,network,ported,...extra})=>{
-          const c=calcComm(amount);
-          setTxns(p=>[{id:Date.now(),type:txType,phone,amount,commission:c,time:stamp(),date:'Today',network,ported,...extra},...p]);
-          pop(TY[txType]?.label+' \u00b7 Comm: '+GHS(c));
-          setShowTxForm(false);
-        }}
-        onDial=${(net,type,ph,am,merchantId)=>launchUSSD(net,type,ph,am,merchantId)}
+        onClose=${() => { setShowTxForm(false); }}
+        onRecord=${({ phone, amount, network, ported, ...extra }) => {
+              const c = calcComm(amount);
+              setTxns(p => [{ id: Date.now(), type: txType, phone, amount, commission: c, time: stamp(), date: 'Today', network, ported, ...extra }, ...p]);
+              pop(TY[txType]?.label + ' \u00b7 Comm: ' + GHS(c));
+              setShowTxForm(false);
+            }}
+        onDial=${(net, type, ph, am, merchantId) => launchUSSD(net, type, ph, am, merchantId)}
       />`}
 
       <!-- Recent transactions -->
-      ${todayTx.length>0&&html`
-        <div style=${s({background:'#fff',borderRadius:20,padding:'14px 0',boxShadow:'0 1px 6px rgba(0,0,0,.06)',marginBottom:14})}>
-          <div style=${s({padding:'0 18px 10px',display:'flex',justifyContent:'space-between',alignItems:'center'})}>
-            <div style=${s({fontSize:15,fontWeight:800,color:'#111'})}>Today</div>
-            <button onClick=${()=>setTab('Records')} style=${s({fontSize:12,color:'#6b7280',background:'none',border:'none',cursor:'pointer',fontWeight:600})}>All records \u2192</button>
+      ${todayTx.length > 0 && html`
+        <div style=${s({ background: '#fff', borderRadius: 20, padding: '14px 0', boxShadow: '0 1px 6px rgba(0,0,0,.06)', marginBottom: 14 })}>
+          <div style=${s({ padding: '0 18px 10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' })}>
+            <div style=${s({ fontSize: 15, fontWeight: 800, color: '#111' })}>Today</div>
+            <button onClick=${() => setTab('Records')} style=${s({ fontSize: 12, color: '#6b7280', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600 })}>All records \u2192</button>
           </div>
-          ${todayTx.slice(0,5).map(t=>html`
-            <div key=${t.id} class="rhov" style=${s({display:'flex',alignItems:'center',justifyContent:'space-between',padding:'10px 18px',borderTop:'1px solid #f3f4f6'})}>
-              <div style=${s({display:'flex',alignItems:'center',gap:10})}>
-                <div style=${s({width:34,height:34,borderRadius:10,background:TY[t.type]?.bg||'#f3f4f6',display:'flex',alignItems:'center',justifyContent:'center',fontSize:14})}>${TY[t.type]?.icon||'\u00b7'}</div>
+          ${todayTx.slice(0, 5).map(t => html`
+            <div key=${t.id} class="rhov" style=${s({ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 18px', borderTop: '1px solid #f3f4f6' })}>
+              <div style=${s({ display: 'flex', alignItems: 'center', gap: 10 })}>
+                <div style=${s({ width: 34, height: 34, borderRadius: 10, background: TY[t.type]?.bg || '#f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14 })}>${TY[t.type]?.icon || '\u00b7'}</div>
                 <div>
-                  <div style=${s({fontSize:13,fontWeight:700,color:'#111'})}>${t.phone||t.merchantId||'\u2014'}</div>
-                  <div style=${s({fontSize:10,color:'#9ca3af'})}>${TY[t.type]?.label}${t.network?' \u00b7 '+t.network:''} \u00b7 ${t.time}</div>
+                  <div style=${s({ fontSize: 13, fontWeight: 700, color: '#111' })}>${t.phone || t.merchantId || '\u2014'}</div>
+                  <div style=${s({ fontSize: 10, color: '#9ca3af' })}>${TY[t.type]?.label}${t.network ? ' \u00b7 ' + t.network : ''} \u00b7 ${t.time}</div>
                 </div>
               </div>
-              <div style=${s({textAlign:'right'})}>
-                <div style=${s({fontSize:13,fontWeight:800,color:t.type==='cash_in'?'#10b981':'#ef4444'})}>${t.type==='cash_in'?'+':'-'}${GHS(t.amount)}</div>
-                ${t.commission>0&&html`<div style=${s({fontSize:10,color:'#10b981',fontWeight:600})}>+${GHS(t.commission)}</div>`}
+              <div style=${s({ textAlign: 'right' })}>
+                <div style=${s({ fontSize: 13, fontWeight: 800, color: t.type === 'cash_in' ? '#10b981' : '#ef4444' })}>${t.type === 'cash_in' ? '+' : '-'}${GHS(t.amount)}</div>
+                ${t.commission > 0 && html`<div style=${s({ fontSize: 10, color: '#10b981', fontWeight: 600 })}>+${GHS(t.commission)}</div>`}
               </div>
             </div>
           `)}
@@ -635,21 +824,21 @@ function App() {
       `}
 
       <!-- Fraud alert of the day -->
-      <div style=${s({background:'linear-gradient(135deg,#1a2535,#0f1923)',borderRadius:20,padding:18,marginBottom:14})}>
-        <div style=${s({fontSize:10,color:'#f59e0b',fontWeight:700,letterSpacing:1,marginBottom:8})}>\u26a1 FRAUD ALERT OF THE DAY</div>
-        <div style=${s({fontSize:16,fontWeight:700,color:'#fff',marginBottom:6})}>${today_tip.icon} ${today_tip.title}</div>
-        <div style=${s({fontSize:12,color:'#6b7280',lineHeight:'1.6'})}>${today_tip.body}</div>
+      <div style=${s({ background: 'linear-gradient(135deg,#1a2535,#0f1923)', borderRadius: 20, padding: 18, marginBottom: 14 })}>
+        <div style=${s({ fontSize: 10, color: '#f59e0b', fontWeight: 700, letterSpacing: 1, marginBottom: 8 })}>\u26a1 FRAUD ALERT OF THE DAY</div>
+        <div style=${s({ fontSize: 16, fontWeight: 700, color: '#fff', marginBottom: 6 })}>${today_tip.icon} ${today_tip.title}</div>
+        <div style=${s({ fontSize: 12, color: '#6b7280', lineHeight: '1.6' })}>${today_tip.body}</div>
       </div>
 
       <!-- All fraud tips scroll -->
-      <div style=${s({background:'linear-gradient(135deg,#1a2535,#0f1923)',borderRadius:20,padding:18,marginBottom:14})}>
-        <div style=${s({fontSize:10,fontWeight:800,color:'#ef4444',letterSpacing:1,marginBottom:10})}>\ud83d\udee1 FRAUD AWARENESS TIPS</div>
-        <div style=${s({display:'flex',gap:12,overflowX:'auto',paddingBottom:4})}>
-          ${TIPS.map((t,i)=>html`
-            <div key=${i} style=${s({flexShrink:0,width:190,background:'rgba(255,255,255,.05)',borderRadius:14,padding:'14px',border:'1px solid rgba(255,255,255,.08)'})}>
-              <div style=${s({fontSize:22,marginBottom:8})}>${t.icon}</div>
-              <div style=${s({fontSize:13,fontWeight:700,color:'#fff',marginBottom:6})}>${t.title}</div>
-              <div style=${s({fontSize:11,color:'#6b7280',lineHeight:'1.6'})}>${t.body}</div>
+      <div style=${s({ background: 'linear-gradient(135deg,#1a2535,#0f1923)', borderRadius: 20, padding: 18, marginBottom: 14 })}>
+        <div style=${s({ fontSize: 10, fontWeight: 800, color: '#ef4444', letterSpacing: 1, marginBottom: 10 })}>\ud83d\udee1 FRAUD AWARENESS TIPS</div>
+        <div style=${s({ display: 'flex', gap: 12, overflowX: 'auto', paddingBottom: 4 })}>
+          ${TIPS.map((t, i) => html`
+            <div key=${i} style=${s({ flexShrink: 0, width: 190, background: 'rgba(255,255,255,.05)', borderRadius: 14, padding: '14px', border: '1px solid rgba(255,255,255,.08)' })}>
+              <div style=${s({ fontSize: 22, marginBottom: 8 })}>${t.icon}</div>
+              <div style=${s({ fontSize: 13, fontWeight: 700, color: '#fff', marginBottom: 6 })}>${t.title}</div>
+              <div style=${s({ fontSize: 11, color: '#6b7280', lineHeight: '1.6' })}>${t.body}</div>
             </div>
           `)}
         </div>
@@ -657,49 +846,49 @@ function App() {
     </div>`}
 
     <!-- RECORDS (was Transact) -->
-    ${tab==='Records'&&html`<div style=${s({paddingTop:18})}>
-      <div style=${s({background:'#fff',borderRadius:20,padding:18,boxShadow:'0 1px 6px rgba(0,0,0,.06)',marginBottom:14})}>
-        <div style=${s({display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:14})}>
-          <div style=${s({fontSize:15,fontWeight:800,color:'#111'})}>Weekly Volume</div>
-          <div style=${s({display:'flex',gap:4})}>
-            ${['bar','pie'].map(v=>html`
-              <button key=${v} class="pill" onClick=${()=>setChartV(v)}
-                style=${s({background:chartV===v?'#111':'#f3f4f6',color:chartV===v?'#fff':'#6b7280',padding:'5px 12px'})}>
-                ${v==='bar'?'Bar':'Split'}
+    ${tab === 'Records' && html`<div style=${s({ paddingTop: 18 })}>
+      <div style=${s({ background: '#fff', borderRadius: 20, padding: 18, boxShadow: '0 1px 6px rgba(0,0,0,.06)', marginBottom: 14 })}>
+        <div style=${s({ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 })}>
+          <div style=${s({ fontSize: 15, fontWeight: 800, color: '#111' })}>Weekly Volume</div>
+          <div style=${s({ display: 'flex', gap: 4 })}>
+            ${['bar', 'pie'].map(v => html`
+              <button key=${v} class="pill" onClick=${() => setChartV(v)}
+                style=${s({ background: chartV === v ? '#111' : '#f3f4f6', color: chartV === v ? '#fff' : '#6b7280', padding: '5px 12px' })}>
+                ${v === 'bar' ? 'Bar' : 'Split'}
               </button>
             `)}
           </div>
         </div>
-        ${chartV==='bar'
-          ? html`<${BarChart} data=${cData}/>`
-          : html`<div style=${s({display:'flex',alignItems:'center',gap:16})}>
-              <${PieChart} data=${pData.filter(e=>e.value>0).length>0?pData.filter(e=>e.value>0):[{name:'None',value:1,color:'#e5e7eb'}]}/>
-              <div style=${s({flex:1})}>
-                ${pData.map(e=>html`
-                  <div key=${e.name} style=${s({display:'flex',alignItems:'center',gap:8,marginBottom:8})}>
-                    <div style=${s({width:10,height:10,borderRadius:3,background:e.color,flexShrink:0})}/>
-                    <div style=${s({fontSize:13,color:'#374151',fontWeight:600})}>${e.name}</div>
-                    <div style=${s({fontSize:13,fontWeight:800,color:'#111',marginLeft:'auto'})}>${GHS(e.value)}</div>
+        ${chartV === 'bar'
+            ? html`<${BarChart} data=${cData}/>`
+            : html`<div style=${s({ display: 'flex', alignItems: 'center', gap: 16 })}>
+              <${PieChart} data=${pData.filter(e => e.value > 0).length > 0 ? pData.filter(e => e.value > 0) : [{ name: 'None', value: 1, color: '#e5e7eb' }]}/>
+              <div style=${s({ flex: 1 })}>
+                ${pData.map(e => html`
+                  <div key=${e.name} style=${s({ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 })}>
+                    <div style=${s({ width: 10, height: 10, borderRadius: 3, background: e.color, flexShrink: 0 })}/>
+                    <div style=${s({ fontSize: 13, color: '#374151', fontWeight: 600 })}>${e.name}</div>
+                    <div style=${s({ fontSize: 13, fontWeight: 800, color: '#111', marginLeft: 'auto' })}>${GHS(e.value)}</div>
                   </div>
                 `)}
               </div>
             </div>`}
       </div>
-      <div style=${s({background:'#fff',borderRadius:20,padding:'14px 0',boxShadow:'0 1px 6px rgba(0,0,0,.06)'})}>
-        <div style=${s({padding:'0 18px 10px',fontSize:15,fontWeight:800,color:'#111'})}>All Transactions</div>
-        ${txns.length===0&&html`<div style=${s({padding:'28px 18px',textAlign:'center',color:'#9ca3af',fontSize:13})}>No transactions yet. Tap a quick action on Home to record one.</div>`}
-        ${txns.map(t=>html`
-          <div key=${t.id} class="rhov" style=${s({display:'flex',alignItems:'center',justifyContent:'space-between',padding:'11px 18px',borderTop:'1px solid #f3f4f6'})}>
-            <div style=${s({display:'flex',alignItems:'center',gap:10})}>
-              <div style=${s({width:36,height:36,borderRadius:10,background:TY[t.type]?.bg||'#f3f4f6',display:'flex',alignItems:'center',justifyContent:'center',fontSize:15})}>${TY[t.type]?.icon||'\u00b7'}</div>
+      <div style=${s({ background: '#fff', borderRadius: 20, padding: '14px 0', boxShadow: '0 1px 6px rgba(0,0,0,.06)' })}>
+        <div style=${s({ padding: '0 18px 10px', fontSize: 15, fontWeight: 800, color: '#111' })}>All Transactions</div>
+        ${txns.length === 0 && html`<div style=${s({ padding: '28px 18px', textAlign: 'center', color: '#9ca3af', fontSize: 13 })}>No transactions yet. Tap a quick action on Home to record one.</div>`}
+        ${txns.map(t => html`
+          <div key=${t.id} class="rhov" style=${s({ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '11px 18px', borderTop: '1px solid #f3f4f6' })}>
+            <div style=${s({ display: 'flex', alignItems: 'center', gap: 10 })}>
+              <div style=${s({ width: 36, height: 36, borderRadius: 10, background: TY[t.type]?.bg || '#f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 15 })}>${TY[t.type]?.icon || '\u00b7'}</div>
               <div>
-                <div style=${s({fontSize:13,fontWeight:700,color:'#111'})}>${t.phone||t.merchantId||'\u2014'}</div>
-                <div style=${s({fontSize:10,color:'#9ca3af'})}>${TY[t.type]?.label}${t.subType?' \u00b7 '+t.subType:''}${t.network?' \u00b7 '+t.network:''} \u00b7 ${t.time}${t.date!=='Today'?' \u00b7 '+t.date:''}</div>
+                <div style=${s({ fontSize: 13, fontWeight: 700, color: '#111' })}>${t.phone || t.merchantId || '\u2014'}</div>
+                <div style=${s({ fontSize: 10, color: '#9ca3af' })}>${TY[t.type]?.label}${t.subType ? ' \u00b7 ' + t.subType : ''}${t.network ? ' \u00b7 ' + t.network : ''} \u00b7 ${t.time}${t.date !== 'Today' ? ' \u00b7 ' + t.date : ''}</div>
               </div>
             </div>
-            <div style=${s({textAlign:'right'})}>
-              <div style=${s({fontSize:13,fontWeight:800,color:t.type==='cash_in'?'#10b981':'#111'})}>${t.type==='cash_in'?'+':'-'}${GHS(t.amount)}</div>
-              ${t.commission>0&&html`<div style=${s({fontSize:10,color:'#10b981',fontWeight:700})}>+${GHS(t.commission)}</div>`}
+            <div style=${s({ textAlign: 'right' })}>
+              <div style=${s({ fontSize: 13, fontWeight: 800, color: t.type === 'cash_in' ? '#10b981' : '#111' })}>${t.type === 'cash_in' ? '+' : '-'}${GHS(t.amount)}</div>
+              ${t.commission > 0 && html`<div style=${s({ fontSize: 10, color: '#10b981', fontWeight: 700 })}>+${GHS(t.commission)}</div>`}
             </div>
           </div>
         `)}
@@ -707,303 +896,308 @@ function App() {
     </div>`}
 
     <!-- PAYMENTS -->
-    ${tab==='Payments'&&html`<div style=${s({paddingTop:18})}>
-      <div style=${s({background:'#fff',borderRadius:20,padding:18,boxShadow:'0 1px 6px rgba(0,0,0,.06)',marginBottom:14})}>
-        <div style=${s({fontSize:15,fontWeight:800,color:'#111',marginBottom:12})}>Float Balances</div>
-        <div style=${s({display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,marginBottom:14})}>
-          ${NETS.map(n=>{const fa=floats.find(f=>f.network===n),m=NM[n]||{};return html`
-            <div key=${n} style=${s({background:m.bg,borderRadius:12,padding:'11px 13px',border:'1px solid '+m.color+'22'})}>
-              <div style=${s({fontSize:11,fontWeight:800,color:m.text})}>${n}</div>
-              <div style=${s({fontSize:15,fontWeight:900,color:'#111',marginTop:3})}>${GHS(fa?.amount||0)}</div>
-              ${payNetT[n]>0&&html`<div style=${s({fontSize:10,color:'#10b981',fontWeight:700,marginTop:2})}>+${GHS(payNetT[n])} today</div>`}
+    ${tab === 'Payments' && html`<div style=${s({ paddingTop: 18 })}>
+      <div style=${s({ background: '#fff', borderRadius: 20, padding: 18, boxShadow: '0 1px 6px rgba(0,0,0,.06)', marginBottom: 14 })}>
+        <div style=${s({ fontSize: 15, fontWeight: 800, color: '#111', marginBottom: 12 })}>Float Balances</div>
+        <div style=${s({ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 14 })}>
+          ${NETS.map(n => {
+              const fa = floats.find(f => f.network === n), m = NM[n] || {}; return html`
+            <div key=${n} style=${s({ background: m.bg, borderRadius: 12, padding: '11px 13px', border: '1px solid ' + m.color + '22' })}>
+              <div style=${s({ fontSize: 11, fontWeight: 800, color: m.text })}>${n}</div>
+              <div style=${s({ fontSize: 15, fontWeight: 900, color: '#111', marginTop: 3 })}>${GHS(fa?.amount || 0)}</div>
+              ${payNetT[n] > 0 && html`<div style=${s({ fontSize: 10, color: '#10b981', fontWeight: 700, marginTop: 2 })}>+${GHS(payNetT[n])} today</div>`}
             </div>`;
-          })}
+            })}
         </div>
-        <button onClick=${()=>setShowPF(v=>!v)} style=${s({width:'100%',background:showPF?'#f3f4f6':'#111',color:showPF?'#111':'#fff',border:'none',borderRadius:14,padding:'13px',fontFamily:'Outfit',fontWeight:800,fontSize:14,cursor:'pointer',marginBottom:showPF?14:0})}>
-          ${showPF?'\u2715 Cancel':'+ Record Payment'}
+        <button onClick=${() => setShowPF(v => !v)} style=${s({ width: '100%', background: showPF ? '#f3f4f6' : '#111', color: showPF ? '#111' : '#fff', border: 'none', borderRadius: 14, padding: '13px', fontFamily: 'Outfit', fontWeight: 800, fontSize: 14, cursor: 'pointer', marginBottom: showPF ? 14 : 0 })}>
+          ${showPF ? '\u2715 Cancel' : '+ Record Payment'}
         </button>
-        ${showPF&&html`<div class="pop">
-          <div style=${s({display:'flex',gap:8,marginBottom:10})}>
-            <div style=${s({flex:1})}>
-              <div style=${s({fontSize:10,fontWeight:800,color:'#9ca3af',letterSpacing:1,marginBottom:5})}>NETWORK</div>
-              <select value=${np.network} onChange=${e=>setNp(p=>({...p,network:e.target.value}))} style=${s({width:'100%',border:'1.5px solid #e5e7eb',borderRadius:12,padding:'12px',fontSize:14,background:'#fff',outline:'none'})}>
-                ${NETS.map(n=>html`<option key=${n}>${n}</option>`)}
+        ${showPF && html`<div class="pop">
+          <div style=${s({ display: 'flex', gap: 8, marginBottom: 10 })}>
+            <div style=${s({ flex: 1 })}>
+              <div style=${s({ fontSize: 10, fontWeight: 800, color: '#9ca3af', letterSpacing: 1, marginBottom: 5 })}>NETWORK</div>
+              <select value=${np.network} onChange=${e => setNp(p => ({ ...p, network: e.target.value }))} style=${s({ width: '100%', border: '1.5px solid #e5e7eb', borderRadius: 12, padding: '12px', fontSize: 14, background: '#fff', outline: 'none' })}>
+                ${NETS.map(n => html`<option key=${n}>${n}</option>`)}
               </select>
             </div>
-            <div style=${s({flex:1})}>
-              <div style=${s({fontSize:10,fontWeight:800,color:'#9ca3af',letterSpacing:1,marginBottom:5})}>AMOUNT</div>
-              <${Inp} type="number" inputMode="decimal" placeholder="0.00" value=${np.amount} onInput=${e=>setNp(p=>({...p,amount:e.target.value}))} style=${{fontSize:16,fontWeight:700}}/>
+            <div style=${s({ flex: 1 })}>
+              <div style=${s({ fontSize: 10, fontWeight: 800, color: '#9ca3af', letterSpacing: 1, marginBottom: 5 })}>AMOUNT</div>
+              <${Inp} type="number" inputMode="decimal" placeholder="0.00" value=${np.amount} onInput=${e => setNp(p => ({ ...p, amount: e.target.value }))} style=${{ fontSize: 16, fontWeight: 700 }}/>
             </div>
           </div>
-          <div style=${s({marginBottom:10})}>
-            <div style=${s({fontSize:10,fontWeight:800,color:'#9ca3af',letterSpacing:1,marginBottom:5})}>REFERENCE</div>
-            <${Inp} placeholder="e.g. REF-0023" value=${np.ref} onInput=${e=>setNp(p=>({...p,ref:e.target.value}))}/>
+          <div style=${s({ marginBottom: 10 })}>
+            <div style=${s({ fontSize: 10, fontWeight: 800, color: '#9ca3af', letterSpacing: 1, marginBottom: 5 })}>REFERENCE</div>
+            <${Inp} placeholder="e.g. REF-0023" value=${np.ref} onInput=${e => setNp(p => ({ ...p, ref: e.target.value }))}/>
           </div>
-          <div style=${s({marginBottom:12})}>
-            <div style=${s({fontSize:10,fontWeight:800,color:'#9ca3af',letterSpacing:1,marginBottom:5})}>NOTE</div>
-            <${Inp} placeholder="Optional note" value=${np.note} onInput=${e=>setNp(p=>({...p,note:e.target.value}))}/>
+          <div style=${s({ marginBottom: 12 })}>
+            <div style=${s({ fontSize: 10, fontWeight: 800, color: '#9ca3af', letterSpacing: 1, marginBottom: 5 })}>NOTE</div>
+            <${Inp} placeholder="Optional note" value=${np.note} onInput=${e => setNp(p => ({ ...p, note: e.target.value }))}/>
           </div>
-          <div style=${s({display:'flex',gap:8,marginBottom:14})}>
-            ${[{v:'received',l:'\u2713 Reconciled',c:'#10b981'},{v:'creditor',l:'\u26a0 Creditor',c:'#ef4444'}].map(x=>html`
-              <button key=${x.v} onClick=${()=>setNp(p=>({...p,type:x.v}))}
-                style=${s({flex:1,background:np.type===x.v?x.c:'#f3f4f6',color:np.type===x.v?'#fff':'#374151',border:'none',borderRadius:12,padding:'11px',fontFamily:'Outfit',fontWeight:700,fontSize:13,cursor:'pointer'})}>
+          <div style=${s({ display: 'flex', gap: 8, marginBottom: 14 })}>
+            ${[{ v: 'received', l: '\u2713 Reconciled', c: '#10b981' }, { v: 'creditor', l: '\u26a0 Creditor', c: '#ef4444' }].map(x => html`
+              <button key=${x.v} onClick=${() => setNp(p => ({ ...p, type: x.v }))}
+                style=${s({ flex: 1, background: np.type === x.v ? x.c : '#f3f4f6', color: np.type === x.v ? '#fff' : '#374151', border: 'none', borderRadius: 12, padding: '11px', fontFamily: 'Outfit', fontWeight: 700, fontSize: 13, cursor: 'pointer' })}>
                 ${x.l}
               </button>
             `)}
           </div>
-          <button onClick=${()=>{
-            if(!np.amount){pop('Enter amount','err');return;}
-            const amt=parseFloat(np.amount);
-            setPays(p=>[{id:'p'+Date.now(),network:np.network,amount:amt,ref:np.ref,note:np.note,date:'Today',time:stamp(),reconciled:np.type==='received'},...p]);
-            if(np.type==='received') setFloats(p=>p.map(f=>f.network===np.network?{...f,amount:f.amount+amt}:f));
-            if(np.type==='creditor') setCreds(p=>[...p,{id:'cr'+Date.now(),name:np.network+' '+(np.ref||'Pay'),amount:amt,note:np.note}]);
-            setNp({network:'MTN',amount:'',ref:'',note:'',type:'received'});setShowPF(false);
-            pop(np.type==='received'?'Float updated':'Added to creditors');
-          }} style=${s({width:'100%',background:'#111',color:'#fff',border:'none',borderRadius:14,padding:'14px',fontFamily:'Outfit',fontWeight:900,fontSize:15,cursor:'pointer'})}>
+          <button onClick=${() => {
+              if (!np.amount) { pop('Enter amount', 'err'); return; }
+              const amt = parseFloat(np.amount);
+              setPays(p => [{ id: 'p' + Date.now(), network: np.network, amount: amt, ref: np.ref, note: np.note, date: 'Today', time: stamp(), reconciled: np.type === 'received' }, ...p]);
+              if (np.type === 'received') setFloats(p => p.map(f => f.network === np.network ? { ...f, amount: f.amount + amt } : f));
+              if (np.type === 'creditor') setCreds(p => [...p, { id: 'cr' + Date.now(), name: np.network + ' ' + (np.ref || 'Pay'), amount: amt, note: np.note }]);
+              setNp({ network: 'MTN', amount: '', ref: '', note: '', type: 'received' }); setShowPF(false);
+              pop(np.type === 'received' ? 'Float updated' : 'Added to creditors');
+            }} style=${s({ width: '100%', background: '#111', color: '#fff', border: 'none', borderRadius: 14, padding: '14px', fontFamily: 'Outfit', fontWeight: 900, fontSize: 15, cursor: 'pointer' })}>
             Save Payment
           </button>
         </div>`}
       </div>
-      <div style=${s({background:'#fff',borderRadius:20,padding:'14px 0',boxShadow:'0 1px 6px rgba(0,0,0,.06)'})}>
-        <div style=${s({padding:'0 18px 10px',fontSize:15,fontWeight:800,color:'#111'})}>Payment Records</div>
-        ${pays.length===0&&html`<div style=${s({padding:'20px 18px',textAlign:'center',color:'#9ca3af',fontSize:13})}>No payments recorded yet.</div>`}
-        ${pays.map(p=>{const m=NM[p.network]||{};return html`
-          <div key=${p.id} class="rhov" style=${s({display:'flex',alignItems:'center',justifyContent:'space-between',padding:'11px 18px',borderTop:'1px solid #f3f4f6'})}>
-            <div style=${s({display:'flex',alignItems:'center',gap:10})}>
-              <div style=${s({width:36,height:36,borderRadius:10,background:m.bg||'#f3f4f6',display:'flex',alignItems:'center',justifyContent:'center',fontSize:11,fontWeight:900,color:m.text||'#374151',flexShrink:0})}>${p.network.slice(0,3)}</div>
+      <div style=${s({ background: '#fff', borderRadius: 20, padding: '14px 0', boxShadow: '0 1px 6px rgba(0,0,0,.06)' })}>
+        <div style=${s({ padding: '0 18px 10px', fontSize: 15, fontWeight: 800, color: '#111' })}>Payment Records</div>
+        ${pays.length === 0 && html`<div style=${s({ padding: '20px 18px', textAlign: 'center', color: '#9ca3af', fontSize: 13 })}>No payments recorded yet.</div>`}
+        ${pays.map(p => {
+              const m = NM[p.network] || {}; return html`
+          <div key=${p.id} class="rhov" style=${s({ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '11px 18px', borderTop: '1px solid #f3f4f6' })}>
+            <div style=${s({ display: 'flex', alignItems: 'center', gap: 10 })}>
+              <div style=${s({ width: 36, height: 36, borderRadius: 10, background: m.bg || '#f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 900, color: m.text || '#374151', flexShrink: 0 })}>${p.network.slice(0, 3)}</div>
               <div>
-                <div style=${s({fontSize:13,fontWeight:700,color:'#111'})}>${p.network}${p.ref?html` <span style=${s({fontSize:11,color:'#9ca3af'})}>\u00b7 ${p.ref}</span>`:''}</div>
-                <div style=${s({fontSize:10,color:'#9ca3af'})}>${p.note||''} \u00b7 ${p.time}</div>
-                <div style=${s({display:'inline-block',background:p.reconciled?'#ecfdf5':'#fef2f2',color:p.reconciled?'#059669':'#dc2626',borderRadius:5,padding:'2px 7px',fontSize:9,fontWeight:800,marginTop:3})}>
-                  ${p.reconciled?'\u2713 RECONCILED':'\u26a0 CREDITOR'}
+                <div style=${s({ fontSize: 13, fontWeight: 700, color: '#111' })}>${p.network}${p.ref ? html` <span style=${s({ fontSize: 11, color: '#9ca3af' })}>\u00b7 ${p.ref}</span>` : ''}</div>
+                <div style=${s({ fontSize: 10, color: '#9ca3af' })}>${p.note || ''} \u00b7 ${p.time}</div>
+                <div style=${s({ display: 'inline-block', background: p.reconciled ? '#ecfdf5' : '#fef2f2', color: p.reconciled ? '#059669' : '#dc2626', borderRadius: 5, padding: '2px 7px', fontSize: 9, fontWeight: 800, marginTop: 3 })}>
+                  ${p.reconciled ? '\u2713 RECONCILED' : '\u26a0 CREDITOR'}
                 </div>
               </div>
             </div>
-            <div style=${s({textAlign:'right'})}>
-              <div style=${s({fontSize:14,fontWeight:800,color:'#10b981'})}>+${GHS(p.amount)}</div>
-              <button onClick=${()=>setPays(x=>x.filter(q=>q.id!==p.id))} style=${s({fontSize:9,color:'#ef4444',background:'none',border:'none',cursor:'pointer',fontWeight:700})}>remove</button>
+            <div style=${s({ textAlign: 'right' })}>
+              <div style=${s({ fontSize: 14, fontWeight: 800, color: '#10b981' })}>+${GHS(p.amount)}</div>
+              <button onClick=${() => setPays(x => x.filter(q => q.id !== p.id))} style=${s({ fontSize: 9, color: '#ef4444', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 700 })}>remove</button>
             </div>
           </div>`;
-        })}
+            })}
       </div>
     </div>`}
 
     <!-- MARKET -->
-    ${tab==='Market'&&html`<div style=${s({paddingTop:18})}>
-      ${MARKET.map(m=>html`
-        <div key=${m.id} style=${s({background:'#fff',borderRadius:20,padding:18,boxShadow:'0 1px 6px rgba(0,0,0,.06)',marginBottom:12})}>
-          <div style=${s({display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:8})}>
+    ${tab === 'Market' && html`<div style=${s({ paddingTop: 18 })}>
+      ${MARKET.map(m => html`
+        <div key=${m.id} style=${s({ background: '#fff', borderRadius: 20, padding: 18, boxShadow: '0 1px 6px rgba(0,0,0,.06)', marginBottom: 12 })}>
+          <div style=${s({ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 })}>
             <div>
-              <div style=${s({display:'flex',alignItems:'center',gap:6,marginBottom:3})}>
-                <div style=${s({fontSize:15,fontWeight:800,color:'#111'})}>${m.name}</div>
-                ${m.ok&&html`<div style=${s({background:'#ecfdf5',color:'#059669',borderRadius:6,padding:'2px 8px',fontSize:9,fontWeight:800})}>\u2713 VERIFIED</div>`}
+              <div style=${s({ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 3 })}>
+                <div style=${s({ fontSize: 15, fontWeight: 800, color: '#111' })}>${m.name}</div>
+                ${m.ok && html`<div style=${s({ background: '#ecfdf5', color: '#059669', borderRadius: 6, padding: '2px 8px', fontSize: 9, fontWeight: 800 })}>\u2713 VERIFIED</div>`}
               </div>
-              <div style=${s({fontSize:11,color:'#9ca3af',fontWeight:600})}>${m.cat} \u00b7 ${m.loc}</div>
+              <div style=${s({ fontSize: 11, color: '#9ca3af', fontWeight: 600 })}>${m.cat} \u00b7 ${m.loc}</div>
             </div>
-            <div style=${s({fontSize:10,color:'#9ca3af',textAlign:'right',flexShrink:0})}>&#9733;&#9733;&#9733;&#9733;${m.r>=4.5?'&#9733;':'&#9734;'}<br/>${m.r}</div>
+            <div style=${s({ fontSize: 10, color: '#9ca3af', textAlign: 'right', flexShrink: 0 })}>&#9733;&#9733;&#9733;&#9733;${m.r >= 4.5 ? '&#9733;' : '&#9734;'}<br/>${m.r}</div>
           </div>
-          <div style=${s({fontSize:12,color:'#6b7280',lineHeight:'1.6',marginBottom:12})}>${m.desc}</div>
-          <div style=${s({display:'flex',gap:8})}>
-            <div style=${s({flex:1,background:'#f3f4f6',borderRadius:10,padding:'8px 12px',fontSize:12,fontWeight:600,color:'#374151'})}>&#128222; ${m.ph}</div>
-            ${m.ok&&html`<button style=${s({background:'#111',color:'#fff',border:'none',borderRadius:10,padding:'8px 16px',fontFamily:'Outfit',fontWeight:700,fontSize:12,cursor:'pointer'})}>Contact</button>`}
+          <div style=${s({ fontSize: 12, color: '#6b7280', lineHeight: '1.6', marginBottom: 12 })}>${m.desc}</div>
+          <div style=${s({ display: 'flex', gap: 8 })}>
+            <div style=${s({ flex: 1, background: '#f3f4f6', borderRadius: 10, padding: '8px 12px', fontSize: 12, fontWeight: 600, color: '#374151' })}>&#128222; ${m.ph}</div>
+            ${m.ok && html`<button style=${s({ background: '#111', color: '#fff', border: 'none', borderRadius: 10, padding: '8px 16px', fontFamily: 'Outfit', fontWeight: 700, fontSize: 12, cursor: 'pointer' })}>Contact</button>`}
           </div>
         </div>
       `)}
     </div>`}
 
     <!-- CLOSE DAY -->
-    ${tab==='Close'&&html`<div style=${s({paddingTop:18})}>
+    ${tab === 'Close' && html`<div style=${s({ paddingTop: 18 })}>
       ${closed
-        ? html`<div>
-            <div style=${s({background:'#fff',borderRadius:20,padding:'32px 24px',textAlign:'center',boxShadow:'0 1px 6px rgba(0,0,0,.06)',marginBottom:14})}>
-              <div style=${s({fontSize:52,marginBottom:12})}>&#9989;</div>
-              <div style=${s({fontSize:22,fontWeight:800,color:'#111',marginBottom:6})}>Day Closed</div>
-              <div style=${s({fontSize:13,color:'#6b7280',marginBottom:20})}>Commission of <strong style=${s({color:'#10b981'})}>${GHS(comm)}</strong> earned today.</div>
-              <div style=${s({background:'#0f1923',borderRadius:14,padding:18,textAlign:'left',marginBottom:16})}>
+            ? html`<div>
+            <div style=${s({ background: '#fff', borderRadius: 20, padding: '32px 24px', textAlign: 'center', boxShadow: '0 1px 6px rgba(0,0,0,.06)', marginBottom: 14 })}>
+              <div style=${s({ fontSize: 52, marginBottom: 12 })}>&#9989;</div>
+              <div style=${s({ fontSize: 22, fontWeight: 800, color: '#111', marginBottom: 6 })}>Day Closed</div>
+              <div style=${s({ fontSize: 13, color: '#6b7280', marginBottom: 20 })}>Commission of <strong style=${s({ color: '#10b981' })}>${GHS(comm)}</strong> earned today.</div>
+              <div style=${s({ background: '#0f1923', borderRadius: 14, padding: 18, textAlign: 'left', marginBottom: 16 })}>
                 ${[
-                  {l:'Cash on Hand',v:GHS(cashT),c:'#4ade80'},
-                  {l:'+ Float',v:GHS(floatT),c:'#60a5fa'},
-                  {l:'+ Debtors',v:GHS(debT),c:'#fbbf24'},
-                  {l:'\u2212 Creditors',v:'('+GHS(credT)+')',c:'#f87171'},
-                  {l:'NET TOTAL',v:GHS(grand),c:'#4ade80',b:true,big:true},
-                  {l:'CAPITAL',v:wcVal>0?GHS(wcVal):'—',c:'#fff',b:true},
-                  ...(wcVal>0?[{l:shortage>=0?'SURPLUS':'SHORTAGE',v:(shortage>=0?'+':'')+GHS(shortage),c:shortage>=0?'#4ade80':'#f87171',b:true,big:true}]:[]),
-                  {l:'Commission',v:GHS(comm),c:'#f59e0b'},
-                ].map(r=>html`
-                  <div key=${r.l} style=${s({display:'flex',justifyContent:'space-between',padding:'8px 0',borderBottom:'1px solid #1a2535'})}>
-                    <span style=${s({fontSize:r.big?15:13,color:r.b?'#fff':'#6b7280',fontWeight:r.b?800:400})}>${r.l}</span>
-                    <span style=${s({fontSize:r.big?18:13,fontWeight:800,color:r.c})}>${r.v}</span>
+                { l: 'Cash on Hand', v: GHS(cashT), c: '#4ade80' },
+                { l: '+ Float', v: GHS(floatT), c: '#60a5fa' },
+                { l: '+ Debtors', v: GHS(debT), c: '#fbbf24' },
+                { l: '\u2212 Creditors', v: '(' + GHS(credT) + ')', c: '#f87171' },
+                { l: 'NET TOTAL', v: GHS(grand), c: '#4ade80', b: true, big: true },
+                { l: 'CAPITAL', v: wcVal > 0 ? GHS(wcVal) : '—', c: '#fff', b: true },
+                ...(wcVal > 0 ? [{ l: shortage >= 0 ? 'SURPLUS' : 'SHORTAGE', v: (shortage >= 0 ? '+' : '') + GHS(shortage), c: shortage >= 0 ? '#4ade80' : '#f87171', b: true, big: true }] : []),
+                { l: 'Commission', v: GHS(comm), c: '#f59e0b' },
+              ].map(r => html`
+                  <div key=${r.l} style=${s({ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #1a2535' })}>
+                    <span style=${s({ fontSize: r.big ? 15 : 13, color: r.b ? '#fff' : '#6b7280', fontWeight: r.b ? 800 : 400 })}>${r.l}</span>
+                    <span style=${s({ fontSize: r.big ? 18 : 13, fontWeight: 800, color: r.c })}>${r.v}</span>
                   </div>
                 `)}
               </div>
-              <div style=${s({display:'flex',gap:8})}>
-                <button onClick=${()=>setClosed(false)} style=${s({flex:1,background:'#f3f4f6',color:'#111',border:'none',borderRadius:14,padding:'13px',fontFamily:'Outfit',fontWeight:800,fontSize:14,cursor:'pointer'})}>Reopen</button>
-                <button onClick=${()=>generateClosingPDF({agentName,agentBranch,cashT,floatT,debT,credT,grand,wcVal,comm,shortage,dens,floats,debs,creds,txns,dNotes})}
-                  style=${s({flex:1,background:'#0f1923',color:'#f59e0b',border:'1.5px solid #f59e0b33',borderRadius:14,padding:'13px',fontFamily:'Outfit',fontWeight:800,fontSize:14,cursor:'pointer'})}>
+              <div style=${s({ display: 'flex', gap: 8 })}>
+                <button onClick=${() => setClosed(false)} style=${s({ flex: 1, background: '#f3f4f6', color: '#111', border: 'none', borderRadius: 14, padding: '13px', fontFamily: 'Outfit', fontWeight: 800, fontSize: 14, cursor: 'pointer' })}>Reopen</button>
+                <button onClick=${() => generateClosingPDF({ agentName, agentBranch, cashT, floatT, debT, credT, grand, wcVal, comm, shortage, dens, floats, debs, creds, txns, dNotes })}
+                  style=${s({ flex: 1, background: '#0f1923', color: '#f59e0b', border: '1.5px solid #f59e0b33', borderRadius: 14, padding: '13px', fontFamily: 'Outfit', fontWeight: 800, fontSize: 14, cursor: 'pointer' })}>
                   &#128228; Share PDF
                 </button>
               </div>
             </div>
           </div>`
 
-        : html`<div>
+            : html`<div>
             <!-- Working capital -->
-            <div style=${s({background:'#fff',borderRadius:20,padding:20,boxShadow:'0 1px 6px rgba(0,0,0,.06)',marginBottom:14})}>
-              <div style=${s({fontSize:15,fontWeight:800,color:'#111',marginBottom:4})}>&#128188; Working Capital</div>
-              <div style=${s({fontSize:11,color:'#9ca3af',marginBottom:12})}>Enter today's starting capital to calculate surplus or shortage.</div>
-              <${Inp} type="number" inputMode="decimal" placeholder="e.g. 5000.00" value=${wc} onInput=${e=>setWc(e.target.value)} style=${{fontSize:22,fontWeight:900}}/>
+            <div style=${s({ background: '#fff', borderRadius: 20, padding: 20, boxShadow: '0 1px 6px rgba(0,0,0,.06)', marginBottom: 14 })}>
+              <div style=${s({ fontSize: 15, fontWeight: 800, color: '#111', marginBottom: 4 })}>&#128188; Working Capital</div>
+              <div style=${s({ fontSize: 11, color: '#9ca3af', marginBottom: 12 })}>Enter today's starting capital to calculate surplus or shortage.</div>
+              <${Inp} type="number" inputMode="decimal" placeholder="e.g. 5000.00" value=${wc} onInput=${e => setWc(e.target.value)} style=${{ fontSize: 22, fontWeight: 900 }}/>
             </div>
 
             <!-- Cash count -->
-            <div style=${s({background:'#fff',borderRadius:20,padding:20,boxShadow:'0 1px 6px rgba(0,0,0,.06)',marginBottom:14})}>
-              <div style=${s({fontSize:15,fontWeight:800,color:'#111',marginBottom:14})}>&#128181; Cash Count</div>
-              <table style=${s({width:'100%',borderCollapse:'collapse',fontSize:13})}>
-                <thead><tr style=${s({borderBottom:'2px solid #f0f0f0'})}>
-                  ${['Denom','Qty','Total'].map(hd=>html`<th key=${hd} style=${s({textAlign:hd==='Denom'?'left':'center',padding:'7px 6px',fontSize:10,fontWeight:800,color:'#9ca3af'})}>${hd}</th>`)}
+            <div style=${s({ background: '#fff', borderRadius: 20, padding: 20, boxShadow: '0 1px 6px rgba(0,0,0,.06)', marginBottom: 14 })}>
+              <div style=${s({ fontSize: 15, fontWeight: 800, color: '#111', marginBottom: 14 })}>&#128181; Cash Count</div>
+              <table style=${s({ width: '100%', borderCollapse: 'collapse', fontSize: 13 })}>
+                <thead><tr style=${s({ borderBottom: '2px solid #f0f0f0' })}>
+                  ${['Denom', 'Qty', 'Total'].map(hd => html`<th key=${hd} style=${s({ textAlign: hd === 'Denom' ? 'left' : 'center', padding: '7px 6px', fontSize: 10, fontWeight: 800, color: '#9ca3af' })}>${hd}</th>`)}
                 </tr></thead>
-                <tbody>${dens.map((d,i)=>html`
-                  <tr key=${d.label} style=${s({borderBottom:'1px solid #f3f4f6',background:i%2?'#fafafa':'#fff'})}>
-                    <td style=${s({padding:'9px 6px'})}>
-                      <span style=${s({background:d.type==='note'?'#ecfdf5':'#f5f3ff',color:d.type==='note'?'#059669':'#7c3aed',borderRadius:5,padding:'2px 6px',fontSize:9,fontWeight:800})}>${d.type==='note'?'NOTE':'COIN'}</span>
-                      <span style=${s({marginLeft:8,fontWeight:600,color:'#374151'})}>${d.label}</span>
+                <tbody>${dens.map((d, i) => html`
+                  <tr key=${d.label} style=${s({ borderBottom: '1px solid #f3f4f6', background: i % 2 ? '#fafafa' : '#fff' })}>
+                    <td style=${s({ padding: '9px 6px' })}>
+                      <span style=${s({ background: d.type === 'note' ? '#ecfdf5' : '#f5f3ff', color: d.type === 'note' ? '#059669' : '#7c3aed', borderRadius: 5, padding: '2px 6px', fontSize: 9, fontWeight: 800 })}>${d.type === 'note' ? 'NOTE' : 'COIN'}</span>
+                      <span style=${s({ marginLeft: 8, fontWeight: 600, color: '#374151' })}>${d.label}</span>
                     </td>
-                    <td style=${s({padding:'6px',textAlign:'center'})}>
-                      <input type="number" inputMode="numeric" min="0" value=${d.qty||''} placeholder="0"
-                        onInput=${e=>setDens(p=>p.map((x,j)=>j===i?{...x,qty:parseInt(e.target.value)||0}:x))}
-                        style=${s({width:54,textAlign:'center',border:'1.5px solid #e5e7eb',borderRadius:8,padding:'6px 4px',fontFamily:'Outfit',fontSize:14,outline:'none'})}/>
+                    <td style=${s({ padding: '6px', textAlign: 'center' })}>
+                      <input type="number" inputMode="numeric" min="0" value=${d.qty || ''} placeholder="0"
+                        onInput=${e => setDens(p => p.map((x, j) => j === i ? { ...x, qty: parseInt(e.target.value) || 0 } : x))}
+                        style=${s({ width: 54, textAlign: 'center', border: '1.5px solid #e5e7eb', borderRadius: 8, padding: '6px 4px', fontFamily: 'Outfit', fontSize: 14, outline: 'none' })}/>
                     </td>
-                    <td style=${s({padding:'9px 6px',textAlign:'center',fontFamily:'Outfit',fontWeight:700,color:'#111'})}>${d.qty>0?GHS(d.qty*d.value):'\u2014'}</td>
+                    <td style=${s({ padding: '9px 6px', textAlign: 'center', fontFamily: 'Outfit', fontWeight: 700, color: '#111' })}>${d.qty > 0 ? GHS(d.qty * d.value) : '\u2014'}</td>
                   </tr>
                 `)}</tbody>
               </table>
-              <div style=${s({marginTop:12,padding:'11px 14px',background:'#ecfdf5',borderRadius:12,display:'flex',justifyContent:'space-between'})}>
-                <span style=${s({fontSize:14,fontWeight:700,color:'#059669'})}>Cash on Hand</span>
-                <span style=${s({fontWeight:900,fontSize:16,color:'#059669'})}>${GHS(cashT)}</span>
+              <div style=${s({ marginTop: 12, padding: '11px 14px', background: '#ecfdf5', borderRadius: 12, display: 'flex', justifyContent: 'space-between' })}>
+                <span style=${s({ fontSize: 14, fontWeight: 700, color: '#059669' })}>Cash on Hand</span>
+                <span style=${s({ fontWeight: 900, fontSize: 16, color: '#059669' })}>${GHS(cashT)}</span>
               </div>
-              <textarea value=${dNotes} onInput=${e=>setDNotes(e.target.value)} placeholder="Notes / discrepancies..."
-                style=${s({marginTop:10,width:'100%',border:'1.5px solid #e5e7eb',borderRadius:12,padding:'10px 12px',fontSize:13,resize:'none',minHeight:60,outline:'none',fontFamily:'Outfit'})}/>
+              <textarea value=${dNotes} onInput=${e => setDNotes(e.target.value)} placeholder="Notes / discrepancies..."
+                style=${s({ marginTop: 10, width: '100%', border: '1.5px solid #e5e7eb', borderRadius: 12, padding: '10px 12px', fontSize: 13, resize: 'none', minHeight: 60, outline: 'none', fontFamily: 'Outfit' })}/>
             </div>
 
             <!-- Float -->
-            <div style=${s({background:'#fff',borderRadius:20,padding:20,boxShadow:'0 1px 6px rgba(0,0,0,.06)',marginBottom:14})}>
-              <div style=${s({fontSize:15,fontWeight:800,color:'#111',marginBottom:14})}>&#128241; Float</div>
-              ${floats.map(f=>{const m=NM[f.network]||{};return html`
-                <div key=${f.id} style=${s({display:'flex',gap:8,marginBottom:8})}>
-                  <div style=${s({flex:1,background:m.bg||'#f8f9fa',borderRadius:12,padding:'10px 14px',display:'flex',justifyContent:'space-between',alignItems:'center'})}>
-                    <span style=${s({fontSize:13,fontWeight:800,color:m.text||'#111'})}>${f.network}</span>
-                    <input type="number" inputMode="decimal" value=${f.amount||''} placeholder="0.00"
-                      onInput=${e=>setFloats(p=>p.map(x=>x.id===f.id?{...x,amount:parseFloat(e.target.value)||0}:x))}
-                      style=${s({fontFamily:'Outfit',fontSize:15,fontWeight:800,border:'none',background:'transparent',textAlign:'right',width:110,outline:'none',color:'#0284c7'})}/>
+            <div style=${s({ background: '#fff', borderRadius: 20, padding: 20, boxShadow: '0 1px 6px rgba(0,0,0,.06)', marginBottom: 14 })}>
+              <div style=${s({ fontSize: 15, fontWeight: 800, color: '#111', marginBottom: 14 })}>&#128241; Float</div>
+              ${floats.map(f => {
+              const m = NM[f.network] || {}; return html`
+                <div key=${f.id} style=${s({ display: 'flex', gap: 8, marginBottom: 8 })}>
+                  <div style=${s({ flex: 1, background: m.bg || '#f8f9fa', borderRadius: 12, padding: '10px 14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' })}>
+                    <span style=${s({ fontSize: 13, fontWeight: 800, color: m.text || '#111' })}>${f.network}</span>
+                    <input type="number" inputMode="decimal" value=${f.amount || ''} placeholder="0.00"
+                      onInput=${e => setFloats(p => p.map(x => x.id === f.id ? { ...x, amount: parseFloat(e.target.value) || 0 } : x))}
+                      style=${s({ fontFamily: 'Outfit', fontSize: 15, fontWeight: 800, border: 'none', background: 'transparent', textAlign: 'right', width: 110, outline: 'none', color: '#0284c7' })}/>
                   </div>
                 </div>
-              `;})}
-              <div style=${s({marginTop:8,padding:'10px 14px',background:'#f0f9ff',borderRadius:12,display:'flex',justifyContent:'space-between'})}>
-                <span style=${s({fontSize:13,fontWeight:700,color:'#0284c7'})}>Total Float</span>
-                <span style=${s({fontWeight:900,color:'#0284c7'})}>${GHS(floatT)}</span>
+              `;
+            })}
+              <div style=${s({ marginTop: 8, padding: '10px 14px', background: '#f0f9ff', borderRadius: 12, display: 'flex', justifyContent: 'space-between' })}>
+                <span style=${s({ fontSize: 13, fontWeight: 700, color: '#0284c7' })}>Total Float</span>
+                <span style=${s({ fontWeight: 900, color: '#0284c7' })}>${GHS(floatT)}</span>
               </div>
             </div>
 
             <!-- Debtors & Creditors -->
             ${[
-              {title:'\ud83d\udc64 Debtors',items:debs,setItems:setDebs,nw:nd,setNw:setNd,color:'#ef4444',bg:'#fef2f2',prefix:'d'},
-              {title:'\ud83c\udfe6 Creditors',items:creds,setItems:setCreds,nw:nc,setNw:setNc,color:'#8b5cf6',bg:'#f5f3ff',prefix:'cr'},
-            ].map(sec=>html`
-              <div key=${sec.title} style=${s({background:'#fff',borderRadius:20,padding:20,boxShadow:'0 1px 6px rgba(0,0,0,.06)',marginBottom:14})}>
-                <div style=${s({fontSize:15,fontWeight:800,color:'#111',marginBottom:14})}>${sec.title}</div>
-                ${sec.items.map(d=>html`
-                  <div key=${d.id} style=${s({display:'flex',gap:8,marginBottom:8})}>
-                    <div style=${s({flex:1,background:'#f8f9fa',borderRadius:12,padding:'10px 12px'})}>
-                      <div style=${s({display:'flex',justifyContent:'space-between'})}>
-                        <span style=${s({fontSize:13,fontWeight:700,color:'#111'})}>${d.name}</span>
-                        <span style=${s({fontSize:13,fontWeight:800,color:sec.color})}>${GHS(d.amount)}</span>
+                { title: '\ud83d\udc64 Debtors', items: debs, setItems: setDebs, nw: nd, setNw: setNd, color: '#ef4444', bg: '#fef2f2', prefix: 'd' },
+                { title: '\ud83c\udfe6 Creditors', items: creds, setItems: setCreds, nw: nc, setNw: setNc, color: '#8b5cf6', bg: '#f5f3ff', prefix: 'cr' },
+              ].map(sec => html`
+              <div key=${sec.title} style=${s({ background: '#fff', borderRadius: 20, padding: 20, boxShadow: '0 1px 6px rgba(0,0,0,.06)', marginBottom: 14 })}>
+                <div style=${s({ fontSize: 15, fontWeight: 800, color: '#111', marginBottom: 14 })}>${sec.title}</div>
+                ${sec.items.map(d => html`
+                  <div key=${d.id} style=${s({ display: 'flex', gap: 8, marginBottom: 8 })}>
+                    <div style=${s({ flex: 1, background: '#f8f9fa', borderRadius: 12, padding: '10px 12px' })}>
+                      <div style=${s({ display: 'flex', justifyContent: 'space-between' })}>
+                        <span style=${s({ fontSize: 13, fontWeight: 700, color: '#111' })}>${d.name}</span>
+                        <span style=${s({ fontSize: 13, fontWeight: 800, color: sec.color })}>${GHS(d.amount)}</span>
                       </div>
-                      ${d.note&&html`<div style=${s({fontSize:11,color:'#9ca3af',marginTop:2})}>${d.note}</div>`}
+                      ${d.note && html`<div style=${s({ fontSize: 11, color: '#9ca3af', marginTop: 2 })}>${d.note}</div>`}
                     </div>
-                    <button onClick=${()=>sec.setItems(p=>p.filter(x=>x.id!==d.id))} style=${s({background:'#fef2f2',border:'none',borderRadius:10,padding:'9px 11px',cursor:'pointer',color:'#ef4444',fontWeight:800})}>\u2715</button>
+                    <button onClick=${() => sec.setItems(p => p.filter(x => x.id !== d.id))} style=${s({ background: '#fef2f2', border: 'none', borderRadius: 10, padding: '9px 11px', cursor: 'pointer', color: '#ef4444', fontWeight: 800 })}>\u2715</button>
                   </div>
                 `)}
-                <div style=${s({display:'flex',gap:6,marginTop:8})}>
-                  <${Inp} placeholder="Name" value=${sec.nw.name} onInput=${e=>sec.setNw(d=>({...d,name:e.target.value}))} style=${{flex:1,fontSize:13}}/>
-                  <${Inp} type="number" inputMode="decimal" placeholder="Amount" value=${sec.nw.amount} onInput=${e=>sec.setNw(d=>({...d,amount:e.target.value}))} style=${{flex:1,fontSize:13}}/>
+                <div style=${s({ display: 'flex', gap: 6, marginTop: 8 })}>
+                  <${Inp} placeholder="Name" value=${sec.nw.name} onInput=${e => sec.setNw(d => ({ ...d, name: e.target.value }))} style=${{ flex: 1, fontSize: 13 }}/>
+                  <${Inp} type="number" inputMode="decimal" placeholder="Amount" value=${sec.nw.amount} onInput=${e => sec.setNw(d => ({ ...d, amount: e.target.value }))} style=${{ flex: 1, fontSize: 13 }}/>
                 </div>
-                <div style=${s({display:'flex',gap:6,marginTop:6})}>
-                  <${Inp} placeholder="Note (optional)" value=${sec.nw.note} onInput=${e=>sec.setNw(d=>({...d,note:e.target.value}))} style=${{flex:1,fontSize:13}}/>
-                  <button onClick=${()=>{if(!sec.nw.name||!sec.nw.amount)return;sec.setItems(p=>[...p,{...sec.nw,id:sec.prefix+Date.now(),amount:parseFloat(sec.nw.amount)}]);sec.setNw({name:'',amount:'',note:''}); }}
-                    style=${s({background:'#f3f4f6',color:'#111',border:'1.5px solid #e5e7eb',borderRadius:12,padding:'10px 14px',fontFamily:'Outfit',fontWeight:700,cursor:'pointer',fontSize:13})}>+ Add</button>
+                <div style=${s({ display: 'flex', gap: 6, marginTop: 6 })}>
+                  <${Inp} placeholder="Note (optional)" value=${sec.nw.note} onInput=${e => sec.setNw(d => ({ ...d, note: e.target.value }))} style=${{ flex: 1, fontSize: 13 }}/>
+                  <button onClick=${() => { if (!sec.nw.name || !sec.nw.amount) return; sec.setItems(p => [...p, { ...sec.nw, id: sec.prefix + Date.now(), amount: parseFloat(sec.nw.amount) }]); sec.setNw({ name: '', amount: '', note: '' }); }}
+                    style=${s({ background: '#f3f4f6', color: '#111', border: '1.5px solid #e5e7eb', borderRadius: 12, padding: '10px 14px', fontFamily: 'Outfit', fontWeight: 700, cursor: 'pointer', fontSize: 13 })}>+ Add</button>
                 </div>
-                <div style=${s({marginTop:10,padding:'9px 14px',background:sec.bg,borderRadius:12,display:'flex',justifyContent:'space-between'})}>
-                  <span style=${s({fontSize:13,fontWeight:700,color:sec.color})}>Total</span>
-                  <span style=${s({fontWeight:900,color:sec.color})}>${GHS(sec.items.reduce((sm,d)=>sm+parseFloat(d.amount||0),0))}</span>
+                <div style=${s({ marginTop: 10, padding: '9px 14px', background: sec.bg, borderRadius: 12, display: 'flex', justifyContent: 'space-between' })}>
+                  <span style=${s({ fontSize: 13, fontWeight: 700, color: sec.color })}>Total</span>
+                  <span style=${s({ fontWeight: 900, color: sec.color })}>${GHS(sec.items.reduce((sm, d) => sm + parseFloat(d.amount || 0), 0))}</span>
                 </div>
               </div>
             `)}
 
             <!-- Closing totals summary -->
-            <div style=${s({background:'#0f1923',borderRadius:20,padding:20,marginBottom:14})}>
-              <div style=${s({fontSize:9,color:'#4b5563',fontWeight:800,letterSpacing:1,marginBottom:12})}>CLOSING TOTALS</div>
+            <div style=${s({ background: '#0f1923', borderRadius: 20, padding: 20, marginBottom: 14 })}>
+              <div style=${s({ fontSize: 9, color: '#4b5563', fontWeight: 800, letterSpacing: 1, marginBottom: 12 })}>CLOSING TOTALS</div>
               ${[
-                {l:'Cash on Hand',v:GHS(cashT),c:'#4ade80'},
-                {l:'+ Float',v:GHS(floatT),c:'#60a5fa'},
-                {l:'+ Debtors',v:GHS(debT),c:'#fbbf24'},
-                {l:'\u2212 Creditors',v:'('+GHS(credT)+')',c:'#f87171'},
-              ].map(r=>html`
-                <div key=${r.l} style=${s({display:'flex',justifyContent:'space-between',padding:'8px 0',borderBottom:'1px solid #1a2535'})}>
-                  <span style=${s({fontSize:12,color:'#6b7280'})}>${r.l}</span>
-                  <span style=${s({fontSize:12,fontWeight:800,color:r.c})}>${r.v}</span>
+                { l: 'Cash on Hand', v: GHS(cashT), c: '#4ade80' },
+                { l: '+ Float', v: GHS(floatT), c: '#60a5fa' },
+                { l: '+ Debtors', v: GHS(debT), c: '#fbbf24' },
+                { l: '\u2212 Creditors', v: '(' + GHS(credT) + ')', c: '#f87171' },
+              ].map(r => html`
+                <div key=${r.l} style=${s({ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #1a2535' })}>
+                  <span style=${s({ fontSize: 12, color: '#6b7280' })}>${r.l}</span>
+                  <span style=${s({ fontSize: 12, fontWeight: 800, color: r.c })}>${r.v}</span>
                 </div>
               `)}
-              <div style=${s({display:'flex',justifyContent:'space-between',marginTop:12,paddingTop:12,borderTop:'1.5px solid #2d3d52'})}>
-                <span style=${s({fontSize:15,fontWeight:900,color:'#fff'})}>NET TOTAL</span>
-                <span style=${s({fontSize:20,fontWeight:900,color:'#4ade80'})}>${GHS(grand)}</span>
+              <div style=${s({ display: 'flex', justifyContent: 'space-between', marginTop: 12, paddingTop: 12, borderTop: '1.5px solid #2d3d52' })}>
+                <span style=${s({ fontSize: 15, fontWeight: 900, color: '#fff' })}>NET TOTAL</span>
+                <span style=${s({ fontSize: 20, fontWeight: 900, color: '#4ade80' })}>${GHS(grand)}</span>
               </div>
-              <div style=${s({display:'flex',justifyContent:'space-between',marginTop:8,paddingTop:8,borderTop:'1px solid #1a2535'})}>
-                <span style=${s({fontSize:13,color:'#9ca3af'})}>CAPITAL</span>
-                <span style=${s({fontSize:14,fontWeight:800,color:'#fff'})}>${wcVal>0?GHS(wcVal):'\u2014'}</span>
+              <div style=${s({ display: 'flex', justifyContent: 'space-between', marginTop: 8, paddingTop: 8, borderTop: '1px solid #1a2535' })}>
+                <span style=${s({ fontSize: 13, color: '#9ca3af' })}>CAPITAL</span>
+                <span style=${s({ fontSize: 14, fontWeight: 800, color: '#fff' })}>${wcVal > 0 ? GHS(wcVal) : '\u2014'}</span>
               </div>
-              ${wcVal>0&&html`
-                <div style=${s({display:'flex',justifyContent:'space-between',marginTop:10,paddingTop:10,borderTop:'1.5px solid #2d3d52'})}>
-                  <span style=${s({fontSize:15,fontWeight:900,color:shortage>=0?'#4ade80':'#f87171'})}>${shortage>=0?'SURPLUS':'SHORTAGE'}</span>
-                  <span style=${s({fontSize:20,fontWeight:900,color:shortage>=0?'#4ade80':'#f87171'})}>${shortage>=0?'+':''}${GHS(shortage)}</span>
+              ${wcVal > 0 && html`
+                <div style=${s({ display: 'flex', justifyContent: 'space-between', marginTop: 10, paddingTop: 10, borderTop: '1.5px solid #2d3d52' })}>
+                  <span style=${s({ fontSize: 15, fontWeight: 900, color: shortage >= 0 ? '#4ade80' : '#f87171' })}>${shortage >= 0 ? 'SURPLUS' : 'SHORTAGE'}</span>
+                  <span style=${s({ fontSize: 20, fontWeight: 900, color: shortage >= 0 ? '#4ade80' : '#f87171' })}>${shortage >= 0 ? '+' : ''}${GHS(shortage)}</span>
                 </div>
               `}
-              <div style=${s({marginTop:10,display:'flex',justifyContent:'space-between'})}>
-                <span style=${s({fontSize:12,color:'#6b7280'})}>Commission Earned</span>
-                <span style=${s({fontSize:14,fontWeight:800,color:'#f59e0b'})}>${GHS(comm)}</span>
+              <div style=${s({ marginTop: 10, display: 'flex', justifyContent: 'space-between' })}>
+                <span style=${s({ fontSize: 12, color: '#6b7280' })}>Commission Earned</span>
+                <span style=${s({ fontSize: 14, fontWeight: 800, color: '#f59e0b' })}>${GHS(comm)}</span>
               </div>
             </div>
 
-            <div style=${s({background:'#fffbeb',border:'1.5px solid #fde68a',borderRadius:14,padding:'11px 14px',marginBottom:14,fontSize:12,color:'#78350f'})}>&#9888;&#65039; Verify cash count before confirming.</div>
-            <button onClick=${()=>setClosed(true)} style=${s({width:'100%',background:'#111',color:'#fff',border:'none',borderRadius:16,padding:'16px',fontFamily:'Outfit',fontWeight:900,fontSize:16,cursor:'pointer',marginBottom:4})}>&#10003; Confirm & Close Day</button>
+            <div style=${s({ background: '#fffbeb', border: '1.5px solid #fde68a', borderRadius: 14, padding: '11px 14px', marginBottom: 14, fontSize: 12, color: '#78350f' })}>&#9888;&#65039; Verify cash count before confirming.</div>
+            <button onClick=${() => setClosed(true)} style=${s({ width: '100%', background: '#111', color: '#fff', border: 'none', borderRadius: 16, padding: '16px', fontFamily: 'Outfit', fontWeight: 900, fontSize: 16, cursor: 'pointer', marginBottom: 4 })}>&#10003; Confirm & Close Day</button>
           </div>`
-      }
+          }
     </div>`}
 
     </div>
 
     <!-- Bottom nav -->
-    <div style=${s({position:'fixed',bottom:0,left:'50%',transform:'translateX(-50%)',width:'100%',maxWidth:430,background:'#fff',borderTop:'1px solid #f0f0f0',display:'flex',padding:'10px 4px',paddingBottom:'max(10px,env(safe-area-inset-bottom))',zIndex:100})}>
-      ${NAV.map(n=>html`
-        <button key=${n.id} class="navb" onClick=${()=>setTab(n.id)} style=${s({flex:1,color:tab===n.id?'#111':'#9ca3af',paddingBottom:2})}>
-          <div style=${s({width:36,height:28,borderRadius:10,background:tab===n.id?'#f0f0f0':'transparent',display:'flex',alignItems:'center',justifyContent:'center',fontSize:17})}>${n.ic}</div>
-          <span style=${s({fontSize:9,fontWeight:tab===n.id?800:500,letterSpacing:.3})}>${n.id}</span>
+    <div style=${s({ position: 'fixed', bottom: 0, left: '50%', transform: 'translateX(-50%)', width: '100%', maxWidth: 430, background: '#fff', borderTop: '1px solid #f0f0f0', display: 'flex', padding: '10px 4px', paddingBottom: 'max(10px,env(safe-area-inset-bottom))', zIndex: 100 })}>
+      ${NAV.map(n => html`
+        <button key=${n.id} class="navb" onClick=${() => setTab(n.id)} style=${s({ flex: 1, color: tab === n.id ? '#111' : '#9ca3af', paddingBottom: 2 })}>
+          <div style=${s({ width: 36, height: 28, borderRadius: 10, background: tab === n.id ? '#f0f0f0' : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 17 })}>${n.ic}</div>
+          <span style=${s({ fontSize: 9, fontWeight: tab === n.id ? 800 : 500, letterSpacing: .3 })}>${n.id}</span>
         </button>
       `)}
     </div>
   </div>`;
-}
+    }
 
-render(html`<${App}/>`, document.getElementById('root'));
-</script>
+    render(html`<${App}/>`, document.getElementById('root'));
+  </script>
 
-<script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
-}
-let dp;
-const ib=document.getElementById('ibanner');
-window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;ib.classList.add('show');});
-window.addEventListener('appinstalled',()=>ib.classList.remove('show'));
-function doInstall(){if(!dp)return;dp.prompt();dp.userChoice.then(()=>{dp=null;ib.classList.remove('show');});}
-</script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => { }));
+    }
+    let dp;
+    const ib = document.getElementById('ibanner');
+    window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); dp = e; ib.classList.add('show'); });
+    window.addEventListener('appinstalled', () => ib.classList.remove('show'));
+    function doInstall() { if (!dp) return; dp.prompt(); dp.userChoice.then(() => { dp = null; ib.classList.remove('show'); }); }
+  </script>
 </body>
+
 </html>
