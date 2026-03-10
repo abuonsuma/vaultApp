@@ -691,8 +691,29 @@
         { name: 'Cash Out', value: co, color: '#ef4444' },
         { name: 'Pay-To', value: pt, color: '#0ea5e9' },
       ];
+      // Load saved transactions on start
+useEffect(() => {
+  const saved = localStorage.getItem("momo_txns");
+  if (saved) setTxns(JSON.parse(saved));
+}, []);
 
+useEffect(() => {
+  localStorage.setItem("momo_txns", JSON.stringify(txns));
+}, [txns]);
 
+const isDuplicate = (phone, amount, type) => {
+  const last = txns[0];
+
+  if (!last) return false;
+
+  const samePhone = last.phone === phone;
+  const sameAmount = last.amount === amount;
+  const sameType = last.type === type;
+
+  const timeDiff = Date.now() - last.id;
+
+  return samePhone && sameAmount && sameType && timeDiff < 5000;
+};
 
       const today_tip = TIPS[new Date().getDay() % TIPS.length];
       const NAV = [{ id: 'Home', ic: '\ud83c\udfe0' }, { id: 'Records', ic: '\ud83d\udcca' }, { id: 'Payments', ic: '\ud83d\udce5' }, { id: 'Market', ic: '\ud83c\udfea' }, { id: 'Close', ic: '\ud83d\udccb' }];
